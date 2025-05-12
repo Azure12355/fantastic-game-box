@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Pac-Mania Deluxe</title> <!-- Updated Title -->
+    <link rel="stylesheet" href="pacman_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Particles.js container -->
+    <div id="particles-js-pacman"></div>
+
+    <!-- Background decorative elements -->
+    <div class="background-decor">
+        <div class="decor-shape pacman-dot-shape pds1"></div>
+        <div class="decor-shape pacman-dot-shape pds2 power-pellet"></div> <!-- Power pellet style -->
+        <div class="decor-shape ghost-icon-shape gis1"><i class="fas fa-ghost"></i></div>
+        <div class="decor-shape ghost-icon-shape gis2"><i class="fas fa-ghost"></i></div>
+        <div class="decor-shape fruit-shape cherry"></div> <!-- Cherry shape -->
+    </div>
+
+    <!-- Game Console Structure -->
+    <div class="game-console large-console"> <!-- Added class for larger size -->
+        <div class="console-top">
+            <div class="brand">PAC-MANIA DX</div> <!-- Updated Brand -->
+        </div>
+        <div class="console-screen-area pacman-layout">
+            <div class="game-screen-bezel large-bezel"> <!-- Added class -->
+                <div class="game-screen large-screen" id="gameScreenContainer"> <!-- Added class -->
+                    <canvas id="pacmanCanvas"></canvas>
+                    <!-- Game Message Overlay -->
+                    <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
+                        <div class="message-content">
+                            <p id="messageText">GET READY!</p>
+                             <div class="preview-container">
+                                <div class="pacman-preview"></div>
+                                <div class="ghost-preview blinky"></div>
+                                <div class="ghost-preview pinky"></div>
+                             </div>
+                            <button id="startButton">START GAME</button>
+                        </div>
+                    </div>
+                     <div id="pauseScreen" class="game-overlay" style="display: none;">
+                        <p>PAUSED</p>
+                    </div>
+                     <div id="levelCompleteScreen" class="game-overlay" style="display: none;">
+                        <p>LEVEL CLEAR!</p>
+                        <!-- <button id="nextLevelButton">NEXT LEVEL</button> -->
+                    </div>
+                </div>
+            </div>
+            <!-- Info Panel -->
+            <div class="info-panel info-panel-pacman large-info-panel"> <!-- Added class -->
+                <div class="info-section">
+                    <h4>SCORE</h4>
+                    <p id="score">0</p>
+                </div>
+                 <div class="info-section">
+                    <h4>LIVES</h4>
+                    <div id="livesContainer" class="lives-display"></div>
+                </div>
+                <div class="info-section">
+                    <h4>HI-SCORE</h4>
+                    <p id="highScore">0</p>
+                </div>
+                <div class="info-section">
+                     <button id="restartButtonPanel" class="action-button info-button">RESTART</button>
+                </div>
+            </div>
+        </div>
+        <!-- Controls -->
+        <div class="console-controls">
+             <div class="d-pad">
+                <button class="control-button up" id="upButton" aria-label="Up"></button>
+                <button class="control-button left" id="leftButton" aria-label="Left"></button>
+                <button class="control-button right" id="rightButton" aria-label="Right"></button>
+                <button class="control-button down" id="downButton" aria-label="Down"></button>
+                <div class="center-pivot"></div>
+            </div>
+            <div class="action-buttons">
+                 <button class="action-button pause-act" id="pauseActionButton">PAUSE</button>
+            </div>
+        </div>
+        <!-- Console Bottom -->
+        <div class="console-bottom">
+            <div class="speaker-grill">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="pacman_script.js"></script>
+</body>
+</html>
