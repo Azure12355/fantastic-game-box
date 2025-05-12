@@ -1,0 +1,1523 @@
+/* ==========================================================================
+   基础样式与变量定义 (Base Styles & Variables)
+   ========================================================================== */
+
+:root {
+    /* --- 蓝紫游戏盒 主题色 --- */
+    --primary-color: #4A00E0;
+    /* 亮紫色 - 科技感主色 */
+    --secondary-color: #2C008C;
+    /* 深紫色 - 辅助深色 */
+    --accent-color: #FF007A;
+    /* 亮粉色 - 点缀色 */
+
+    --primary-color-light: #8E2DE2;
+    /* 浅亮紫色 - 暗色模式主色 */
+    --secondary-color-light: #6A1B9A;
+    /* 稍浅的深紫色 - 暗色模式辅色 */
+    --accent-color-light: #FF40A4;
+    /* 浅亮粉色 - 暗色模式点缀色 */
+
+    /* Backgrounds */
+    --bg-light: #F0F4F8;
+    /* 极浅蓝灰 - 亮色模式背景 */
+    --bg-dark: #0A001F;
+    /* 深紫黑 - 暗色模式背景 */
+    --bg-card-light: rgba(230, 230, 250, 0.65);
+    /* 浅紫灰半透明 - 亮色卡片 */
+    --bg-card-dark: rgba(20, 10, 40, 0.7);
+    /* 深紫黑半透明 - 暗色卡片 */
+    --bg-subtle-light: #E8EAF6;
+    /* 亮色模式次级背景 */
+    --bg-subtle-dark: #1A0530;
+    /* 暗色模式次级背景 */
+    --bg-hover-light: rgba(74, 0, 224, 0.08);
+    /* 主色hover背景 (亮) */
+    --bg-hover-dark: rgba(142, 45, 226, 0.15);
+    /* 主色hover背景 (暗) */
+
+    /* Text Colors */
+    --text-base-light: #1C1E2A;
+    /* 深灰蓝 - 亮色模式基础文本 */
+    --text-base-dark: #E0E0FF;
+    /* 浅蓝紫灰 - 暗色模式基础文本 */
+    --text-heading-light: var(--secondary-color);
+    /* 亮色模式标题 */
+    --text-heading-dark: #F0F0FF;
+    /* 非常浅的蓝紫色 - 暗色模式标题 */
+    --text-muted-light: #5C677D;
+    /* 亮色模式静默文本 */
+    --text-muted-dark: #A0A8C0;
+    /* 暗色模式静默文本 */
+    --text-link-light: var(--primary-color);
+    --text-link-dark: var(--primary-color-light);
+    --text-on-primary: #FFFFFF;
+
+    /* Borders */
+    --border-light: rgba(74, 0, 224, 0.15);
+    /* 基于主色的浅边框 (亮) */
+    --border-dark: rgba(142, 45, 226, 0.25);
+    /* 基于暗色模式主色的浅边框 (暗) */
+    --border-input-light: #C5CAE9;
+    --border-input-dark: #534bae;
+    --border-hover-light: rgba(74, 0, 224, 0.4);
+    --border-hover-dark: rgba(142, 45, 226, 0.5);
+    --border-card-light: rgba(74, 0, 224, 0.1);
+    --border-card-dark: rgba(142, 45, 226, 0.15);
+
+    /* Gradients (Used for global background SVGs - actual colors in HTML, these for reference) */
+    --bg-gradient-start-light: rgba(74, 0, 224, 0.08);
+    --bg-gradient-end-light: rgba(44, 0, 140, 0.03);
+    --bg-gradient-start-dark: rgba(142, 45, 226, 0.07);
+    --bg-gradient-end-dark: rgba(106, 27, 154, 0.1);
+
+    /* Radii */
+    --rounded-btn: 9999px;
+    --rounded-card: 1rem;
+    --rounded-input: 0.5rem;
+    --rounded-img: 1rem;
+    --rounded-icon-bg: 0.75rem;
+    --rounded-lg: 0.75rem;
+    --rounded-xl: 1.25rem;
+    --rounded-2xl: 1.5rem;
+
+    /* Shadows - with blue/purple tint */
+    --shadow-sm: 0 2px 5px rgba(44, 0, 140, 0.08);
+    --shadow-md: 0 4px 10px rgba(44, 0, 140, 0.1);
+    --shadow-lg: 0 12px 25px rgba(44, 0, 140, 0.12);
+    --shadow-xl: 0 25px 50px rgba(44, 0, 140, 0.15);
+    --shadow-dark-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-dark-md: 0 5px 18px rgba(0, 0, 0, 0.35);
+    --shadow-dark-lg: 0 15px 40px rgba(0, 0, 0, 0.4);
+    --shadow-dark-xl: 0 30px 65px rgba(0, 0, 0, 0.45);
+
+    /* Transitions */
+    --transition-fast: all 0.2s ease-in-out;
+    --transition-base: all 0.3s ease-in-out;
+    --transition-slow: all 0.5s ease-in-out;
+
+    /* Glow Effect */
+    --glow-primary-light: 0 0 18px rgba(74, 0, 224, 0.35);
+    --glow-primary-dark: 0 0 25px rgba(142, 45, 226, 0.45);
+
+    /* Flowchart Node Specific Colors (can be overridden by node type classes) */
+    --node-color: var(--primary-color);
+    --node-color-light: var(--primary-color-light);
+
+    /* Game Card Specifics */
+    --game-card-glow-light: rgba(142, 45, 226, 0.5);
+    /* --primary-color-light with more alpha */
+    --game-card-glow-dark: rgba(74, 0, 224, 0.6);
+    /* --primary-color with more alpha */
+    --game-card-overlay-bg: rgba(10, 0, 31, 0.7);
+    /* --bg-dark with alpha, for play overlay */
+}
+
+/* 基本样式和字体设置 */
+body {
+    font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+    color: var(--text-base-light);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    z-index: 0;
+}
+
+/* 衬线字体用于标题 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
+    font-family: 'Noto Serif SC', serif;
+    color: var(--text-heading-light);
+}
+
+/* 暗色模式基础样式 */
+html.dark body {
+    color: var(--text-base-dark);
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+html.dark .font-serif {
+    color: var(--text-heading-dark);
+}
+
+/* 全局链接样式 */
+.link {
+    color: var(--text-link-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+html.dark .link {
+    color: var(--text-link-dark);
+}
+
+/* 全局背景 */
+.global-gradient-bg {
+    background-color: var(--bg-light);
+}
+
+html.dark .global-gradient-bg {
+    background-color: var(--bg-dark);
+}
+
+/* ==========================================================================
+   通用组件样式
+   ========================================================================== */
+
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1536px;
+    }
+}
+
+.section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+    .section-padding {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .section-padding {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+.heading {
+    margin-top: 0.5rem;
+    font-size: 1.875rem;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--text-heading-light);
+}
+
+html.dark .heading {
+    color: var(--text-heading-dark);
+}
+
+@media (min-width: 640px) {
+    .heading {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+}
+
+.subheading {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--primary-color);
+}
+
+html.dark .subheading {
+    color: var(--primary-color-light);
+}
+
+.subheading.text-secondary {
+    color: var(--secondary-color);
+}
+
+html.dark .subheading.text-secondary {
+    color: var(--secondary-color-light);
+}
+
+.section-title-mb {
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .section-title-mb {
+        margin-bottom: 4rem;
+    }
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    border-radius: var(--rounded-btn);
+    font-weight: 600;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    box-shadow: var(--shadow-lg);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid transparent;
+}
+
+html.dark .btn {
+    box-shadow: var(--shadow-dark-lg);
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--glow-primary-light);
+}
+
+/* Adjusted focus shadow */
+html.dark .btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--glow-primary-dark);
+}
+
+.btn i {
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.btn-gradient-primary {
+    background-image: linear-gradient(to right, var(--primary-color) 0%, var(--primary-color-light) 50%, var(--primary-color) 100%);
+    background-size: 200% auto;
+    border: none;
+    color: var(--text-on-primary);
+}
+
+html.dark .btn-gradient-primary {
+    background-image: linear-gradient(to right, var(--primary-color-light) 0%, #A040FF 50%, var(--primary-color-light) 100%);
+    /* #A040FF is a lighter variant of --primary-color-light */
+}
+
+.btn-gradient-primary:hover {
+    background-position: right center;
+}
+
+.btn-gradient-secondary {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(240, 244, 248, 0.9) 100%);
+    /* Adjusted alpha and color */
+    border: 1px solid var(--border-light);
+    color: var(--text-base-light);
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-md);
+}
+
+html.dark .btn-gradient-secondary {
+    background-image: linear-gradient(to bottom, rgba(30, 10, 55, 0.8) 0%, rgba(20, 5, 40, 0.8) 100%);
+    /* Adjusted alpha and color */
+    border-color: var(--border-dark);
+    color: var(--text-base-dark);
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.btn-gradient-secondary:hover {
+    border-color: var(--border-hover-light);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(245, 248, 252, 1) 100%);
+}
+
+html.dark .btn-gradient-secondary:hover {
+    border-color: var(--border-hover-dark);
+    background-image: linear-gradient(to bottom, rgba(35, 15, 60, 0.9) 0%, rgba(25, 10, 45, 0.9) 100%);
+}
+
+.nav-link {
+    color: var(--text-muted-light);
+    font-weight: 500;
+    border-radius: var(--rounded-lg);
+    padding: 0.5rem 0.75rem;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    position: relative;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+    background-color: var(--bg-hover-light);
+}
+
+html.dark .nav-link {
+    color: var(--text-muted-dark);
+}
+
+html.dark .nav-link:hover {
+    color: var(--primary-color-light);
+    background-color: var(--bg-hover-dark);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+html.dark .nav-link::after {
+    background-color: var(--primary-color-light);
+}
+
+.nav-link:hover::after {
+    width: 50%;
+}
+
+.footer-icon-link {
+    color: var(--text-muted-light);
+    font-size: 1.25rem;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+html.dark .footer-icon-link {
+    color: var(--text-muted-dark);
+}
+
+.footer-icon-link:hover {
+    color: var(--text-link-light);
+    transform: scale(1.1);
+}
+
+html.dark .footer-icon-link:hover {
+    color: var(--text-link-dark);
+}
+
+/* ==========================================================================
+   特定区域样式
+   ========================================================================== */
+
+/* Header */
+.theme-toggle-button,
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted-light);
+    padding: 0.5rem;
+    border-radius: var(--rounded-lg);
+    transition: var(--transition-fast);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.theme-toggle-button:hover,
+.github-link:hover {
+    color: var(--text-link-light);
+    background-color: var(--bg-hover-light);
+}
+
+html.dark .theme-toggle-button,
+html.dark .github-link {
+    color: var(--text-muted-dark);
+}
+
+html.dark .theme-toggle-button:hover,
+html.dark .github-link:hover {
+    color: var(--text-link-dark);
+    background-color: var(--bg-hover-dark);
+}
+
+.theme-toggle-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+}
+
+.github-link i {
+    font-size: 1.25rem;
+}
+
+
+/* Hero Section */
+.hero-section .text-gradient-primary {
+    /* Not used in this specific "蓝紫游戏盒" prompt, but kept for template completeness */
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+html.dark .hero-section .text-gradient-primary {
+    background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-subtitle-gradient {
+    background-image: linear-gradient(95deg, var(--primary-color) 0%, var(--primary-color-light) 50%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    padding: 0.1em 0;
+    font-size: 4rem;
+    /* Kept original size, adjust if needed for new text length */
+    font-weight: 600;
+    line-height: 1;
+    /* Adjusted for potentially shorter hero subtitle */
+}
+
+html.dark .hero-subtitle-gradient {
+    background-image: linear-gradient(95deg, var(--primary-color-light) 0%, #A040FF 50%, var(--accent-color-light) 100%);
+}
+
+@media (max-width: 640px) {
+    .hero-subtitle-gradient {
+        font-size: 2.5rem;
+        /* Smaller font for mobile */
+        line-height: 1.1;
+    }
+}
+
+
+/* About Section */
+.about-text-panel {
+    background-color: var(--bg-card-light);
+    backdrop-filter: blur(12px);
+    border-radius: var(--rounded-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-card-light);
+}
+
+html.dark .about-text-panel {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-lg);
+}
+
+#about .first-letter-drop {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--text-muted-light);
+    padding-left: calc(4.5em * 0.15 + 0.05em);
+    /* Keep original calculation */
+}
+
+html.dark #about .first-letter-drop {
+    color: var(--text-base-dark);
+}
+
+#about .first-letter-drop::first-letter {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 4.5em;
+    font-weight: 600;
+    float: left;
+    line-height: 1;
+    margin-right: 0.15em;
+    margin-top: 0.1em;
+    margin-bottom: -0.2em;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+html.dark #about .first-letter-drop::first-letter {
+    color: var(--primary-color-light);
+}
+
+#about .first-letter-drop::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#about img {
+    border-radius: var(--rounded-img);
+    box-shadow: var(--shadow-xl);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+}
+
+#about img:hover {
+    transform: scale(1.05);
+}
+
+/* Features Section (热门游戏) */
+.feature-card {
+    padding: 1.5rem;
+    background-color: var(--bg-card-light);
+    border-radius: var(--rounded-xl);
+    border: 1px solid var(--border-card-light);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(16px) saturate(180%);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+html.dark .feature-card {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) rotateX(3deg) rotateY(-2deg) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover-light);
+}
+
+html.dark .feature-card:hover {
+    box-shadow: var(--shadow-dark-lg);
+    border-color: var(--border-hover-dark);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.8);
+    border-radius: inherit;
+    z-index: -1;
+    transition: opacity var(--transition-slow) ease, transform var(--transition-slow) ease;
+    pointer-events: none;
+}
+
+html.dark .feature-card::before {
+    background: radial-gradient(circle, rgba(142, 45, 226, 0.1) 0%, transparent 70%);
+}
+
+/* Adjusted for purple theme */
+.feature-card:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.feature-card .icon-wrapper {
+    height: 3rem;
+    width: 3rem;
+    border-radius: var(--rounded-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+}
+
+html.dark .feature-card .icon-wrapper {
+    box-shadow: var(--shadow-dark-sm);
+}
+
+.feature-card:hover .icon-wrapper {
+    transform: scale(1.15) rotate(-8deg);
+    box-shadow: var(--shadow-md);
+}
+
+html.dark .feature-card:hover .icon-wrapper {
+    box-shadow: var(--shadow-dark-md);
+}
+
+/* Feature Icon Backgrounds for "蓝紫游戏盒" - Adjust as needed */
+.feature-icon-bg-1 {
+    background-color: #E1BEE7;
+    color: #6A1B9A;
+}
+
+/* Light Purple BG, Dark Purple Icon */
+html.dark .feature-icon-bg-1 {
+    background-color: #4A0072;
+    color: #CE93D8;
+}
+
+/* Darker Purple BG, Lighter Purple Icon */
+
+.feature-icon-bg-2 {
+    background-color: #BBDEFB;
+    color: #0D47A1;
+}
+
+/* Light Blue BG, Dark Blue Icon */
+html.dark .feature-icon-bg-2 {
+    background-color: #1A237E;
+    color: #90CAF9;
+}
+
+/* Darker Blue BG, Lighter Blue Icon */
+
+.feature-icon-bg-3 {
+    background-color: #FFCDD2;
+    color: #B71C1C;
+}
+
+/* Light Pink/Red BG, Dark Red Icon */
+html.dark .feature-icon-bg-3 {
+    background-color: #880E4F;
+    color: #F8BBD0;
+}
+
+/* Darker Pink/Red BG, Lighter Pink/Red Icon */
+
+
+.feature-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-heading-light);
+}
+
+html.dark .feature-title {
+    color: var(--text-heading-dark);
+}
+
+.feature-description {
+    font-size: 0.9rem;
+    color: var(--text-muted-light);
+    line-height: 1.7;
+    margin-top: 0.5rem;
+}
+
+html.dark .feature-description {
+    color: var(--text-muted-dark);
+}
+
+
+/* How it Works / Visualization Section (如何开始) */
+/* Flowchart Node Type Colors for "蓝紫游戏盒" */
+.flowchart-node.node-data {
+    --node-color: #03A9F4;
+    --node-color-light: #4FC3F7;
+}
+
+/* A bright, friendly blue for data/selection */
+.flowchart-node.node-io {
+    --node-color: var(--accent-color);
+    --node-color-light: var(--accent-color-light);
+}
+
+/* Accent pink for input/discovery */
+.flowchart-node.node-process {
+    --node-color: #9C27B0;
+    --node-color-light: #BA68C8;
+}
+
+/* A mid-purple for processing/playing */
+/* .flowchart-node.node-rag class is not used in "如何开始" section, but kept for template completeness */
+.flowchart-node.node-rag {
+    --node-color: #FFC107;
+    --node-color-light: #FFD54F;
+}
+
+/* Amber/Yellow for RAG/Enrichment */
+
+/* (The rest of .flowchart-node, .flowchart-flex-container styles are kept from original as they are layout/animation focused) */
+.flowchart-node {
+    width: 10rem;
+    height: 10rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: radial-gradient(circle at center, var(--bg-card-light) 0%, transparent 100%);
+    box-shadow: var(--shadow-sm), inset 0 0 10px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px) saturate(150%);
+    position: relative;
+    overflow: visible;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+html.dark .flowchart-node {
+    background: radial-gradient(circle at center, var(--bg-card-dark) 0%, transparent 100%);
+    box-shadow: var(--shadow-dark-sm), inset 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.flowchart-node::before {
+    /* Pulsing Glow */
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--node-color, transparent);
+    opacity: 0;
+    animation: pulse-glow 2.5s infinite ease-out;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+html.dark .flowchart-node::before {
+    border-color: var(--node-color-light, transparent);
+}
+
+.flowchart-node:hover {
+    transform: translateY(-10px) scale(1.08) rotateZ(5deg);
+    border-color: var(--node-color);
+    box-shadow: var(--shadow-lg), 0 0 25px var(--node-color);
+}
+
+html.dark .flowchart-node:hover {
+    border-color: var(--node-color-light);
+    box-shadow: var(--shadow-dark-lg), 0 0 30px var(--node-color-light);
+}
+
+.flowchart-node:hover::before {
+    opacity: 0.8;
+    animation-play-state: paused;
+}
+
+.flowchart-node i {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--node-color);
+    transition: transform 0.5s ease, filter 0.3s ease;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+    transform: translateZ(20px);
+}
+
+html.dark .flowchart-node i {
+    color: var(--node-color-light);
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.4));
+}
+
+.flowchart-node:hover i {
+    transform: translateZ(40px) scale(1.2) rotateY(360deg);
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+}
+
+html.dark .flowchart-node:hover i {
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+}
+
+.flowchart-node span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-heading-light);
+}
+
+html.dark .flowchart-node span {
+    color: var(--text-heading-dark);
+}
+
+.flowchart-node .node-subtitle {
+    font-size: 0.65rem;
+    color: var(--text-muted-light);
+    margin-top: 0.1rem;
+}
+
+html.dark .flowchart-node .node-subtitle {
+    color: var(--text-muted-dark);
+}
+
+.flowchart-flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.flowchart-flex-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.flowchart-flex-connector {
+    width: 2px;
+    height: 3rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 0.5rem 0;
+}
+
+.flowchart-flex-connector .connector-line {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, var(--border-dark) 30%, var(--border-dark) 70%, transparent 100%);
+    opacity: 0.6;
+    background-size: 100% 200%;
+    animation: flow-gradient 2s linear infinite;
+}
+
+html.dark .flowchart-flex-connector .connector-line {
+    background: linear-gradient(to bottom, transparent 0%, var(--border-light) 30%, var(--border-light) 70%, transparent 100%);
+    background-size: 100% 200%;
+    animation: flow-gradient 2s linear infinite;
+}
+
+.flowchart-flex-connector .connector-arrow {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 9px solid var(--border-dark);
+}
+
+html.dark .flowchart-flex-connector .connector-arrow {
+    border-top-color: var(--border-light);
+}
+
+@media (min-width: 1024px) {
+    .flowchart-flex-container {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0;
+        padding: 2rem 0;
+    }
+
+    .flowchart-flex-stage {
+        justify-content: center;
+        gap: 2rem;
+        width: auto;
+        min-width: 11rem;
+        padding: 0 1rem;
+    }
+
+    .flowchart-flex-connector {
+        width: 5rem;
+        height: auto;
+        align-self: center;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 1rem;
+    }
+
+    .flowchart-flex-connector .connector-line {
+        height: 2px;
+        background: linear-gradient(to right, transparent 0%, var(--border-dark) 30%, var(--border-dark) 70%, transparent 100%);
+        background-size: 200% 100%;
+        animation: flow-gradient-horizontal 2s linear infinite;
+    }
+
+    html.dark .flowchart-flex-connector .connector-line {
+        background: linear-gradient(to right, transparent 0%, var(--border-light) 30%, var(--border-light) 70%, transparent 100%);
+        background-size: 200% 100%;
+        animation: flow-gradient-horizontal 2s linear infinite;
+    }
+
+    .flowchart-flex-connector .connector-arrow {
+        right: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: auto;
+        bottom: auto;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 9px solid var(--border-dark);
+        border-right: 0;
+    }
+
+    html.dark .flowchart-flex-connector .connector-arrow {
+        border-left-color: var(--border-light);
+    }
+}
+
+
+/* Technology Stack Section (游戏分类) */
+.tech-item {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    background-color: var(--bg-card-light);
+    border-radius: var(--rounded-xl);
+    border: 1px solid var(--border-card-light);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+html.dark .tech-item {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.tech-item:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover-light);
+}
+
+html.dark .tech-item:hover {
+    box-shadow: var(--shadow-dark-lg);
+    border-color: var(--border-hover-dark);
+}
+
+.tech-item .tech-icon {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    transition: var(--transition-base);
+    /* Icon color is set by Tailwind text color classes in HTML for this section */
+}
+
+.tech-item:hover .tech-icon {
+    transform: scale(1.2) rotate(10deg) translateY(-5px);
+}
+
+.tech-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-heading-light);
+}
+
+html.dark .tech-name {
+    color: var(--text-heading-dark);
+}
+
+.tech-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted-light);
+    margin-top: 0.25rem;
+}
+
+html.dark .tech-desc {
+    color: var(--text-muted-dark);
+}
+
+
+/* Benefits Section (平台优势) */
+.benefit-item {
+    background-color: var(--bg-card-light);
+    border-radius: var(--rounded-xl);
+    border: 1px solid var(--border-card-light);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(12px);
+    transition: var(--transition-base);
+    position: relative;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+html.dark .benefit-item {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.benefit-item:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover-light);
+}
+
+html.dark .benefit-item:hover {
+    box-shadow: var(--shadow-dark-lg);
+    border-color: var(--border-hover-dark);
+}
+
+.benefit-icon-wrapper {
+    flex-shrink: 0;
+    height: 3rem;
+    width: 3rem;
+    border-radius: var(--rounded-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    color: var(--text-on-primary);
+    /* Ensure icon color contrasts with BG */
+}
+
+.benefit-item:hover .benefit-icon-wrapper {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Benefit Icon Backgrounds for "蓝紫游戏盒" */
+.benefit-icon-bg-1 {
+    background-image: linear-gradient(to right, var(--primary-color), var(--primary-color-light));
+}
+
+.benefit-icon-bg-2 {
+    background-image: linear-gradient(to right, #29B6F6, #4FC3F7);
+}
+
+/* Cyan/Light Blue */
+.benefit-icon-bg-3 {
+    background-image: linear-gradient(to right, var(--accent-color), var(--accent-color-light));
+}
+
+/* Pink/Magenta */
+.benefit-icon-bg-4 {
+    background-image: linear-gradient(to right, #AB47BC, #CE93D8);
+}
+
+/* Another shade of Purple */
+
+.benefit-content {
+    flex-grow: 1;
+}
+
+.benefit-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-heading-light);
+}
+
+html.dark .benefit-title {
+    color: var(--text-heading-dark);
+}
+
+.benefit-description {
+    font-size: 0.95rem;
+    color: var(--text-muted-light);
+    line-height: 1.7;
+}
+
+html.dark .benefit-description {
+    color: var(--text-muted-dark);
+}
+
+
+/* Further Reading Section (最新资讯) */
+.reading-card {
+    background-color: var(--bg-card-light);
+    padding: 1.25rem;
+    border-radius: var(--rounded-xl);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-card-light);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+html.dark .reading-card {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.reading-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover-light);
+    transform: translateY(-5px) scale(1.02);
+}
+
+html.dark .reading-card:hover {
+    box-shadow: var(--shadow-dark-lg);
+    border-color: var(--border-hover-dark);
+}
+
+.reading-card::after {
+    display: none;
+}
+
+.reading-icon-wrapper {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--rounded-lg);
+    background-color: rgba(74, 0, 224, 0.1);
+    /* Primary color with alpha */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-base);
+}
+
+html.dark .reading-icon-wrapper {
+    background-color: rgba(142, 45, 226, 0.15);
+}
+
+/* Primary light color with alpha */
+.reading-card:hover .reading-icon-wrapper {
+    background-color: rgba(74, 0, 224, 0.2);
+    transform: scale(1.1);
+}
+
+html.dark .reading-card:hover .reading-icon-wrapper {
+    background-color: rgba(142, 45, 226, 0.25);
+}
+
+.reading-icon-wrapper i {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+html.dark .reading-icon-wrapper i {
+    color: var(--primary-color-light);
+}
+
+.reading-content {
+    flex-grow: 1;
+}
+
+.reading-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-heading-light);
+}
+
+html.dark .reading-title {
+    color: var(--text-heading-dark);
+}
+
+.reading-description {
+    font-size: 0.85rem;
+    color: var(--text-muted-light);
+    line-height: 1.6;
+}
+
+html.dark .reading-description {
+    color: var(--text-muted-dark);
+}
+
+
+/* ==========================================================================
+   自定义动画
+   ========================================================================== */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .6;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-6px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+}
+
+@keyframes flow-gradient {
+    0% {
+        background-position: 0% 100%;
+    }
+
+    100% {
+        background-position: 0% -100%;
+    }
+}
+
+@keyframes flow-gradient-horizontal {
+    0% {
+        background-position: 100% 0%;
+    }
+
+    100% {
+        background-position: -100% 0%;
+    }
+}
+
+/* Hero badge specific styling if default Tailwind/theme var isn't enough */
+#hero-badge {
+    background-color: rgba(142, 45, 226, 0.15);
+    /* --primary-color-light with alpha */
+    color: var(--primary-color-light);
+    border: 1px solid rgba(142, 45, 226, 0.3);
+}
+
+html.dark #hero-badge {
+    background-color: rgba(74, 0, 224, 0.25);
+    /* --primary-color with more alpha */
+    color: var(--primary-color);
+    border: 1px solid rgba(74, 0, 224, 0.4);
+}
+
+
+/* ==========================================================================
+   Game Paradise Section Styles
+   ========================================================================== */
+   #game-paradise {
+    /* Optional: Add a subtle pattern or texture to the section background if desired */
+    /* background-image: url('./images/patterns/game_pattern.svg'); */
+}
+
+.game-card {
+    background-color: var(--bg-card-light);
+    border-radius: var(--rounded-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-card-light);
+    backdrop-filter: blur(12px) saturate(160%);
+    transition: all var(--transition-base) ease-in-out;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d; /* For potential 3D hover effects */
+    perspective: 1000px;
+    display: flex; /* To make the <a> fill the card */
+    flex-direction: column;
+}
+
+html.dark .game-card {
+    background-color: var(--bg-card-dark);
+    border-color: var(--border-card-dark);
+    box-shadow: var(--shadow-dark-md);
+}
+
+.game-card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit; /* Inherit text color from parent */
+}
+
+.game-card-thumbnail-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10; /* Or your preferred aspect ratio for game thumbs */
+    overflow: hidden;
+    border-top-left-radius: var(--rounded-xl);
+    border-top-right-radius: var(--rounded-xl);
+    position: relative; /* For overlay positioning */
+}
+
+.game-card-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.game-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--game-card-overlay-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Allow clicks to pass through to the link */
+}
+
+.game-card:hover .game-card-overlay {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction on hover */
+}
+
+.game-card-content {
+    padding: 1rem 1.25rem;
+    flex-grow: 1; /* Allows content to fill space if card heights vary */
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem; /* Slightly larger title */
+    font-weight: 600;
+    color: var(--text-heading-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+html.dark .game-card-title {
+    color: var(--text-heading-dark);
+}
+
+.game-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted-light);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    flex-grow: 1; /* Pushes tags to the bottom */
+}
+html.dark .game-card-desc {
+    color: var(--text-muted-dark);
+}
+
+.game-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto; /* Pushes tags to the bottom */
+}
+
+.game-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--rounded-btn); /* Pill shape */
+    background-color: var(--bg-subtle-light);
+    color: var(--text-muted-light);
+    border: 1px solid var(--border-light);
+}
+html.dark .game-tag {
+    background-color: var(--bg-subtle-dark);
+    color: var(--text-muted-dark);
+    border: 1px solid var(--border-dark);
+}
+/* Example: Specific tag colors (optional) */
+.game-tag.tag-action { background-color: #FFEBEE; color: #C62828; border-color: #FFCDD2; }
+html.dark .game-tag.tag-action { background-color: #880E4F; color: #F48FB1; border-color: #F06292; }
+.game-tag.tag-puzzle { background-color: #E3F2FD; color: #1565C0; border-color: #BBDEFB; }
+html.dark .game-tag.tag-puzzle { background-color: #0D47A1; color: #90CAF9; border-color: #64B5F6; }
+
+
+/* Game Card Hover Effects */
+.game-card:hover {
+    transform: translateY(-10px) scale(1.03); /* Keep it subtle */
+    box-shadow: 0 20px 40px rgba(44, 0, 140, 0.2), 0 0 30px var(--game-card-glow-light);
+    border-color: var(--primary-color);
+}
+html.dark .game-card:hover {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px var(--game-card-glow-dark);
+    border-color: var(--primary-color-light);
+}
+
+.game-card:hover .game-card-thumbnail {
+    transform: scale(1.1);
+}
+
+/* Persistent subtle animation for cards when section is in view */
+/* This class will be added by JS using Intersection Observer */
+.game-card.is-visible-animating {
+    /* This will be handled by GSAP for better control and staggering */
+}
+
+/* Animated border idea (optional, can be performance intensive on many cards) */
+/*
+.game-card::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color-light));
+    background-size: 300% 300%;
+    z-index: -1;
+    border-radius: calc(var(--rounded-xl) + 2px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: flow-border 8s linear infinite;
+}
+.game-card:hover::before {
+    opacity: 0.8;
+}
+@keyframes flow-border {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+*/

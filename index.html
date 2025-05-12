@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>奇妙游戏盒 - 即点即玩的在线HTML游戏乐园</title>
+    <meta name="description" content="奇妙游戏盒汇集海量经典与创新在线HTML游戏，即点即玩，无需下载，带你重温欢乐时光，探索游戏新境界。" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    <link href="https://cdn.staticfile.org/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    class="antialiased text-gray-700 dark:text-gray-300 transition-colors duration-300 overflow-x-hidden global-gradient-bg">
+
+    <header
+        class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm dark:shadow-dark-sm transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="logo-area flex-shrink-0" data-aos="fade-right">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-gamepad text-primary dark:text-primary-light text-2xl mr-2 animate-pulse"></i>
+                        <span class="text-xl font-semibold font-serif text-gray-900 dark:text-white">奇妙游戏盒</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
+                    <div class="flex space-x-1">
+                        <a href="#about" class="nav-link">关于我们</a>
+                        <a href="#game-paradise" class="nav-link">游戏乐园</a> <!-- 新增 -->
+                        <a href="#features" class="nav-link">热门游戏</a>
+                        <a href="#visualization" class="nav-link">如何开始</a>
+                        <a href="#tech" class="nav-link">游戏分类</a>
+                        <a href="#benefits" class="nav-link">平台优势</a>
+                        <a href="#further-reading" class="nav-link">最新资讯</a>
+                        <a href="#contact" class="nav-link">联系我们</a>
+                    </div>
+                </nav>
+                <div class="actions-area flex-shrink-0 flex items-center space-x-3" data-aos="fade-left">
+                    <button id="theme-toggle" type="button" class="theme-toggle-button">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 7.072l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM3 11a1 1 0 100 2H2a1 1 0 100-2h1z"
+                                fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <a href="[你的GitHub仓库URL]" target="_blank" rel="noopener noreferrer" class="github-link"
+                        title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 space-y-16 md:space-y-20 lg:space-y-24">
+        <section
+            class="hero-section relative overflow-hidden py-20 md:py-28 lg:py-32 -mt-16 md:-mt-20 lg:-mt-24 min-h-screen flex items-center">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <span id="hero-badge"
+                        class="inline-flex items-center px-4 py-1 rounded-full text-base font-medium bg-purple-100/80 dark:bg-purple-900/70 text-purple-800 dark:text-purple-200 shadow-md dark:shadow-dark-md backdrop-blur-sm opacity-0">
+                        <i class="fas fa-dice-d20 mr-1.5"></i> 🎮 即玩游戏中心
+                    </span>
+                    <h1 id="hero-title-main"
+                        class="mt-8 text-4xl font-bold font-serif tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl opacity-0">
+                        奇妙游戏盒
+                    </h1>
+                    <h2 id="hero-title-sub"
+                        class="mt-4 text-3xl font-semibold font-serif tracking-tight text-gray-800 dark:text-gray-100 sm:text-4xl lg:text-5xl opacity-0">
+                        <span class="hero-subtitle-gradient">即点即玩，乐无止境</span>
+                    </h2>
+                    <p id="hero-desc" class="mt-8 text-lg leading-relaxed text-gray-700 dark:text-gray-300 opacity-0">
+                        欢迎来到奇妙游戏盒！在这里，我们为你精心准备了数十款令人欲罢不能的在线HTML游戏，从经典怀旧到创意新作，应有尽有。无需繁琐下载安装，点击即可开启你的专属游戏冒险之旅，享受纯粹的娱乐体验！
+                    </p>
+                    <div id="hero-buttons" class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="#game-paradise" class="btn btn-gradient-primary group text-lg px-8 py-3"><i
+                                class="fas fa-th-large mr-2 group-hover:rotate-12 transition-transform duration-300"></i>
+                            浏览游戏</a>
+                        <a href="#about" class="btn btn-gradient-secondary group text-lg px-8 py-3"><i
+                                class="fas fa-info-circle mr-2 group-hover:scale-110 transition-transform duration-300"></i>
+                            了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-secondary dark:text-secondary-light">我们的初心</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">打造纯粹的在线游戏乐趣</p>
+                </div>
+                <div class="lg:grid lg:grid-cols-2 lg:gap-20 lg:items-center">
+                    <div data-aos="fade-right" class="about-text-panel">
+                        <h2 class="subheading text-primary dark:text-primary-light">关于奇妙游戏盒</h2>
+                        <p class="heading mt-2 text-gray-900 dark:text-white">一个热爱游戏的独立开发者/团队打造的乐园</p>
+                        <p class="mt-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300 first-letter-drop">
+                            在快节奏的现代生活中，我们常常怀念那些简单纯粹的游戏时光。奇妙游戏盒的诞生，源于一份对经典游戏的热爱和对便捷娱乐的追求。我们致力于搜集和创作那些能够点亮你闲暇时刻的HTML5游戏，让你无需等待，即刻沉浸。
+                        </p>
+                        <p class="mt-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300 first-letter-drop">
+                            每一款游戏都经过精心挑选或独立开发，力求在小巧的体积内带来丰富的乐趣。我们希望这里能成为你放松心情、挑战自我、与朋友分享快乐的小天地。未来，我们还将不断扩充游戏库，带来更多惊喜，敬请期待！
+                        </p>
+                    </div>
+                    <div class="mt-12 lg:mt-0" data-aos="fade-left" data-aos-delay="100">
+                        <img src="./images/game-portal-about.jpg" alt="奇妙游戏盒概念图"
+                            class="rounded-2xl shadow-xl dark:shadow-dark-xl aspect-video object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out">
+                        <p class="text-xs text-gray-600 dark:text-gray-400 text-right mt-3">示意图：沉浸在游戏的世界</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Paradise Section -->
+        <section id="game-paradise" class="section-padding overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-primary dark:text-primary-light">游戏乐园</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">即刻开玩，发现无限乐趣！</p>
+                    <p class="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                        这里汇集了我们精心制作和挑选的HTML游戏，点击卡片，即刻进入游戏世界。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+                    <!-- Game Card Example 1 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="100">
+                        <a href="games/pixel-adventurer/index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./res/pixel_adventurer_thumb.jpg" alt="像素冒险者"
+                                    class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay">
+                                <i class="fas fa-play-circle text-5xl"></i>
+                                <span class="mt-2 text-lg font-semibold">立即开玩</span>
+                            </div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">像素冒险者</h3>
+                                <p class="game-card-desc">经典的平台跳跃，挑战你的反应极限！</p>
+                                <div class="game-card-tags">
+                                    <span class="game-tag">动作</span>
+                                    <span class="game-tag">像素</span>
+                                    <span class="game-tag">冒险</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Game Card Example 2 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="150">
+                        <a href="games/star-blast-puzzle/index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./res/star_blast_thumb.jpg" alt="星际消消乐" class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay">
+                                <i class="fas fa-play-circle text-5xl"></i>
+                                <span class="mt-2 text-lg font-semibold">立即开玩</span>
+                            </div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">星际消消乐</h3>
+                                <p class="game-card-desc">匹配三个或更多星星，引爆宇宙能量！</p>
+                                <div class="game-card-tags">
+                                    <span class="game-tag">益智</span>
+                                    <span class="game-tag">消除</span>
+                                    <span class="game-tag">休闲</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Game Card Example 3 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="200">
+                        <a href="games/forest-guardian/index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./images/games/forest_guardian_thumb.png" alt="森林守护者"
+                                    class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay">
+                                <i class="fas fa-play-circle text-5xl"></i>
+                                <span class="mt-2 text-lg font-semibold">立即开玩</span>
+                            </div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">森林守护者</h3>
+                                <p class="game-card-desc">布置你的防御塔，抵御怪物的入侵。</p>
+                                <div class="game-card-tags">
+                                    <span class="game-tag">策略</span>
+                                    <span class="game-tag">塔防</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Game Card Example 4 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="250">
+                        <a href="./Tetris/index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./res/block_tetris_thumb.jpg" alt="俄罗斯方块"
+                                    class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay">
+                                <i class="fas fa-play-circle text-5xl"></i>
+                                <span class="mt-2 text-lg font-semibold">立即开玩</span>
+                            </div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">俄罗斯方块</h3>
+                                <p class="game-card-desc">经典永不过时，挑战最高分！</p>
+                                <div class="game-card-tags">
+                                    <span class="game-tag">经典</span>
+                                    <span class="game-tag">益智</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Add more game cards here following the same structure -->
+                    <!-- Example 5 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="300">
+                        <a href="./Racer/racer_index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./res/plant_vs_zombies.jpg" alt="极速飞车" class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay"><i class="fas fa-play-circle text-5xl"></i><span
+                                    class="mt-2 text-lg font-semibold">立即开玩</span></div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">极速飞车</h3>
+                                <p class="game-card-desc">氮气加速，冲向终点！</p>
+                                <div class="game-card-tags"><span class="game-tag">竞速</span><span
+                                        class="game-tag">刺激</span></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Example 6 -->
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="350">
+                        <a href="games/deep-sea-fisher/index.html" target="_blank" class="game-card-link">
+                            <div class="game-card-thumbnail-wrapper">
+                                <img src="./res/tank_battle.png" alt="深海捕鱼王"
+                                    class="game-card-thumbnail">
+                            </div>
+                            <div class="game-card-overlay"><i class="fas fa-play-circle text-5xl"></i><span
+                                    class="mt-2 text-lg font-semibold">立即开玩</span></div>
+                            <div class="game-card-content">
+                                <h3 class="game-card-title">深海捕鱼王</h3>
+                                <p class="game-card-desc">撒网捕鱼，满载而归。</p>
+                                <div class="game-card-tags"><span class="game-tag">休闲</span><span
+                                        class="game-tag">街机</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- You should create placeholder images in ./images/games/ for these examples -->
+
+                </div>
+                <p class="text-center mt-12 text-gray-700 dark:text-gray-300" data-aos="fade-up">
+                    更多精彩游戏正在制作中，敬请期待！
+                </p>
+            </div>
+        </section>
+        <!-- Game Paradise Section Ends -->
+
+        <section id="features" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-secondary dark:text-secondary-light">游戏亮点</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">探索我们的精选游戏特色</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-wrapper feature-icon-bg-1 mr-4 flex-shrink-0"><i
+                                    class="fas fa-puzzle-piece text-xl"></i></span>
+                            <h3 class="feature-title mt-1">多样游戏类型</h3>
+                        </div>
+                        <p class="feature-description">涵盖休闲益智、动作冒险、经典街机等多种类型，满足不同玩家的口味，总有一款让你爱不释手。</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-wrapper feature-icon-bg-2 mr-4 flex-shrink-0"><i
+                                    class="fas fa-bolt text-xl"></i></span>
+                            <h3 class="feature-title mt-1">即点即玩</h3>
+                        </div>
+                        <p class="feature-description">所有游戏均基于HTML5技术，无需下载安装，点击图标即可在浏览器中直接运行，随时随地畅享游戏乐趣。</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-wrapper feature-icon-bg-3 mr-4 flex-shrink-0"><i
+                                    class="fas fa-mobile-alt text-xl"></i></span>
+                            <h3 class="feature-title mt-1">跨设备兼容</h3>
+                        </div>
+                        <p class="feature-description">大部分游戏均良好适配PC、平板和智能手机，让你在不同设备上都能获得流畅的游戏体验。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="visualization" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-primary dark:text-primary-light">轻松上手</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">三步开启你的游戏之旅</p>
+                    <p class="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                        在奇妙游戏盒，开始一场精彩的游戏冒险非常简单。只需几步，你就能沉浸在自己喜欢的游戏世界中。</p>
+                </div>
+
+                <div class="max-w-7xl mx-auto" data-aos="zoom-in-up">
+                    <div class="flowchart-flex-container">
+                        <div class="flowchart-flex-stage justify-center">
+                            <div class="flowchart-node node-io" data-aos="fade-right" data-aos-delay="100"><i
+                                    class="fas fa-search"></i><span>浏览游戏</span><span
+                                    class="node-subtitle">探索分类或推荐</span></div>
+                        </div>
+                        <div class="flowchart-flex-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow"></div>
+                        </div>
+                        <div class="flowchart-flex-stage justify-center">
+                            <div class="flowchart-node node-data" data-aos="fade-up" data-aos-delay="400"><i
+                                    class="fas fa-mouse-pointer"></i><span>点击选择</span><span
+                                    class="node-subtitle">挑选你感兴趣的游戏</span></div>
+                        </div>
+                        <div class="flowchart-flex-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow"></div>
+                        </div>
+                        <div class="flowchart-flex-stage justify-center">
+                            <div class="flowchart-node node-process" data-aos="fade-left" data-aos-delay="700"><i
+                                    class="fas fa-play-circle"></i><span>立即畅玩</span><span
+                                    class="node-subtitle">无需等待，直接开始</span></div>
+                        </div>
+                    </div>
+                    <p class="text-center mt-12 text-sm text-gray-600 dark:text-gray-400">(畅玩奇妙游戏盒仅需简单几步)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Categories Section (Replaces Tech Stack) -->
+        <section id="tech" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+               <div class="text-center section-title-mb" data-aos="fade-up">
+                   <h2 class="subheading text-secondary dark:text-secondary-light">游戏天地</h2>
+                   <p class="heading mt-2 text-gray-900 dark:text-white">多样的游戏等你发现</p>
+               </div>
+               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 md:gap-8 text-center">
+                   
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="100"><i
+                           class="fas fa-lightbulb tech-icon text-yellow-500 dark:text-yellow-400"></i><span
+                           class="tech-name">休闲益智</span><span class="tech-desc">轻松烧脑，老少咸宜</span></div>
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="150"><i
+                           class="fas fa-running tech-icon text-red-500 dark:text-red-400"></i><span
+                           class="tech-name">动作冒险</span><span class="tech-desc">刺激挑战，勇往直前</span></div>
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="200"><i
+                           class="fas fa-ghost tech-icon text-purple-500 dark:text-purple-400"></i><span
+                           class="tech-name">经典街机</span><span class="tech-desc">复古怀旧，重温经典</span></div>
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="250"><i
+                           class="fas fa-chess-rook tech-icon text-green-500 dark:text-green-400"></i><span
+                           class="tech-name">策略经营</span><span class="tech-desc">运筹帷幄，决胜千里</span></div>
+                   
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="300"><i
+                           class="fas fa-users tech-icon text-blue-500 dark:text-blue-400"></i><span
+                           class="tech-name">多人互动</span><span class="tech-desc">与友同乐，竞技比拼</span></div>
+                   <!-- New Game Category Cards -->
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="350"><i
+                           class="fas fa-palette tech-icon text-pink-500 dark:text-pink-400"></i><span
+                           class="tech-name">创意工坊</span><span class="tech-desc">脑洞大开，自由创造</span></div>
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="400"><i
+                           class="fas fa-atom tech-icon text-cyan-500 dark:text-cyan-400"></i><span
+                           class="tech-name">模拟养成</span><span class="tech-desc">精心培育，见证成长</span></div>
+                   <div class="tech-item" data-aos="zoom-in" data-aos-delay="450"><i
+                           class="fas fa-music tech-icon text-orange-500 dark:text-orange-400"></i><span
+                           class="tech-name">音乐节奏</span><span class="tech-desc">律动指尖，畅享音游</span></div>
+                   
+               </div>
+                <p class="text-center mt-12 text-gray-700 dark:text-gray-300" data-aos="fade-up">
+                   我们精心将游戏归类，方便你快速找到心头好。从轻松小品到硬核挑战，总有适合你的那一款！
+                </p>
+           </div>
+       </section>
+
+        <section id="benefits" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-primary dark:text-primary-light">选择我们</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">畅玩奇妙游戏盒的独特优势</p>
+                </div>
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="benefit-item" data-aos="fade-right" data-aos-delay="100">
+                        <div class="benefit-icon-wrapper benefit-icon-bg-1"><i
+                                class="fas fa-check-circle text-white text-2xl"></i></div>
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">完全免费</h3>
+                            <p class="benefit-description">所有游戏均可免费在线畅玩，无需任何付费订阅，尽情享受纯粹的游戏乐趣。</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item" data-aos="fade-left" data-aos-delay="150">
+                        <div class="benefit-icon-wrapper benefit-icon-bg-2"><i
+                                class="fas fa-sync-alt text-white text-2xl"></i></div>
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">持续更新</h3>
+                            <p class="benefit-description">我们不断努力开发和搜罗新的HTML游戏，游戏库定期更新，为你带来持续的新鲜感。</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item" data-aos="fade-right" data-aos-delay="200">
+                        <div class="benefit-icon-wrapper benefit-icon-bg-3"><i
+                                class="fas fa-shield-alt text-white text-2xl"></i></div>
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">安全纯净</h3>
+                            <p class="benefit-description">我们注重用户体验，承诺无恶意广告、无插件困扰，为你提供一个安全纯净的游戏环境。</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item" data-aos="fade-left" data-aos-delay="250">
+                        <div class="benefit-icon-wrapper benefit-icon-bg-4"><i
+                                class="fas fa-mobile-alt text-white text-2xl"></i></div>
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">轻量便捷</h3>
+                            <p class="benefit-description">无需下载安装，即点即玩，不占用设备存储空间，随时随地轻松娱乐。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="further-reading" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center section-title-mb" data-aos="fade-up">
+                    <h2 class="subheading text-secondary dark:text-secondary-light">保持关注</h2>
+                    <p class="heading mt-2 text-gray-900 dark:text-white">获取最新游戏动态与开发幕后</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="reading-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="reading-icon-wrapper"><i class="fas fa-bullhorn"></i></div>
+                        <div class="reading-content">
+                            <h4 class="reading-title">新游戏《星际迷航者》上线通知！</h4>
+                            <p class="reading-description">
+                                激动人心的时刻！我们最新的太空射击游戏《星际迷航者》已正式登陆奇妙游戏盒，快来驾驶你的飞船，开启宇宙冒险吧！[更多详情...]</p>
+                        </div>
+                    </div>
+                    <div class="reading-card" data-aos="fade-up" data-aos-delay="150">
+                        <div class="reading-icon-wrapper"><i class="fas fa-wrench"></i></div>
+                        <div class="reading-content">
+                            <h4 class="reading-title">开发者日志：V1.2版本界面优化与性能提升</h4>
+                            <p class="reading-description">我们近期对奇妙游戏盒的界面进行了全新改版，并优化了游戏加载速度，致力于提升您的游戏体验。点击查看更新详情。</p>
+                        </div>
+                    </div>
+                    <div class="reading-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="reading-icon-wrapper"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="reading-content">
+                            <h4 class="reading-title">活动预告：夏季游戏挑战赛即将开启！</h4>
+                            <p class="reading-description">准备好迎接挑战了吗？夏季主题游戏挑战赛将于7月1日开启，参与即有机会赢取专属徽章和虚拟奖励！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-padding">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="heading text-3xl sm:text-4xl text-gray-900 dark:text-white" data-aos="fade-up">
+                    对奇妙游戏盒有任何建议或疑问吗？</h2>
+                <p class="mt-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-2xl mx-auto"
+                    data-aos="fade-up" data-aos-delay="100">我们非常乐意倾听您的声音！无论是游戏建议、BUG反馈，还是合作洽谈，都欢迎通过以下方式与我们联系。</p>
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <a href="#features" class="btn btn-gradient-primary group text-lg px-8 py-3"><i
+                            class="fas fa-gamepad mr-2 group-hover:rotate-12 transition-transform duration-300"></i>
+                        开始游戏!</a>
+                    <a href="mailto:games@example.com" class="btn btn-gradient-secondary group text-lg px-8 py-3"><i
+                            class="fas fa-envelope mr-2 group-hover:animate-bounce"></i> 发送邮件</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="bg-white/80 dark:bg-gray-900/80 border-t border-gray-200 dark:border-gray-700 backdrop-blur-sm mt-16 md:mt-20 lg:mt-24 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6 md:gap-8">
+                <div class="flex items-center justify-center md:justify-start order-1" data-aos="fade-right">
+                    <i class="fas fa-gamepad text-primary dark:text-primary-light text-2xl mr-2"></i>
+                    <span class="text-xl font-semibold font-serif text-gray-800 dark:text-gray-100">奇妙游戏盒</span>
+                </div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 order-3 md:order-2" data-aos="fade-up">
+                    <span>© 2024 [你的名字/工作室名称] 出品. 保留所有权利.</span>
+                    <span class="hidden sm:inline"> | </span><br class="sm:hidden">
+                    <a href="#" class="link ml-2">隐私政策</a> | <a href="#" class="link ml-1">服务条款</a>
+                </div>
+                <div class="flex justify-center space-x-6 order-2 md:order-3" data-aos="fade-left">
+                    <a href="[你的GitHub仓库URL]" target="_blank" rel="noopener noreferrer" class="footer-icon-link"
+                        title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="[你的Twitter链接]" class="footer-icon-link" title="Twitter (示例)"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="mailto:games@example.com" class="footer-icon-link" title="Email"><i
+                            class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+        <div class="absolute top-0 left-0 -translate-x-1/3 -translate-y-1/3 opacity-30 dark:opacity-20"
+            aria-hidden="true">
+            <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="500" cy="500" r="500" fill="url(#global-gradient-1-actual)" />
+                <defs>
+                    <radialGradient id="global-gradient-1-actual" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(500 500) rotate(90) scale(500)">
+                        <stop stop-color="#4A00E0" stop-opacity="0.5" />
+                        <stop offset="1" stop-color="#2C008C" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-20 dark:opacity-15"
+            aria-hidden="true">
+            <svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="450" cy="450" r="450" fill="url(#global-gradient-2-actual)" />
+                <defs>
+                    <radialGradient id="global-gradient-2-actual" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(450 450) rotate(90) scale(450)">
+                        <stop stop-color="#FF007A" stop-opacity="0.4" />
+                        <stop offset="1" stop-color="#8E2DE2" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+
+</html>
