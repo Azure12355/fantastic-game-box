@@ -2,15 +2,20 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Crucial viewport settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>像素大鱼吃小鱼</title>
     <link rel="stylesheet" href="fish_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome (for treasure chest icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <!-- Basic touch action style -->
+    <style> body { touch-action: manipulation; } </style>
 </head>
 <body>
     <div id="particles-js-bubbles"></div>
 
+    <!-- Background Decor (Keep as is) -->
     <div class="background-decor">
         <div class="seaweed seaweed1"></div>
         <div class="seaweed seaweed2"></div>
@@ -29,51 +34,58 @@
             <div class="game-screen-bezel">
                 <div class="game-screen" id="gameScreenContainer">
                     <canvas id="fishCanvas"></canvas>
+                    <!-- Overlays -->
                     <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
                         <div class="message-content">
-                            <p id="messageText">EAT SMALLER FISH!<br>AVOID BIGGER ONES!</p>
-                            <img src="player_fish_idle.png" alt="Pixel Fish" id="playerFishImage" style="display:none; width: 60px; margin-bottom: 10px;">
-                            <button id="startButton">START GAME</button>
+                            <p id="messageText">吃掉小鱼!<br>躲开大鱼!</p>
+                            <!-- Player fish image removed from overlay for simplicity, can be added back if needed -->
+                            <button id="startButton">开始游戏</button>
                         </div>
                     </div>
                      <div id="pauseScreen" class="game-overlay" style="display: none;">
-                        <p>PAUSED</p>
+                        <p>已暂停</p>
                     </div>
                 </div>
             </div>
+            <!-- Info Panel -->
             <div class="info-panel">
                 <div class="info-section">
-                    <h4>SCORE</h4>
+                    <h4>分数</h4>
                     <p id="score">0</p>
                 </div>
                 <div class="info-section">
-                    <h4>SIZE</h4>
+                    <h4>尺寸</h4>
                     <p id="playerSize">1</p>
                 </div>
                 <div class="info-section">
-                    <h4>LIVES</h4>
+                    <h4>生命</h4>
                     <div id="livesContainer" class="lives-display">
-                        <!-- Lives will be populated by JS -->
+                        <!-- Lives populated by JS -->
                     </div>
                 </div>
                 <div class="info-section">
-                    <h4>HIGH SCORE</h4>
+                    <h4>最高分</h4>
                     <p id="highScore">0</p>
                 </div>
             </div>
         </div>
+        <!-- Console Controls -->
         <div class="console-controls">
-            <div class="d-pad-placeholder">
-                <div class="control-button-dummy up"></div>
-                <div class="control-button-dummy left"></div>
-                <div class="control-button-dummy right"></div>
-                <div class="control-button-dummy down"></div>
-                <div class="center-pivot-dummy"></div>
+            <!-- *** Functional D-Pad *** -->
+            <div class="d-pad">
+                <button class="control-button up" id="upButton" aria-label="向上移动"></button>
+                <button class="control-button left" id="leftButton" aria-label="向左移动"></button>
+                <button class="control-button right" id="rightButton" aria-label="向右移动"></button>
+                <button class="control-button down" id="downButton" aria-label="向下移动"></button>
+                <div class="center-pivot"></div>
             </div>
+            <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="action-button" id="pauseButton">PAUSE</button>
+                <button class="action-button" id="pauseButton">暂停</button>
+                <!-- Add other action buttons here if needed -->
             </div>
         </div>
+        <!-- Console Bottom -->
         <div class="console-bottom">
             <div class="speaker-grill">
                 <span></span><span></span><span></span><span></span><span></span><span></span>

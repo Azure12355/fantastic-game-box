@@ -1,3 +1,4 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
     --console-bg: #3c4c5c; /* Cooler blueish grey */
     --console-darker-bg: #2a3440;
@@ -5,7 +6,7 @@
     --screen-water-highlight: #79a6f7;
     --screen-bezel: #50575e;
     --button-color: #60676e;
-    --button-press-color: #4b5157; /* Not explicitly used here but good to keep */
+    --button-press-color: #4b5157;
     --text-color: #e0e0e0;
     --accent-color: #f7b733; /* Sunny yellow/gold for accents */
     --pixel-font: 'Press Start 2P', cursive;
@@ -17,418 +18,259 @@
     --life-icon-color: #f44336; /* Red for life hearts */
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
 body {
     margin: 0;
     font-family: var(--pixel-font);
     background:
-        linear-gradient(to bottom, rgba(20, 50, 90, 0.9) 0%, rgba(40, 80, 130, 0.7) 60%, rgba(70, 130, 180, 0.8) 100%), /* Water depth gradient */
-        radial-gradient(ellipse at top, #87CEEB 20%, #1E90FF 60%, #00008B 100%); /* Sun rays through water */
+        linear-gradient(to bottom, rgba(20, 50, 90, 0.9) 0%, rgba(40, 80, 130, 0.7) 60%, rgba(70, 130, 180, 0.8) 100%),
+        radial-gradient(ellipse at top, #87CEEB 20%, #1E90FF 60%, #00008B 100%);
     background-blend-mode: multiply, screen;
-    background-size: 100% 200%, 150% 150%; /* Allow vertical movement for water depth */
+    background-size: 100% 200%, 150% 150%;
     animation: underwaterCurrent 30s ease-in-out infinite alternate, sunRays 45s linear infinite alternate;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh; /* Use vh for reliable full height */
+    width: 100vw;
     overflow: hidden;
     color: var(--text-color);
-    position: relative; /* Needed for z-index of particles-js and other decor */
+    position: relative;
+    user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
 }
+@keyframes underwaterCurrent { 0% { background-position: 0% 0%, 50% 0%; } 100% { background-position: 0% 100%, 50% 100%; } }
+@keyframes sunRays { 0% { background-position: 0% 0%, 0% 0%; } 100% { background-position: 0% 0%, 100% 100%; } }
 
-@keyframes underwaterCurrent {
-    0% { background-position: 0% 0%, 50% 0%; }
-    100% { background-position: 0% 100%, 50% 100%; } /* Vertical pan for depth */
-}
-@keyframes sunRays {
-    0% { background-position: 0% 0%, 0% 0%; } /* Target the second background (radial) */
-    100% { background-position: 0% 0%, 100% 100%; } /* Pan for radial gradient */
-}
-
-
-/* --- Particles.js Container for Bubbles --- */
-#particles-js-bubbles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0; /* Lowest layer */
-}
-
-/* --- Background Decoration (Ocean Theme) --- */
-.background-decor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1; /* Above particles, below console */
-    pointer-events: none; /* So they don't interfere with clicks */
-}
-
-.seaweed, .rock, .treasure-chest, .coral {
-    position: absolute;
-    opacity: 0.6;
-    animation-name: subtleSwayGeneral; /* General sway for rocks/treasure */
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.seaweed {
-    width: 30px;
-    height: 150px;
-    background-color: var(--seaweed-color);
-    border-radius: 15px 15px 5px 5px / 100px 100px 5px 5px;
-    animation-duration: 8s;
-}
-.seaweed::before, .seaweed::after {
-    content: '';
-    position: absolute;
-    background-color: var(--seaweed-color);
-    opacity: 0.8;
-    border-radius: inherit;
-}
+/* --- Particles & Decor (Keep as is) --- */
+#particles-js-bubbles { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+.background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.seaweed, .rock, .treasure-chest, .coral { position: absolute; opacity: 0.6; animation-name: subtleSwayGeneral; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
+.seaweed { width: 30px; height: 150px; background-color: var(--seaweed-color); border-radius: 15px 15px 5px 5px / 100px 100px 5px 5px; animation-duration: 8s; }
+.seaweed::before, .seaweed::after { content: ''; position: absolute; background-color: var(--seaweed-color); opacity: 0.8; border-radius: inherit; }
 .seaweed::before { width: 20px; height: 120px; left: -10px; top: 10px; transform: rotate(-15deg); }
 .seaweed::after { width: 25px; height: 100px; right: -8px; top: 20px; transform: rotate(10deg); }
-
 .seaweed1 { bottom: 0; left: 10%; height: 220px; animation-name: seaweedSway1; }
 .seaweed2 { bottom: 0; right: 15%; height: 180px; animation-name: seaweedSway2; animation-duration: 10s; }
-
-.rock {
-    width: 100px; height: 70px;
-    background-color: var(--rock-color);
-    border-radius: 50% / 30%; /* Oval-like rock */
-    animation-duration: 20s; /* Rocks sway less */
-}
+.rock { width: 100px; height: 70px; background-color: var(--rock-color); border-radius: 50% / 30%; animation-duration: 20s; }
 .rock1 { bottom: 5px; left: 25%; width: 150px; height: 90px; }
 .rock2 { bottom: 10px; right: 30%; width: 100px; height: 60px; transform: rotate(10deg); }
-
-.treasure-chest {
-    font-size: 70px;
-    color: #DAA520; /* Gold color for treasure chest icon */
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation-duration: 30s;
-    opacity: 0.7;
-}
-.treasure-chest i {
-    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));
-}
-
-/* New Coral Styles */
-.coral {
-    width: 80px; height: 100px;
-    animation-duration: 15s;
-    /* Base of coral - can be a div itself or just a position reference */
-}
-.coral::before, .coral::after {
-    content: '';
-    position: absolute;
-    background-color: var(--coral-color1);
-    border-radius: 10px 10px 2px 2px; /* Tube-like branch ends */
-}
-.coral::before { /* Main branch */
-    width: 30px; height: 70px;
-    bottom: 0; left: 25px; /* Position relative to .coral parent */
-    transform: rotate(-25deg);
-    background-color: var(--coral-color2);
-}
-.coral::after { /* Another branch */
-    width: 25px; height: 80px;
-    bottom: 0; left: 0px;
-    transform: rotate(20deg);
-}
-.coral1 { bottom: 10px; left: 5%; } /* Position the whole coral structure */
-.coral2 {
-    bottom: 5px; right: 8%;
-    transform: scaleX(-1); /* Flip the whole structure */
-}
-.coral2::before { background-color: var(--coral-color1); transform: rotate(-15deg) translateX(5px) scaleY(0.9); } /* Adjust flipped branches */
+.treasure-chest { font-size: 70px; color: #DAA520; bottom: 20px; left: 50%; transform: translateX(-50%); animation-duration: 30s; opacity: 0.7; }
+.treasure-chest i { filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3)); }
+.coral { width: 80px; height: 100px; animation-duration: 15s; }
+.coral::before, .coral::after { content: ''; position: absolute; background-color: var(--coral-color1); border-radius: 10px 10px 2px 2px; }
+.coral::before { width: 30px; height: 70px; bottom: 0; left: 25px; transform: rotate(-25deg); background-color: var(--coral-color2); }
+.coral::after { width: 25px; height: 80px; bottom: 0; left: 0px; transform: rotate(20deg); }
+.coral1 { bottom: 10px; left: 5%; }
+.coral2 { bottom: 5px; right: 8%; transform: scaleX(-1); }
+.coral2::before { background-color: var(--coral-color1); transform: rotate(-15deg) translateX(5px) scaleY(0.9); }
 .coral2::after { background-color: var(--coral-color2); transform: rotate(30deg) translateX(-5px) scaleY(1.1); }
+@keyframes subtleSwayGeneral { 0% { transform: translateX(0px) rotate(0deg); } 100% { transform: translateX(2px) rotate(0.5deg); } }
+@keyframes seaweedSway1 { 0% { transform: rotateZ(0deg) skewX(0deg); } 50% { transform: rotateZ(-4deg) skewX(-6deg); } 100% { transform: rotateZ(1.5deg) skewX(2.5deg); } }
+@keyframes seaweedSway2 { 0% { transform: rotateZ(0deg) skewX(0deg); } 50% { transform: rotateZ(3deg) skewX(5deg); } 100% { transform: rotateZ(-1deg) skewX(-2deg); } }
 
-
-@keyframes subtleSwayGeneral {
-    0% { transform: translateX(0px) rotate(0deg); }
-    100% { transform: translateX(2px) rotate(0.5deg); }
-}
-@keyframes seaweedSway1 {
-    0% { transform: rotateZ(0deg) skewX(0deg); }
-    50% { transform: rotateZ(-4deg) skewX(-6deg); }
-    100% { transform: rotateZ(1.5deg) skewX(2.5deg); }
-}
-@keyframes seaweedSway2 {
-    0% { transform: rotateZ(0deg) skewX(0deg); }
-    50% { transform: rotateZ(3deg) skewX(5deg); }
-    100% { transform: rotateZ(-1deg) skewX(-2deg); }
-}
-
-
-/* --- Game Console --- */
+/* --- Game Console Base Styles --- */
 .game-console {
-    position: relative;
-    z-index: 2; /* Above background decor and particles */
-    background-color: var(--console-bg);
-    border-radius: 25px;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45),
-                inset 0 0 15px rgba(255,255,255,0.12),
-                inset 0 7px 15px rgba(0,0,0,0.25);
-    width: 680px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative; z-index: 2; background-color: var(--console-bg);
+    border-radius: 25px; /* Desktop */
+    padding: 20px; /* Desktop */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.1), inset 0 5px 10px rgba(0,0,0,0.2);
+    width: 680px; /* Desktop */
+    max-width: 100%;
     border: 3px solid var(--console-darker-bg);
+    font-family: var(--pixel-font), sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 1; height: auto; max-height: 95vh;
 }
 
-.console-top {
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: center;
-}
+.console-top { width: 100%; margin-bottom: 15px; text-align: center; flex-shrink: 0; }
+.brand { font-size: 1.6em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
 
-.brand {
-    font-size: 1.8em;
-    color: var(--accent-color);
-    text-shadow: 1px 1px 0px var(--console-darker-bg);
-}
-
+/* Screen Area Layout (Desktop: Screen + Info side-by-side) */
 .console-screen-area {
-    display: flex;
-    width: 100%;
-    margin-bottom: 25px;
-    align-items: stretch; /* Make info panel and screen bezel same height */
+    display: flex; width: 100%; margin-bottom: 20px;
+    align-items: stretch; /* Make children same height */
+    gap: 20px; flex-direction: row;
+    flex-grow: 1; overflow: hidden;
 }
 
 .game-screen-bezel {
-    background-color: var(--screen-bezel);
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: inset 0 0 12px rgba(0,0,0,0.5);
-    margin-right: 20px;
-    display: flex; /* To center the game-screen if it's smaller */
-    align-items: center;
-    justify-content: center;
+    background-color: var(--screen-bezel); padding: 10px; border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    /* Desktop: fixed width based on canvas */
+    width: calc(480px + 20px); /* Canvas width + padding */
+    flex-shrink: 0; /* Prevent shrinking */
+    display: flex; align-items: center; justify-content: center;
 }
 
 .game-screen {
-    background-color: var(--screen-bg);
-    position: relative;
-    width: 480px;
-    height: 320px;
-    border: 3px solid var(--console-darker-bg);
-    overflow: hidden;
-    cursor: none;
+    background-color: var(--screen-bg); position: relative;
+    width: 480px; /* Desktop canvas width */
+    height: 320px; /* Desktop canvas height */
+    border: 2px solid var(--console-darker-bg);
+    overflow: hidden; cursor: none; /* Hide cursor over game */
 }
 
 #fishCanvas {
-    display: block;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    width: 100%; /* Ensure canvas fills its container */
-    height: 100%;
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    width: 100%; height: 100%; /* Fill container */
 }
 
+/* Info Panel (Desktop) */
 .info-panel {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px 15px;
-    background-color: var(--console-darker-bg);
-    border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-    min-width: 130px; /* Increased min-width */
+    flex-grow: 1; min-width: 130px; max-width: 180px;
+    display: flex; flex-direction: column; justify-content: space-around;
+    padding: 10px 15px; background-color: var(--console-darker-bg);
+    border-radius: 8px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
     text-align: center;
 }
-
-.info-section {
-    margin-bottom: 10px;
-}
-.info-section:last-child {
-    margin-bottom: 0;
-}
-
-.info-section h4 {
-    margin: 0 0 5px 0; /* Adjusted margin */
-    font-size: 0.75em;
-    color: var(--accent-color);
-    text-transform: uppercase;
-}
-.info-section p, .lives-display {
-    margin: 0;
-    font-size: 0.9em;
-    color: var(--text-color);
-    line-height: 1.2; /* Added line height for better readability */
-}
-
-/* Lives Display */
-.lives-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    height: 20px;
-    margin-top: 3px; /* Add some space below "LIVES" title */
-}
-.life-icon {
-    width: 12px;
-    height: 12px;
-    background-color: var(--life-icon-color);
-    position: relative;
-    transform: rotate(-45deg);
-    margin: 2px; /* Adjust margin for rotated element visual centering */
-}
-.life-icon::before,
-.life-icon::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--life-icon-color);
-}
+.info-section { margin-bottom: 10px; }
+.info-section:last-child { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.75em; color: var(--accent-color); text-transform: uppercase; }
+.info-section p, .lives-display { margin: 0; font-size: 0.9em; color: var(--text-color); line-height: 1.2; }
+.lives-display { display: flex; justify-content: center; align-items: center; gap: 4px; height: 20px; margin-top: 3px; }
+/* Life Icon (Heart) */
+.life-icon { width: 12px; height: 12px; background-color: var(--life-icon-color); position: relative; transform: rotate(-45deg); margin: 2px; }
+.life-icon::before, .life-icon::after { content: ""; position: absolute; width: 12px; height: 12px; border-radius: 50%; background-color: var(--life-icon-color); }
 .life-icon::before { top: -6px; left: 0; }
 .life-icon::after { top: 0; left: -6px; }
 
+/* Game Overlays (Keep as is from previous example) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: var(--console-darker-bg); padding: 25px 30px; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+.game-overlay p { font-size: 1.3em; margin-top: 0; margin-bottom: 20px; line-height: 1.5; }
+.game-overlay button { padding: 14px 28px; font-family: var(--pixel-font); background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em; box-shadow: 0 4px 0px #d19d2b; /* approx darken(--accent-color, 15%) */ transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
+.game-overlay button:hover { background-color: #f8c55b; /* approx lighten(--accent-color, 10%) */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 2px 0px #d19d2b; }
 
-/* Game Overlays */
-.game-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Slightly darker overlay */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 10; /* Ensure overlay is on top of canvas content */
-}
-
-.message-content {
-    background-color: var(--console-darker-bg);
-    padding: 25px 30px; /* More padding */
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-}
-
-.game-overlay p {
-    font-size: 1.3em;
-    margin-top: 0;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.game-overlay button {
-    padding: 14px 28px;
-    font-family: var(--pixel-font);
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    box-shadow: 0 4px 0px darken(var(--accent-color), 15%); /* Darken function is illustrative */
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.game-overlay button:hover {
-    background-color: lighten(var(--accent-color), 10%); /* Lighten function is illustrative */
-}
-.game-overlay button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0px darken(var(--accent-color), 15%);
-}
-
-/* Console Controls */
+/* --- Controls Base Styles --- */
 .console-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 40px;
-    box-sizing: border-box;
-    margin-top: 15px;
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; padding: 0 40px; margin-top: 15px; flex-shrink: 0;
 }
 
-.d-pad-placeholder {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    background-color: var(--console-darker-bg);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0.5;
+/* --- Functional D-Pad Styles --- */
+.d-pad { position: relative; width: 120px; height: 120px; }
+.control-button {
+    position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer;
+    box-shadow: 0 3px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent;
 }
-.control-button-dummy {
-    position: absolute;
-    background-color: var(--button-color);
-    width: 38px;
-    height: 38px;
-    opacity: 0.7;
-}
-.control-button-dummy.up { top: 1px; left: 41px; border-radius: 5px 5px 0 0; }
-.control-button-dummy.left { top: 41px; left: 1px; border-radius: 5px 0 0 5px; }
-.control-button-dummy.right { top: 41px; left: 81px; border-radius: 0 5px 5px 0; }
-.control-button-dummy.down { top: 81px; left: 41px; border-radius: 0 0 5px 5px; }
-.center-pivot-dummy {
-    width: 38px; height: 38px;
-    background-color: var(--button-color);
-    opacity: 0.7;
-}
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
+.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
+.control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
+.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
+.control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
+.control-button.disabled { opacity: 0.4; pointer-events: none; cursor: default; } /* If needed */
+/* Arrow icons */
+.control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
+.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent;}
+.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg);}
+.control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+.center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
 
-.action-buttons {
-    display: flex;
-    gap: 20px;
-}
 
+.action-buttons { display: flex; gap: 20px; }
 .action-button {
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 25px; /* More pill-shaped */
-    padding: 12px 25px;
-    font-family: var(--pixel-font);
-    font-size: 1em;
-    cursor: pointer;
-    box-shadow: 0 4px 0 darken(var(--accent-color), 15%);
+    background-color: var(--accent-color); color: white; border: none;
+    border-radius: 25px; padding: 12px 25px; font-family: var(--pixel-font);
+    font-size: 1em; cursor: pointer; box-shadow: 0 4px 0 #d19d2b;
     transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    -webkit-tap-highlight-color: transparent;
 }
-.action-button:active {
-    background-color: darken(var(--accent-color), 10%);
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 darken(var(--accent-color), 15%);
-}
-
-.console-bottom {
-    width: 100%;
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
+.action-button:active, .action-button.active-touch {
+    background-color: #e2a72f; /* approx darken 10% */
+    transform: translateY(2px); box-shadow: 0 2px 0 #d19d2b;
 }
 
-.speaker-grill {
-    display: flex;
-    gap: 6px; /* Increased gap */
-}
-.speaker-grill span {
-    width: 10px;
-    height: 35px;
-    background-color: var(--console-darker-bg);
-    border-radius: 3px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.45); /* Stronger inset shadow */
+/* --- Console Bottom (Keep as is) --- */
+.console-bottom { width: 100%; margin-top: 25px; display: flex; justify-content: center; flex-shrink: 0; }
+.speaker-grill { display: flex; gap: 6px; }
+.speaker-grill span { width: 10px; height: 35px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.45); }
+
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; display: flex; flex-direction: column;
+        justify-content: flex-start; align-items: center;
+    }
+    .console-top { margin-bottom: 5px; }
+    .brand { font-size: 1.2em; }
+
+    .console-screen-area {
+        flex-direction: column; align-items: center; width: 100%;
+        margin-bottom: 10px; flex-grow: 1; overflow: hidden; gap: 8px;
+    }
+    .game-screen-bezel {
+        width: 100%; padding: 5px; flex-shrink: 1; flex-grow: 1;
+        max-height: 60vh; /* Limit screen height */
+        display: flex; justify-content: center; align-items: center;
+    }
+    .game-screen {
+        width: 100%; height: auto;
+        aspect-ratio: 480 / 320; /* Maintain game's aspect ratio */
+        max-width: 480px; max-height: 100%; border-width: 1px;
+    }
+
+    .info-panel {
+        width: 100%; max-width: 480px; flex-direction: row; flex-wrap: wrap;
+        justify-content: space-around; padding: 8px; gap: 5px 10px;
+        flex-grow: 0; flex-shrink: 0; order: 2; /* Below screen */
+    }
+    .info-section { margin-bottom: 0; text-align: center; flex-basis: auto; }
+    .info-section h4 { font-size: 0.65em; margin-bottom: 2px; }
+    .info-section p { font-size: 0.8em; padding: 2px 4px; min-width: 40px; }
+    .lives-display { height: 16px; gap: 3px; margin-top: 2px; }
+    .life-icon { width: 10px; height: 10px; } /* Adjust life icon size */
+    .life-icon::before { top: -5px; left: 0; width: 10px; height: 10px; }
+    .life-icon::after { top: 0; left: -5px; width: 10px; height: 10px; }
+
+
+    .console-controls {
+        width: 100%; padding: 10px 5px; margin-top: auto; /* Push to bottom */
+        flex-direction: row; justify-content: space-around; align-items: center;
+        order: 3; /* Controls after info */ gap: 15px;
+    }
+    /* D-Pad Mobile */
+    .d-pad { width: 130px; height: 130px; }
+    .control-button { width: 44px; height: 44px; }
+    .control-button.up { top: 0; left: 43px; }
+    .control-button.left { top: 43px; left: 0; }
+    .control-button.right { top: 43px; left: 86px; }
+    .control-button.down { top: 86px; left: 43px; }
+    .center-pivot { top: 43px; left: 43px; width: 44px; height: 44px; }
+    /* Adjust arrow icons slightly if needed */
+    .control-button.up::before { border-width: 0 9px 13px 9px; }
+    .control-button.left::before { border-width: 9px 13px 9px 0; }
+    .control-button.right::before { border-width: 9px 0 9px 13px; }
+    .control-button.down::before { border-width: 13px 9px 0 9px; }
+
+    /* Action Buttons Mobile */
+    .action-buttons { gap: 10px; }
+    .action-button { padding: 12px 18px; font-size: 0.9em; border-radius: 22px; }
+
+    .console-bottom { margin-top: 10px; padding-bottom: 5px; order: 4; /* Bottom most */ }
+    .speaker-grill span { width: 8px; height: 30px; }
 }
 
-/* Manual darken/lighten placeholders for CSS variables */
-/* For example: darken(#f7b733, 15%) is approx #d19d2b */
-/* lighten(#f7b733, 10%) is approx #f8c55b */
+/* Landscape Mobile (Optional adjustments) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console { flex-direction: row; height: 100vh; padding: 10px; }
+     .console-top { position: absolute; top: 5px; left: 10px; width: auto; margin-bottom: 0; z-index: 11; /* Above screen potentially */ }
+     .console-screen-area { flex-direction: column; order: 1; height: 100%; width: auto; flex-grow: 1; margin-bottom: 0; margin-right: 10px; }
+     .game-screen-bezel { width: auto; height: 100%; max-height: calc(100vh - 20px); padding: 8px; }
+     .game-screen { height: 100%; width: auto; aspect-ratio: 480 / 320; }
+     .info-panel { flex-direction: column; width: 120px; height: 100%; justify-content: space-around; order: 2; padding: 8px; }
+     .console-controls { flex-direction: column; order: 3; width: auto; height: 100%; justify-content: center; padding: 0 10px; margin-top: 0; gap: 20px; }
+     .console-bottom { display: none; }
+}
