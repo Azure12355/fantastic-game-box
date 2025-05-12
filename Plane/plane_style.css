@@ -1,309 +1,242 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
-    --console-bg: #2c3e50;
-    --console-darker-bg: #1a2531;
-    --screen-bg: #0a0f14;
-    --screen-bezel: #34495e;
-    --button-color: #7f8c8d;
-    --button-press-color: #566573; /* Defined for consistency */
-    --text-color: #ecf0f1;
-    --accent-color: #e74c3c;
-    --alt-accent-color: #3498db;
+    --console-bg: #2c3e50; --console-darker-bg: #1a2531; --screen-bg: #0a0f14;
+    --screen-bezel: #34495e; --button-color: #7f8c8d; --button-press-color: #566573;
+    --text-color: #ecf0f1; --accent-color: #e74c3c; --alt-accent-color: #3498db;
     --pixel-font: 'Press Start 2P', cursive;
-
-    --planet-color1: #A52A2A;
-    --nebula-color1: rgba(147, 112, 219, 0.3);
-    --nebula-color2: rgba(0, 191, 255, 0.2);
-    --asteroid-color: #8B4513;
+    --planet-color1: #A52A2A; --nebula-color1: rgba(147, 112, 219, 0.3);
+    --nebula-color2: rgba(0, 191, 255, 0.2); --asteroid-color: #8B4513;
     --life-plane-icon-color: var(--alt-accent-color);
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; } *, *:before, *:after { box-sizing: inherit; }
 body {
-    margin: 0;
-    font-family: var(--pixel-font);
-    background:
-        linear-gradient(to bottom, rgba(5, 10, 20, 0.95) 0%, rgba(10, 15, 30, 0.85) 70%, rgba(15, 20, 40, 0.9) 100%),
-        radial-gradient(ellipse at center, rgba(20,30,50,0.5) 0%, rgba(5,5,10,0.8) 60%, #020205 100%);
-    background-blend-mode: multiply, normal;
-    background-size: 100% 100%, 150% 150%;
+    margin: 0; font-family: var(--pixel-font);
+    background: linear-gradient(to bottom, rgba(5, 10, 20, 0.95) 0%, rgba(10, 15, 30, 0.85) 70%, rgba(15, 20, 40, 0.9) 100%), radial-gradient(ellipse at center, rgba(20,30,50,0.5) 0%, rgba(5,5,10,0.8) 60%, #020205 100%);
+    background-blend-mode: multiply, normal; background-size: 100% 100%, 150% 150%;
     animation: spaceDrift 90s linear infinite, centralGlowPulse 20s ease-in-out infinite alternate;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    color: var(--text-color);
-    position: relative;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; width: 100vw; /* Use vh/vw for full viewport */
+    overflow: hidden; color: var(--text-color); position: relative;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
 }
+@keyframes spaceDrift { 0% { background-position: 0% 0%, 50% 50%; } 100% { background-position: 200% 200%, 50% 50%; } }
+@keyframes centralGlowPulse { 0% { background-size: 100% 100%, 140% 140%; } 100% { background-size: 100% 100%, 160% 160%; } }
 
-@keyframes spaceDrift {
-    0% { background-position: 0% 0%, 50% 50%; }
-    100% { background-position: 200% 200%, 50% 50%; }
-}
-@keyframes centralGlowPulse {
-    0% { background-size: 100% 100%, 140% 140%; }
-    100% { background-size: 100% 100%, 160% 160%; }
-}
+/* --- Particles & Decor (Keep as is) --- */
+#particles-js-stars { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+.background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.space-object { position: absolute; animation-name: slowDriftGeneral; animation-timing-function: linear; animation-iteration-count: infinite; opacity: 0.7; }
+.planet1 { width: 150px; height: 150px; background-color: var(--planet-color1); border-radius: 50%; box-shadow: inset -20px -10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,220,180,0.1); top: 10%; left: 5%; animation-duration: 200s; animation-name: planetDriftSpecific; }
+.nebula1 { width: 300px; height: 200px; top: 60%; right: 0%; animation-duration: 300s; transform: rotate(15deg); }
+.nebula1::before, .nebula1::after { content: ''; position: absolute; border-radius: 50%; opacity: 0.6; }
+.nebula1::before { width: 100%; height: 100%; background: radial-gradient(ellipse at center, var(--nebula-color1) 0%, transparent 70%); transform: scale(1.2); animation: nebulaPulse 15s ease-in-out infinite alternate; }
+.nebula1::after { width: 80%; height: 80%; top: 10%; left: 10%; background: radial-gradient(ellipse at center, var(--nebula-color2) 0%, transparent 60%); transform: scale(0.9) rotate(-10deg); animation: nebulaPulse 18s ease-in-out infinite alternate-reverse; }
+.asteroid-belt { bottom: 5%; left: 0; width: 100%; height: 50px; animation-duration: 120s; animation-direction: reverse; display: flex; align-items: center; }
+.asteroid-belt span { display: block; width: 10px; height: 8px; background-color: var(--asteroid-color); border-radius: 30% 70% 50% 50% / 60% 40% 60% 40%; margin: 0 20px; opacity: 0.8; transform: rotate(calc(var(--i, 0) * 25deg)); box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); }
+.asteroid-belt span:nth-child(2) { width: 15px; height: 12px; margin-left: 50px; } .asteroid-belt span:nth-child(4) { width: 8px; height: 6px; margin-right: 40px; }
+@keyframes slowDriftGeneral { 0% { transform: translateX(50vw) translateY(0vh) rotate(0deg) scale(0.8); opacity: 0.5; } 100% { transform: translateX(-150vw) translateY(20vh) rotate(15deg) scale(1.2); opacity: 0.8; } }
+@keyframes planetDriftSpecific { 0% { transform: translateX(-20vw) translateY(5vh) rotate(0deg) scale(1); } 100% { transform: translateX(120vw) translateY(15vh) rotate(-5deg) scale(1.1); } }
+@keyframes nebulaPulse { 0% { opacity: 0.4; transform: scale(0.95); } 100% { opacity: 0.7; transform: scale(1.05); } }
+@keyframes screenFlash { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(2.5); } }
 
-#particles-js-stars {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
-.background-decor {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.space-object {
-    position: absolute;
-    animation-name: slowDriftGeneral; /* Changed to a general one */
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    opacity: 0.7;
-}
-.planet1 {
-    width: 150px; height: 150px;
-    background-color: var(--planet-color1);
-    border-radius: 50%;
-    box-shadow: inset -20px -10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,220,180,0.1);
-    top: 10%; left: 5%;
-    animation-duration: 200s;
-    animation-name: planetDriftSpecific; /* Specific animation for planet */
-}
-.nebula1 {
-    width: 300px; height: 200px;
-    top: 60%; right: 0%;
-    animation-duration: 300s;
-    transform: rotate(15deg);
-}
-.nebula1::before, .nebula1::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.6;
-}
-.nebula1::before {
-    width: 100%; height: 100%;
-    background: radial-gradient(ellipse at center, var(--nebula-color1) 0%, transparent 70%);
-    transform: scale(1.2);
-    animation: nebulaPulse 15s ease-in-out infinite alternate;
-}
-.nebula1::after {
-    width: 80%; height: 80%; top: 10%; left: 10%;
-    background: radial-gradient(ellipse at center, var(--nebula-color2) 0%, transparent 60%);
-    transform: scale(0.9) rotate(-10deg);
-    animation: nebulaPulse 18s ease-in-out infinite alternate-reverse;
-}
-.asteroid-belt {
-    bottom: 5%; left: 0; width: 100%; height: 50px;
-    animation-duration: 120s;
-    animation-direction: reverse;
-    display: flex;
-    align-items: center;
-}
-.asteroid-belt span {
-    display: block;
-    width: 10px; height: 8px;
-    background-color: var(--asteroid-color);
-    border-radius: 30% 70% 50% 50% / 60% 40% 60% 40%;
-    margin: 0 20px;
-    opacity: 0.8;
-    transform: rotate(calc(var(--i, 0) * 25deg));
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
-}
-.asteroid-belt span:nth-child(2) { width: 15px; height: 12px; margin-left: 50px; }
-.asteroid-belt span:nth-child(4) { width: 8px; height: 6px; margin-right: 40px; }
-
-@keyframes slowDriftGeneral {
-    0% { transform: translateX(50vw) translateY(0vh) rotate(0deg) scale(0.8); opacity: 0.5; } /* Start further away */
-    100% { transform: translateX(-150vw) translateY(20vh) rotate(15deg) scale(1.2); opacity: 0.8; }
-}
-@keyframes planetDriftSpecific {
-    0% { transform: translateX(-20vw) translateY(5vh) rotate(0deg) scale(1); }
-    100% { transform: translateX(120vw) translateY(15vh) rotate(-5deg) scale(1.1); }
-}
-@keyframes nebulaPulse {
-    0% { opacity: 0.4; transform: scale(0.95); }
-    100% { opacity: 0.7; transform: scale(1.05); }
-}
-@keyframes screenFlash { /* For bomb effect */
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(2.5); }
-}
-
-
+/* --- Game Console Base Styles --- */
 .game-console {
-    position: relative;
-    z-index: 2;
-    background-color: var(--console-bg);
-    border-radius: 25px;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5),
-                inset 0 0 15px rgba(255,255,255,0.08),
-                inset 0 7px 15px rgba(0,0,0,0.3);
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 3px solid var(--console-darker-bg);
+    position: relative; z-index: 2; background-color: var(--console-bg);
+    border-radius: 25px; padding: 15px; /* Base padding */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.08), inset 0 5px 10px rgba(0,0,0,0.25);
+    width: 600px; max-width: 100%; border: 3px solid var(--console-darker-bg);
+    font-family: var(--pixel-font), sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    /* Make console itself take full height on mobile */
+    height: 100svh; /* Default to full small viewport height */
+    width: 100vw; /* Default to full width */
+    border-radius: 0; /* Remove radius for full screen */
+    border: none; /* Remove border for full screen */
 }
 
-.console-top {
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: center;
-}
+.console-top { width: 100%; margin-bottom: 10px; text-align: center; flex-shrink: 0; }
+.brand { font-size: 1.4em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
 
-.brand {
-    font-size: 1.8em;
-    color: var(--accent-color);
-    text-shadow: 1px 1px 0px var(--console-darker-bg);
-}
-
+/* Screen Area Layout (Mobile: Screen above Info) */
 .console-screen-area {
-    display: flex;
-    width: 100%;
-    margin-bottom: 25px;
-    align-items: stretch;
+    display: flex; flex-direction: column; /* Stack screen and info */
+    width: 100%; margin-bottom: 10px; /* Space before controls */
+    align-items: center; /* Center children horizontally */
+    flex-grow: 1; /* Take available vertical space */
+    overflow: hidden; /* Prevent content spill */
+    gap: 10px; /* Space between screen bezel and info panel */
 }
 
 .game-screen-bezel {
-    background-color: var(--screen-bezel);
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: inset 0 0 12px rgba(0,0,0,0.5);
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: var(--screen-bezel); padding: 5px; border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    width: 100%; /* Full width of container */
+    flex-grow: 1; /* Allow bezel to grow vertically */
+    flex-shrink: 1; /* Allow shrinking if needed */
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; /* Ensure contained screen doesn't overflow bezel */
+    max-height: 65vh; /* Limit screen area height */
 }
 
 .game-screen {
-    background-color: var(--screen-bg);
-    position: relative;
-    width: 400px;
-    height: 450px;
-    border: 3px solid var(--console-darker-bg);
-    overflow: hidden;
-    cursor: none;
+    background-color: var(--screen-bg); position: relative;
+    width: 100%; /* Fill bezel width */
+    height: 100%; /* Fill bezel height */
+    /* JS will set canvas W/H, CSS aspect-ratio helps guide layout */
+    /* aspect-ratio: 400 / 450; */ /* Set aspect ratio based on game design */
+    max-width: 400px; /* Optional: Limit max width for very wide mobile screens */
+    border: 1px solid var(--console-darker-bg);
+    overflow: hidden; cursor: none;
 }
 
 #planeCanvas {
-    display: block;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    width: 100%;
-    height: 100%;
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    width: 100%; height: 100%; /* Fill game-screen container */
 }
 
+/* Info Panel (Mobile: Below Screen) */
 .info-panel {
-    flex-grow: 1; display: flex; flex-direction: column; justify-content: space-around;
-    padding: 10px 15px; background-color: var(--console-darker-bg); border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); text-align: center; min-width: 130px;
+    width: 100%; max-width: 400px; /* Match screen max width */
+    display: flex; flex-direction: row; flex-wrap: wrap;
+    justify-content: space-around; align-items: center;
+    padding: 8px; background-color: var(--console-darker-bg);
+    border-radius: 8px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    text-align: center; gap: 5px 10px;
+    flex-grow: 0; flex-shrink: 0; /* Fixed height based on content */
+    order: 2; /* Ensure it's below screen area */
 }
-.info-section { margin-bottom: 10px; }
-.info-section:last-child { margin-bottom: 0; }
-.info-section h4 { margin: 0 0 5px 0; font-size: 0.75em; color: var(--accent-color); text-transform: uppercase;}
-.info-section p, .lives-display { margin: 0; font-size: 0.9em; color: var(--text-color); line-height: 1.2;}
+.info-section { margin-bottom: 0; flex-basis: auto; }
+.info-section h4 { margin: 0 0 3px 0; font-size: 0.6em; color: var(--accent-color); text-transform: uppercase;}
+.info-section p { margin: 0; font-size: 0.75em; color: var(--text-color); line-height: 1.1; padding: 2px 4px; min-width: 30px;}
+.lives-display { display: flex; justify-content: center; align-items: center; gap: 4px; height: 16px; margin-top: 2px; }
+.life-icon-plane { font-size: 11px; }
 
-.lives-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    height: 20px;
-    margin-top: 3px;
-}
-.life-icon-plane {
-    font-family: "Font Awesome 6 Free", "Font Awesome 6 Free Solid"; /* Fallback for solid */
-    font-weight: 900; /* For solid icons */
-    /* content: "\f0fb"; This is for pseudo-elements, not direct class use on <i> */
-    color: var(--life-plane-icon-color);
-    font-size: 14px;
-}
+/* Game Overlays (Keep as is) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: var(--console-darker-bg); padding: 20px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.game-overlay p { font-size: 1.1em; margin-top: 0; margin-bottom: 15px; line-height: 1.4; }
+.game-overlay button { padding: 12px 24px; font-family: var(--pixel-font); background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; box-shadow: 0 3px 0px #c23f31; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
+.game-overlay button:hover { background-color: #e96455; } .game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px #c23f31; }
 
-.game-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column;
-    justify-content: center; align-items: center; color: white; text-align: center;
-    padding: 20px; box-sizing: border-box; z-index: 10;
-}
-.message-content {
-    background-color: var(--console-darker-bg); padding: 25px 30px; border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-}
-.game-overlay p { font-size: 1.3em; margin-top: 0; margin-bottom: 20px; line-height: 1.5; }
-.game-overlay button {
-    padding: 14px 28px; font-family: var(--pixel-font); background-color: var(--accent-color);
-    color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em;
-    box-shadow: 0 4px 0px #c23f31; /* Approx darken var(--accent-color) by 15% */
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.game-overlay button:hover { background-color: #e96455; /* Approx lighten var(--accent-color) by 10% */ }
-.game-overlay button:active { transform: translateY(2px); box-shadow: 0 2px 0px #c23f31; }
-
+/* --- Controls (Mobile: At Bottom) --- */
 .console-controls {
     display: flex; justify-content: space-between; align-items: center;
-    width: 100%; padding: 0 20px; box-sizing: border-box; margin-top: 15px;
+    width: 100%; padding: 10px 5px; margin-top: auto; /* Push to bottom */
+    flex-shrink: 0; order: 3; /* Ensure controls are below info panel */
+    gap: 10px;
 }
-.d-pad { position: relative; width: 120px; height: 120px; }
-.control-button {
-    position: absolute; background-color: var(--button-color);
-    width: 40px; height: 40px; border: none; cursor: pointer;
-    box-shadow: 0 3px 0px #566573; /* var(--button-press-color) or darker var(--button-color) */
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-    display: flex; align-items: center; justify-content: center;
-}
-.control-button:active {
-    background-color: var(--button-press-color); transform: translateY(2px);
-    box-shadow: 0 1px 0px var(--button-press-color);
-}
-.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
-.control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
-.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
-.control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
 
-.control-button::before {
-    content: ''; position: absolute; width: 0; height: 0; border-style: solid;
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-}
+/* D-Pad Styles (Mobile Adjustments) */
+.d-pad { position: relative; width: 120px; height: 120px; } /* Slightly smaller */
+.control-button { position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer; box-shadow: 0 3px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
+.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; } .control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
+.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; } .control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
+.control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
-.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent; }
-.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg); }
+.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent;}
+.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg);}
 .control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+.center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
 
-.center-pivot {
-    position: absolute; top: 40px; left: 40px; width: 40px; height: 40px;
-    background-color: var(--button-color); z-index: -1;
+/* Action Buttons (Mobile: Row layout) */
+.action-buttons {
+    display: flex;
+    flex-direction: row; /* Arrange side-by-side */
+    gap: 8px;
+    align-items: center; /* Align vertically */
+    justify-content: flex-end; /* Align to the right */
+    flex-grow: 1; /* Take remaining space */
 }
-.action-buttons { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
 .action-button {
-    color: white; border: none; border-radius: 8px; padding: 10px 15px;
-    font-family: var(--pixel-font); font-size: 0.8em; cursor: pointer;
-    min-width: 90px; text-align: center;
+    color: white; border: none; border-radius: 6px; padding: 10px 10px; /* Adjust padding */
+    font-family: var(--pixel-font); font-size: 0.65em; /* Smaller font */ cursor: pointer;
+    min-width: 50px; /* Adjust min-width */ text-align: center;
     transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    -webkit-tap-highlight-color: transparent;
 }
-.action-button.shoot { background-color: var(--accent-color); box-shadow: 0 3px 0 #c23f31; } /* Darken accent */
-.action-button.special { background-color: var(--alt-accent-color); box-shadow: 0 3px 0 #2a7aaf; } /* Darken alt-accent */
-.action-button.pause-act { background-color: #f39c12; box-shadow: 0 3px 0 #cd840e; } /* Darken orange */
+.action-button.shoot { background-color: var(--accent-color); box-shadow: 0 3px 0 #c23f31; }
+.action-button.special { background-color: var(--alt-accent-color); box-shadow: 0 3px 0 #2a7aaf; }
+.action-button.pause-act { background-color: #f39c12; box-shadow: 0 3px 0 #cd840e; }
 
-.action-button:active { transform: translateY(2px); }
-.action-button.shoot:active { box-shadow: 0 1px 0 #c23f31; }
-.action-button.special:active { box-shadow: 0 1px 0 #2a7aaf; }
-.action-button.pause-act:active { box-shadow: 0 1px 0 #cd840e; }
+.action-button:active, .action-button.active-touch { transform: translateY(2px); }
+.action-button.shoot:active, .action-button.shoot.active-touch { box-shadow: 0 1px 0 #c23f31; }
+.action-button.special:active, .action-button.special.active-touch { box-shadow: 0 1px 0 #2a7aaf; }
+.action-button.pause-act:active, .action-button.pause-act.active-touch { box-shadow: 0 1px 0 #cd840e; }
 
-.console-bottom { width: 100%; margin-top: 25px; display: flex; justify-content: center; }
-.speaker-grill { display: flex; gap: 6px; }
-.speaker-grill span {
-    width: 10px; height: 35px; background-color: var(--console-darker-bg);
-    border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.45);
+/* --- Console Bottom (Mobile) --- */
+.console-bottom {
+    width: 100%;
+    margin-top: 10px; /* Space above bottom */
+    display: flex; justify-content: center;
+    flex-shrink: 0;
+    order: 4; /* Ensure it's last */
+    padding-bottom: 5px; /* Prevent touching edge */
+}
+.speaker-grill { display: flex; gap: 5px; }
+.speaker-grill span { width: 8px; height: 25px; background-color: var(--console-darker-bg); border-radius: 2px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.4); }
+
+/* Desktop Overrides */
+@media (min-width: 769px) {
+    .game-console {
+        width: 600px; /* Restore desktop width */
+        height: auto; /* Restore auto height */
+        max-height: 95vh;
+        border-radius: 25px; /* Restore radius */
+        border: 3px solid var(--console-darker-bg); /* Restore border */
+        padding: 20px; /* Restore padding */
+    }
+    .console-screen-area {
+        flex-direction: row; /* Side-by-side */
+        align-items: stretch; /* Match heights */
+        margin-bottom: 20px;
+        gap: 20px;
+    }
+    .game-screen-bezel {
+        width: calc(400px + 20px); /* Restore fixed width */
+        height: auto; /* Allow height to be determined by content */
+        padding: 10px;
+        max-height: none; /* Remove max-height */
+        flex-grow: 0; /* Don't grow */
+    }
+    .game-screen {
+        width: 400px; /* Restore fixed width */
+        height: 450px; /* Restore fixed height */
+        aspect-ratio: unset; /* Remove aspect ratio */
+    }
+    .info-panel {
+        flex-direction: column; /* Stack vertically */
+        width: auto; /* Let flex-grow handle width */
+        max-width: 180px;
+        flex-grow: 1;
+        order: 0; /* Reset order */
+        padding: 10px 15px;
+    }
+    .info-section { text-align: center; }
+    .info-section h4 { font-size: 0.75em; }
+    .info-section p { font-size: 0.9em; }
+    .life-icon-plane { font-size: 14px; }
+    .console-controls {
+        flex-direction: row; /* Default layout */
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-top: 15px;
+        order: 0; /* Reset order */
+    }
+    .action-buttons {
+        flex-direction: column; /* Stack vertically */
+        align-items: flex-end; /* Align right */
+        gap: 10px;
+        flex-grow: 0; /* Don't grow */
+    }
+     .action-button {
+        padding: 10px 15px;
+        font-size: 0.8em;
+        min-width: 90px;
+        border-radius: 8px;
+    }
+    .console-bottom { margin-top: 25px; order: 0; }
+    .speaker-grill span { width: 10px; height: 35px; }
 }

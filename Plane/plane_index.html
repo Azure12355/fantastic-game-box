@@ -2,18 +2,21 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Crucial viewport settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>像素飞机大战 II</title>
     <link rel="stylesheet" href="plane_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <!-- Font Awesome for life icons (optional, can be replaced with CSS shapes) -->
+    <!-- Font Awesome for life icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <!-- Basic touch action style -->
+    <style> body { touch-action: manipulation; } </style>
 </head>
 <body>
-    <!-- Particles.js container for starfield -->
+    <!-- Particles.js container -->
     <div id="particles-js-stars"></div>
 
-    <!-- Background decorative elements -->
+    <!-- Background decor (Keep as is) -->
     <div class="background-decor">
         <div class="space-object planet1"></div>
         <div class="space-object nebula1"></div>
@@ -25,44 +28,43 @@
     <!-- Game Console Structure -->
     <div class="game-console">
         <div class="console-top">
-            <div class="brand">PIXEL WINGS II</div>
+            <div class="brand">PIXEL PLANE II</div> <!-- Updated Translation -->
         </div>
+        <!-- Screen Area (Contains Screen + Info Panel) -->
         <div class="console-screen-area">
             <div class="game-screen-bezel">
                 <div class="game-screen" id="gameScreenContainer">
                     <canvas id="planeCanvas"></canvas>
-                    <!-- Game Over/Start Message Overlay -->
+                    <!-- Overlays -->
                     <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
                         <div class="message-content">
-                            <p id="messageText">PREPARE FOR BATTLE!</p>
-                            <!-- Optional: <img src="player_plane_idle.png" alt="Pixel Plane" id="playerPlaneImage" style="display:none; width: 80px; margin-bottom: 10px;"> -->
-                            <button id="startButton">START MISSION</button>
+                            <p id="messageText">BATTLE!</p> <!-- Updated Translation -->
+                            <button id="startButton">START</button> <!-- Updated Translation -->
                         </div>
                     </div>
-                    <!-- Pause Message Overlay -->
                      <div id="pauseScreen" class="game-overlay" style="display: none;">
-                        <p>PAUSED</p>
+                        <p>PAUSING</p>
                     </div>
                 </div>
             </div>
-            <!-- Info Panel for Score, Lives, etc. -->
+            <!-- Info Panel -->
             <div class="info-panel">
                 <div class="info-section">
-                    <h4>SCORE</h4>
+                    <h4>SCORES</h4> <!-- Updated Translation -->
                     <p id="score">0</p>
                 </div>
                 <div class="info-section">
-                    <h4>LIVES</h4>
+                    <h4>LIVES</h4> <!-- Updated Translation -->
                     <div id="livesContainer" class="lives-display">
-                        <!-- Lives icons will be populated by JS -->
+                        <!-- Lives icons populated by JS -->
                     </div>
                 </div>
                  <div class="info-section">
-                    <h4>BOMBS</h4>
+                    <h4>BOMB</h4> <!-- Updated Translation -->
                     <p id="bombsCount">3</p>
                 </div>
                 <div class="info-section">
-                    <h4>HIGH SCORE</h4>
+                    <h4>MAX_SCORE</h4> <!-- Updated Translation -->
                     <p id="highScore">0</p>
                 </div>
             </div>
@@ -70,19 +72,19 @@
         <!-- Console Controls -->
         <div class="console-controls">
              <div class="d-pad">
-                <button class="control-button up" id="upButton" aria-label="Up"></button>
-                <button class="control-button left" id="leftButton" aria-label="Left"></button>
-                <button class="control-button right" id="rightButton" aria-label="Right"></button>
-                <button class="control-button down" id="downButton" aria-label="Down"></button>
+                <button class="control-button up" id="upButton" aria-label="上"></button> <!-- Updated ARIA -->
+                <button class="control-button left" id="leftButton" aria-label="左"></button> <!-- Updated ARIA -->
+                <button class="control-button right" id="rightButton" aria-label="右"></button> <!-- Updated ARIA -->
+                <button class="control-button down" id="downButton" aria-label="下"></button> <!-- Updated ARIA -->
                 <div class="center-pivot"></div>
             </div>
             <div class="action-buttons">
-                <button class="action-button shoot" id="shootButton">SHOOT</button>
-                <button class="action-button special" id="bombButton">BOMB</button>
-                <button class="action-button pause-act" id="pauseActionButton">PAUSE</button>
+                <button class="action-button shoot" id="shootButton">FIRE</button> <!-- Updated Translation -->
+                <button class="action-button special" id="bombButton">BOM</button> <!-- Updated Translation -->
+                <button class="action-button pause-act" id="pauseActionButton">P</button> <!-- Updated Translation -->
             </div>
         </div>
-        <!-- Console Bottom Decoration -->
+        <!-- Console Bottom -->
         <div class="console-bottom">
             <div class="speaker-grill">
                 <span></span><span></span><span></span><span></span><span></span><span></span>
