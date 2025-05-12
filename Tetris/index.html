@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素俄罗斯方块</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-decor">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+    </div>
+
+    <div class="game-console">
+        <div class="console-top">
+            <div class="brand">PIXELBRICK</div>
+        </div>
+        <div class="console-screen-area">
+            <div class="game-screen-bezel">
+                <div class="game-screen">
+                    <canvas id="tetrisCanvas"></canvas>
+                    <div id="gameOverScreen" class="game-overlay" style="display: none;">
+                        <p>GAME OVER</p>
+                        <button id="restartButton">RESTART</button>
+                    </div>
+                    <div id="pauseScreen" class="game-overlay" style="display: none;">
+                        <p>PAUSED</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-panel">
+                <div class="info-section">
+                    <h4>SCORE</h4>
+                    <p id="score">0</p>
+                </div>
+                <div class="info-section">
+                    <h4>NEXT</h4>
+                    <canvas id="nextPieceCanvas"></canvas>
+                </div>
+                <div class="info-section">
+                    <h4>LEVEL</h4>
+                    <p id="level">1</p>
+                </div>
+            </div>
+        </div>
+        <div class="console-controls">
+            <div class="d-pad">
+                <button class="control-button up" id="rotateButton" aria-label="Rotate"></button>
+                <button class="control-button left" id="leftButton" aria-label="Left"></button>
+                <button class="control-button right" id="rightButton" aria-label="Right"></button>
+                <button class="control-button down" id="downButton" aria-label="Down"></button>
+                <div class="center-pivot"></div>
+            </div>
+            <div class="action-buttons">
+                <button class="action-button" id="startButton">START</button>
+                <button class="action-button" id="pauseButton">PAUSE</button>
+            </div>
+        </div>
+        <div class="console-bottom">
+            <div class="speaker-grill">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+:root {
+    --console-bg: #3a3f44;
+    --console-darker-bg: #2c2f33;
+    --screen-bg: #1a1c1e;
+    --screen-bezel: #50575e;
+    --button-color: #60676e;
+    --button-press-color: #4b5157;
+    --text-color: #e0e0e0;
+    --accent-color: #ff5722; /* Or a retro green like #4CAF50 */
+    --pixel-font: 'Press Start 2P', cursive;
+}
+
+body {
+    margin: 0;
+    font-family: var(--pixel-font);
+    background: radial-gradient(circle at top left, #1a2a6c, #b21f1f, #fdbb2d 80%);
+    background-size: 200% 200%;
+    animation: gradientFlow 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Prevents scrollbars from background elements */
+    color: var(--text-color);
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.background-decor .shape {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 20s ease-in-out infinite alternate;
+}
+
+.shape1 { top: 10%; left: 15%; width: 150px; height: 150px; animation-duration: 22s; }
+.shape2 { top: 70%; left: 80%; width: 100px; height: 100px; animation-duration: 18s; background-color: rgba(255, 255, 255, 0.03);}
+.shape3 { top: 25%; left: 70%; width: 80px; height: 80px; animation-duration: 25s; border-radius: 10px; transform: rotate(45deg); }
+.shape4 { top: 80%; left: 5%; width: 120px; height: 120px; animation-duration: 15s; background-color: rgba(255, 255, 255, 0.04); border-radius: 20% 80% 30% 70%; }
+
+@keyframes float {
+    0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    50% { transform: translateY(-30px) translateX(20px) rotate(180deg); }
+    100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+}
+
+
+.game-console {
+    background-color: var(--console-bg);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4), 
+                inset 0 0 10px rgba(255,255,255,0.1),
+                inset 0 5px 10px rgba(0,0,0,0.2);
+    width: 480px; /* Increased width to accommodate info panel */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid var(--console-darker-bg);
+}
+
+.console-top {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.brand {
+    font-size: 1.5em;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 0px var(--console-darker-bg);
+}
+
+.console-screen-area {
+    display: flex; /* Arrange game screen and info panel side-by-side */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.game-screen-bezel {
+    background-color: var(--screen-bezel);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    margin-right: 15px; /* Space between game screen and info panel */
+}
+
+.game-screen {
+    background-color: var(--screen-bg);
+    position: relative; /* For overlay positioning */
+    /* Dimensions will be set by JS for canvas */
+    width: 200px; /* Main game area width (10 cells * 20px) */
+    height: 400px; /* Main game area height (20 cells * 20px) */
+    border: 2px solid var(--console-darker-bg);
+}
+
+#tetrisCanvas {
+    display: block;
+}
+
+.info-panel {
+    flex-grow: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: var(--console-darker-bg);
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.info-section {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.info-section h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.8em;
+    color: var(--accent-color);
+}
+
+.info-section p {
+    margin: 0;
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+#nextPieceCanvas {
+    background-color: var(--screen-bg);
+    border: 1px solid var(--screen-bezel);
+    display: block;
+    margin: 5px auto 0;
+    /* Dimensions for 4x4 grid, e.g., 4 * 15px = 60px */
+    width: 60px;
+    height: 60px;
+}
+
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.game-overlay p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.game-overlay button {
+    padding: 10px 20px;
+    font-family: var(--pixel-font);
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 0 3px 0 darken(var(--accent-color), 10%);
+}
+.game-overlay button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 darken(var(--accent-color), 10%);
+}
+
+
+.console-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.d-pad {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.control-button {
+    position: absolute;
+    background-color: var(--button-color);
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 0 darken(var(--button-color), 20%);
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.control-button:active {
+    background-color: var(--button-press-color);
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 darken(var(--button-color), 20%);
+}
+
+.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
+.control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
+.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
+.control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
+
+/* Adding arrow visuals to D-pad buttons */
+.control-button::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
+.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent; }
+.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg); }
+.control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+
+
+.center-pivot {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--button-color); /* Same as button for seamless look */
+    /* Or slightly darker: var(--console-darker-bg); */
+    z-index: -1; /* Behind buttons if they overlap, adjust if needed */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px; /* Space between action buttons */
+}
+
+.action-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px; /* Pill shape */
+    padding: 10px 15px;
+    font-family: var(--pixel-font);
+    font-size: 0.9em;
+    cursor: pointer;
+    box-shadow: 0 3px 0 darken(var(--accent-color), 15%);
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.action-button:active {
+    background-color: darken(var(--accent-color), 10%);
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 darken(var(--accent-color), 15%);
+}
+
+.console-bottom {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.speaker-grill {
+    display: flex;
+    gap: 5px;
+}
+.speaker-grill span {
+    width: 8px;
+    height: 30px;
+    background-color: var(--console-darker-bg);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Helper function for SASS/LESS, manual for CSS */
+/* darken(color, amount) equivalent (rough) */
+/* For example, darken(#ff5722, 10%) would be approx #e64a19 */
+/* darken(#ff5722, 15%) would be approx #d84315 */
+/* darken(#60676e, 20%) would be approx #454a4f */
