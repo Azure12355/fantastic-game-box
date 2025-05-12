@@ -1,283 +1,242 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
-    /* New Vibrant "Synthwave/Cyberpunk" Color Palette */
-    --console-bg: #1a1a2e; /* Darkest Blue/Purple */
-    --console-darker-bg: #10101f; /* Even Darker Variant */
-    --screen-bg: #0f0f18; /* Near Black for Screen */
-    --screen-bezel: #2c2c44; /* Slightly Lighter Blue/Purple */
-    
-    --button-main-color: #e94560; /* Vibrant Pink/Red (for main actions like Start/Restart) */
-    --button-main-press-color: #c7304a;
-    --button-dpad-color: #3b3b58; /* Darker purple/blue for D-Pad */
-    --button-dpad-press-color: #2a2a40;
-    --dpad-arrow-color: var(--accent-color);
-
-    --text-color: #f0f0f0; /* Off-White */
-    --accent-color: #00f5d4; /* Bright Cyan/Teal - for titles, UI accents */
-    --pixel-font: 'Press Start 2P', cursive;
-
-    /* Racer specific colors - Adapting to the new theme */
-    --road-color: #222233; /* Dark bluish gray Road */
-    --lane-marker-color: #555577; /* Muted bluish gray Lane Markers */
-    --rumble-strip-color-1: var(--button-main-color); /* Pink/Red from buttons */
-    --rumble-strip-color-2: var(--text-color); /* Off-white from text */
-    
-    --player-car-body-color: var(--accent-color); /* Teal Player Car */
-    --player-car-window-color: var(--console-darker-bg); /* Dark windows */
-    --player-car-lights-color: #ffffff;
-
-    --obstacle-car-body-color-1: #ff8c00; /* Dark Orange */
-    --obstacle-car-body-color-2: #9d00ff; /* Purple */
-    --obstacle-car-body-color-3: #e0e0e0; /* Light Gray/White */
-    --obstacle-car-window-color: #181818;
-
-    --grass-color: #111122; /* Very dark, almost part of the abyss/night feel */
-    --sky-color: var(--console-bg); /* Same as console for a more abstract/night sky */
+    --console-bg: #1a1a2e; --console-darker-bg: #10101f; --screen-bg: #0f0f18;
+    --screen-bezel: #2c2c44; --button-main-color: #e94560; --button-main-press-color: #c7304a;
+    --button-dpad-color: #3b3b58; --button-dpad-press-color: #2a2a40;
+    --dpad-arrow-color: var(--accent-color); --text-color: #f0f0f0;
+    --accent-color: #00f5d4; --pixel-font: 'Press Start 2P', cursive;
+    --road-color: #222233; --lane-marker-color: #555577;
+    --rumble-strip-color-1: var(--button-main-color); --rumble-strip-color-2: var(--text-color);
+    --player-car-body-color: var(--accent-color); --player-car-window-color: var(--console-darker-bg);
+    --player-car-lights-color: #ffffff; --obstacle-car-body-color-1: #ff8c00;
+    --obstacle-car-body-color-2: #9d00ff; --obstacle-car-body-color-3: #e0e0e0;
+    --obstacle-car-window-color: #181818; --grass-color: #111122; --sky-color: var(--console-bg);
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; } *, *:before, *:after { box-sizing: inherit; }
 body {
-    margin: 0;
-    font-family: var(--pixel-font), sans-serif;
+    margin: 0; font-family: var(--pixel-font), sans-serif;
     background: linear-gradient(160deg, #0f0f18 0%, #1a1a2e 30%, #2c2c44 70%, #1a1a2e 100%);
-    background-size: 400% 400%; /* For animation */
-    animation: cosmicShift 45s ease-in-out infinite alternate;
+    background-size: 400% 400%; animation: cosmicShift 45s ease-in-out infinite alternate;
     display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; overflow: hidden;
-    color: var(--text-color); position: relative;
+    min-height: 100vh; /* Use min-height for desktop */
+    height: 100vh; /* Ensure full height for flex layout, especially mobile */
+    overflow: hidden; color: var(--text-color); position: relative;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
 }
+@keyframes cosmicShift { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+#particles-js-racer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-@keyframes cosmicShift {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-}
+/* --- Background Decor (Keep as is) --- */
+.background-decor-racer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.decor-grid-pattern { position: absolute; top: 50%; left: 0; width: 100%; height: 50%; background-image: repeating-linear-gradient(var(--accent-color) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, var(--accent-color) 0 1px, transparent 1px 100%); background-size: 50px 50px; opacity: 0.03; transform: perspective(300px) rotateX(45deg) scale(1.5); transform-origin: 50% 0; animation: scrollGrid 20s linear infinite; }
+@keyframes scrollGrid { from { background-position-y: 0; } to { background-position-y: -50px; } }
+.decor-glow { position: absolute; border-radius: 50%; opacity: 0.15; pointer-events: none; filter: blur(100px); }
+.top-left-glow { width: 500px; height: 500px; top: -150px; left: -150px; background: radial-gradient(circle, var(--button-main-color) 0%, transparent 70%); }
+.bottom-right-glow { width: 600px; height: 600px; bottom: -200px; right: -200px; background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%); }
 
-#particles-js-racer {
-    position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;
-}
-
-.background-decor-racer {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    overflow: hidden; z-index: 1; pointer-events: none;
-}
-.decor-grid-pattern {
-    position: absolute;
-    top: 50%; /* Start from horizon */
-    left: 0;
-    width: 100%;
-    height: 50%; /* Cover bottom half */
-    background-image:
-        repeating-linear-gradient(var(--accent-color) 0 1px, transparent 1px 100%),
-        repeating-linear-gradient(90deg, var(--accent-color) 0 1px, transparent 1px 100%);
-    background-size: 50px 50px; /* Grid cell size */
-    opacity: 0.03;
-    transform: perspective(300px) rotateX(45deg) scale(1.5);
-    transform-origin: 50% 0;
-    animation: scrollGrid 20s linear infinite;
-}
-@keyframes scrollGrid {
-    from { background-position-y: 0; }
-    to { background-position-y: -50px; } /* Scroll one grid cell */
-}
-
-.decor-glow {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.15;
-    pointer-events: none;
-    filter: blur(100px); /* Creates a very soft glow */
-}
-.top-left-glow {
-    width: 500px; height: 500px;
-    top: -150px; left: -150px;
-    background: radial-gradient(circle, var(--button-main-color) 0%, transparent 70%);
-}
-.bottom-right-glow {
-    width: 600px; height: 600px;
-    bottom: -200px; right: -200px;
-    background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
-}
-
-
+/* --- Game Console Base Styles (Desktop) --- */
 .game-console.large-console.racer-console {
-    width: 700px;
-    min-height: 850px; /* Increased height for longer track feel */
-    padding: 25px; /* Slightly reduced padding */
-    border-width: 3px;
-    position: relative; z-index: 2; background-color: var(--console-bg); border-radius: 25px; /* Softer radius */
+    width: 700px; /* Desktop width */
+    min-height: 850px; /* Desktop min height */
+    max-height: 95vh; /* Prevent excessive height */
+    padding: 25px; border-width: 3px; position: relative; z-index: 2;
+    background-color: var(--console-bg); border-radius: 25px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.03), inset 0 5px 12px rgba(0,0,0,0.25);
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; align-items: center; /* Center content */
     border-style: solid; border-color: var(--console-darker-bg);
     font-family: var(--pixel-font), sans-serif;
+    flex-shrink: 1; /* Allow shrinking if viewport is smaller */
+    height: auto; /* Height based on content for desktop */
 }
 
-.console-top {
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
+.console-top { width: 100%; margin-bottom: 20px; text-align: center; flex-shrink: 0; }
 .brand { font-size: 2em; color: var(--accent-color); text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color), 2px 2px 2px #000; }
 
+/* Screen Area (Desktop: Screen + Info side-by-side) */
 .console-screen-area.racer-layout {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-    gap: 15px; /* Reduced gap */
-    flex-grow: 1;
-    min-height: 0;
+    display: flex; width: 100%; align-items: stretch; gap: 15px;
+    flex-grow: 1; min-height: 0; /* Important for flex-grow */
+    flex-direction: row; /* Desktop default */
 }
 
 .game-screen-bezel.large-bezel {
-    background-color: var(--screen-bezel);
-    padding: 8px; /* Reduced padding */
-    border-radius: 6px; /* Softer radius */
+    background-color: var(--screen-bezel); padding: 8px; border-radius: 6px;
     box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
-    flex: 1;
-    display: flex;
-    min-width: 0;
+    flex: 1; /* Takes available space */
+    display: flex; min-width: 0; /* Important for flex children */
 }
 
 .game-screen.large-screen {
-    background-color: var(--screen-bg);
-    position: relative;
-    border: 2px solid var(--console-darker-bg);
-    overflow: hidden;
+    background-color: var(--screen-bg); position: relative;
+    border: 2px solid var(--console-darker-bg); overflow: hidden;
     display: flex; justify-content: center; align-items: center;
-    flex: 1;
+    flex: 1; /* Fill bezel */
     border-radius: 4px;
+    min-height: 400px; /* Ensure minimum screen height */
 }
 
 #racerCanvas {
-    display: block;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    max-width: 100%;
-    max-height: 100%;
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    max-width: 100%; max-height: 100%; /* Fit container */
+    width: 100%; height: 100%; /* Use JS to set actual size */
 }
 
+/* Info Panel (Desktop) */
 .info-panel.info-panel-racer.large-info-panel {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 170px; 
-    display: flex; flex-direction: column; justify-content: space-around; /* Better spacing */
-    padding: 15px 12px;
-    background-color: var(--console-darker-bg); border-radius: 6px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); text-align: center;
-    font-family: var(--pixel-font), sans-serif; border: 2px solid #101018;
+    flex-grow: 0; flex-shrink: 0; width: 170px;
+    display: flex; flex-direction: column; justify-content: space-around;
+    padding: 15px 12px; background-color: var(--console-darker-bg);
+    border-radius: 6px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+    text-align: center; border: 2px solid #101018;
 }
+.info-section { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 6px 0; font-size: 0.8em; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
+.info-section p { margin: 0; font-size: 1.1em; color: var(--text-color); line-height: 1.2; background-color: var(--screen-bg); padding: 7px 8px; border-radius: 3px; display: block; border: 1px solid var(--screen-bezel); }
 
-.info-section { margin-bottom: 0; } /* Removed default margin, using space-around */
-.info-section h4 {
-    margin: 0 0 6px 0;
-    font-size: 0.8em;
-    color: var(--accent-color);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.info-section p {
-    margin: 0;
-    font-size: 1.1em;
-    color: var(--text-color);
-    line-height: 1.2; background-color: var(--screen-bg);
-    padding: 7px 8px;
-    border-radius: 3px; display: block;
-    border: 1px solid var(--screen-bezel);
-}
-
-.game-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(15, 15, 24, 0.92); /* Darker overlay, matches screen-bg */
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center; color: white; text-align: center;
-    padding: 20px; box-sizing: border-box; z-index: 10;
-    font-family: var(--pixel-font), sans-serif;
-}
-.message-content {
-    background-color: var(--console-darker-bg);
-    border: 2px solid var(--accent-color);
-    padding: 25px 30px;
-    border-radius: 4px; 
-    box-shadow: 0 0 15px var(--accent-color), inset 0 0 10px rgba(0, 245, 212, 0.2);
-}
+/* Game Overlays (Keep as is) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 15, 24, 0.92); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: var(--console-darker-bg); border: 2px solid var(--accent-color); padding: 25px 30px; border-radius: 4px; box-shadow: 0 0 15px var(--accent-color), inset 0 0 10px rgba(0, 245, 212, 0.2); }
 .game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 18px; line-height: 1.5; color: var(--text-color);}
 .game-overlay p.controls-hint { font-size: 0.75em; color: var(--lane-marker-color); margin-bottom: 22px;}
-.game-overlay button {
-    padding: 12px 25px; font-family: var(--pixel-font); background-color: var(--button-main-color);
-    color: var(--text-color); border: none; border-radius: 3px; cursor: pointer; font-size: 1em;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-    box-shadow: 0 3px 0px var(--button-main-press-color), 0 0 8px rgba(233, 69, 96, 0.5);
-    transition: all 0.1s ease-out;
-}
+.game-overlay button { padding: 12px 25px; font-family: var(--pixel-font); background-color: var(--button-main-color); color: var(--text-color); border: none; border-radius: 3px; cursor: pointer; font-size: 1em; text-shadow: 1px 1px 1px rgba(0,0,0,0.3); box-shadow: 0 3px 0px var(--button-main-press-color), 0 0 8px rgba(233, 69, 96, 0.5); transition: all 0.1s ease-out; }
 .game-overlay button:hover { background-color: #f05570; box-shadow: 0 3px 0px var(--button-main-press-color), 0 0 12px rgba(233, 69, 96, 0.7); }
 .game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px var(--button-main-press-color), 0 0 5px rgba(233, 69, 96, 0.4); }
 
-
+/* --- Controls Base Styles (Desktop) --- */
 .console-controls.racer-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    margin-top: 20px;
+    display: flex; justify-content: center; align-items: center;
+    width: 100%; padding: 0 20px; margin-top: 20px; flex-shrink: 0;
 }
 .d-pad.racer-dpad {
-    position: relative;
-    width: 140px; 
-    height: 54px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative; width: 140px; height: 54px; /* Adjusted for 2 buttons */
+    display: flex; justify-content: space-between; align-items: center;
 }
-.control-button.dpad-button { 
-    background-color: var(--button-dpad-color);
-    width: 54px; height: 54px; 
+.control-button.dpad-button {
+    background-color: var(--button-dpad-color); width: 54px; height: 54px;
     border: 1px solid var(--console-darker-bg); cursor: pointer;
     box-shadow: 0 3px 0px var(--button-dpad-press-color), inset 0 0 5px rgba(0,0,0,0.3);
-    transition: all 0.1s ease-out;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 6px;
+    transition: all 0.1s ease-out; display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; -webkit-tap-highlight-color: transparent;
 }
-.control-button.dpad-button:active {
-    background-color: var(--button-dpad-press-color);
-    transform: translateY(2px);
+.control-button.dpad-button:active, .control-button.dpad-button.active-touch {
+    background-color: var(--button-dpad-press-color); transform: translateY(2px);
     box-shadow: 0 1px 0px var(--button-dpad-press-color), inset 0 0 3px rgba(0,0,0,0.2);
 }
+.control-button.dpad-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.control-button.dpad-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--dpad-arrow-color) transparent transparent; }
+.control-button.dpad-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--dpad-arrow-color); }
+.action-buttons { display: flex; gap: 15px; margin-left: 30px; }
+.action-button.main-action-button { /* Keep as is */ }
 
-.control-button.dpad-button::before { 
-    content: ''; position: absolute; width: 0; height: 0; border-style: solid;
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-}
-.control-button.dpad-button.left::before {
-    border-width: 8px 12px 8px 0; 
-    border-color: transparent var(--dpad-arrow-color) transparent transparent;
-}
-.control-button.dpad-button.right::before {
-    border-width: 8px 0 8px 12px; 
-    border-color: transparent transparent transparent var(--dpad-arrow-color);
-}
-
-.action-buttons { display: flex; gap: 15px; margin-left: 30px; } /* If you add other main action buttons */
-.action-button.main-action-button {
-    background-color: var(--button-main-color);
-    color: var(--text-color);
-    padding: 10px 18px;
-    font-size: 0.9em;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-    box-shadow: 0 3px 0px var(--button-main-press-color), 0 0 8px rgba(233, 69, 96, 0.5);
-}
-.action-button.main-action-button:hover { background-color: #f05570; }
-.action-button.main-action-button:active { transform: translateY(2px); box-shadow: 0 1px 0px var(--button-main-press-color); }
-
-
-.console-bottom {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
+/* --- Console Bottom (Keep as is) --- */
+.console-bottom { width: 100%; margin-top: 20px; display: flex; justify-content: center; flex-shrink: 0; }
 .speaker-grill { display: flex; gap: 6px; }
-.speaker-grill span {
-    width: 10px; height: 36px; background-color: var(--console-darker-bg);
-    border-radius: 2px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+.speaker-grill span { width: 10px; height: 36px; background-color: var(--console-darker-bg); border-radius: 2px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console.large-console.racer-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; min-height: 0; /* Override desktop min-height */
+        display: flex; flex-direction: column; /* Vertical stack */
+        justify-content: flex-start;
+    }
+    .console-top { margin-bottom: 10px; }
+    .brand { font-size: 1.5em; }
+
+    /* Screen area now just contains the screen bezel */
+    .console-screen-area.racer-layout {
+        flex-direction: column; /* Ensure column layout */
+        width: 100%; flex-grow: 1; /* Take most vertical space */
+        margin-bottom: 10px; overflow: hidden; min-height: 0;
+        order: 1; /* Screen first */
+        gap: 0; /* Remove gap */
+    }
+    .game-screen-bezel.large-bezel {
+        width: 100%; flex: 1; /* Grow vertically */
+        padding: 5px; margin-right: 0; /* Remove desktop margin */
+    }
+    .game-screen.large-screen {
+        width: 100%; height: 100%; /* Fill bezel */
+        min-height: 0; /* Override desktop min-height */
+         aspect-ratio: unset; /* Let height dominate */
+    }
+
+    /* Info Panel (Mobile: below screen, horizontal items) */
+    .info-panel.info-panel-racer.large-info-panel {
+        width: 100%; flex-direction: row; flex-wrap: wrap;
+        justify-content: space-around; padding: 8px; gap: 5px 10px;
+        flex-grow: 0; flex-shrink: 0; order: 2; /* Info Panel second */
+        border-radius: 4px; border-width: 1px; width: 100%; /* Override desktop */
+    }
+    .info-section { text-align: center; flex-basis: auto; }
+    .info-section h4 { font-size: 0.7em; margin-bottom: 3px; }
+    .info-section p { font-size: 0.9em; padding: 4px 6px; }
+
+    /* Controls (Mobile: at the bottom) */
+    .console-controls.racer-controls {
+        width: 100%; padding: 10px 15px; margin-top: auto; /* Push to bottom */
+        order: 3; /* Controls third */
+        justify-content: center; /* Center the D-pad */
+    }
+    .d-pad.racer-dpad {
+        width: 180px; /* Wider D-pad for easier touch */
+        height: 60px; /* Adjust height */
+    }
+    .control-button.dpad-button {
+        width: 60px; /* Larger touch targets */
+        height: 60px;
+        border-radius: 8px;
+    }
+    .control-button.dpad-button.left::before { border-width: 10px 15px 10px 0; } /* Larger arrows */
+    .control-button.dpad-button.right::before { border-width: 10px 0 10px 15px; }
+    .action-buttons { display: none; } /* Hide action buttons area if empty */
+
+    .console-bottom { margin-top: 15px; order: 4; /* Bottom most */ padding-bottom: 10px;}
+    .speaker-grill span { width: 8px; height: 30px; }
+}
+
+/* Landscape Mobile (Less critical for this game, basic adaptation) */
+@media (max-width: 900px) and (orientation: landscape) {
+    .game-console.large-console.racer-console { flex-direction: row; height: 100vh; padding: 10px; }
+    .console-top { position: absolute; top: 5px; left: 10px; width: auto; margin-bottom: 0; z-index: 11; }
+    .console-screen-area.racer-layout {
+        flex-direction: column; /* Stack screen & info vertically */
+        order: 1; height: 100%; width: auto; flex-grow: 1;
+        margin-bottom: 0; margin-right: 10px;
+        min-height: 0;
+    }
+    .game-screen-bezel.large-bezel {
+        width: 100%; /* Take width of the column */
+        height: auto; /* Height based on content */
+        flex-grow: 1; /* Take available vertical space */
+        max-height: calc(100vh - 100px); /* Leave space for info/controls */
+    }
+     .game-screen.large-screen {
+        width: 100%; height: 100%; /* Fill bezel */
+        aspect-ratio: unset; /* Aspect ratio determined by container */
+    }
+    .info-panel.info-panel-racer.large-info-panel {
+        width: 100%; /* Full width of the column */
+        height: auto; /* Shrink wrap content */
+        flex-direction: row; /* Horizontal info items */
+        flex-wrap: wrap;
+        justify-content: space-around;
+        flex-grow: 0;
+        margin-top: 8px; /* Space below screen */
+    }
+    .console-controls.racer-controls {
+        flex-direction: column; /* Stack D-pad vertically */
+        order: 2; width: auto; height: 100%;
+        justify-content: center; padding: 0 15px; margin-top: 0; gap: 20px;
+    }
+    .d-pad.racer-dpad { width: 60px; height: 180px; flex-direction: column; } /* Vertical D-pad? */
+    .control-button.dpad-button { width: 60px; height: 60px; } /* Keep size */
+    .console-bottom { display: none; }
 }
