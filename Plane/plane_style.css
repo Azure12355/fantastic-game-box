@@ -1,0 +1,309 @@
+:root {
+    --console-bg: #2c3e50;
+    --console-darker-bg: #1a2531;
+    --screen-bg: #0a0f14;
+    --screen-bezel: #34495e;
+    --button-color: #7f8c8d;
+    --button-press-color: #566573; /* Defined for consistency */
+    --text-color: #ecf0f1;
+    --accent-color: #e74c3c;
+    --alt-accent-color: #3498db;
+    --pixel-font: 'Press Start 2P', cursive;
+
+    --planet-color1: #A52A2A;
+    --nebula-color1: rgba(147, 112, 219, 0.3);
+    --nebula-color2: rgba(0, 191, 255, 0.2);
+    --asteroid-color: #8B4513;
+    --life-plane-icon-color: var(--alt-accent-color);
+}
+
+body {
+    margin: 0;
+    font-family: var(--pixel-font);
+    background:
+        linear-gradient(to bottom, rgba(5, 10, 20, 0.95) 0%, rgba(10, 15, 30, 0.85) 70%, rgba(15, 20, 40, 0.9) 100%),
+        radial-gradient(ellipse at center, rgba(20,30,50,0.5) 0%, rgba(5,5,10,0.8) 60%, #020205 100%);
+    background-blend-mode: multiply, normal;
+    background-size: 100% 100%, 150% 150%;
+    animation: spaceDrift 90s linear infinite, centralGlowPulse 20s ease-in-out infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--text-color);
+    position: relative;
+}
+
+@keyframes spaceDrift {
+    0% { background-position: 0% 0%, 50% 50%; }
+    100% { background-position: 200% 200%, 50% 50%; }
+}
+@keyframes centralGlowPulse {
+    0% { background-size: 100% 100%, 140% 140%; }
+    100% { background-size: 100% 100%, 160% 160%; }
+}
+
+#particles-js-stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.background-decor {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.space-object {
+    position: absolute;
+    animation-name: slowDriftGeneral; /* Changed to a general one */
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0.7;
+}
+.planet1 {
+    width: 150px; height: 150px;
+    background-color: var(--planet-color1);
+    border-radius: 50%;
+    box-shadow: inset -20px -10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,220,180,0.1);
+    top: 10%; left: 5%;
+    animation-duration: 200s;
+    animation-name: planetDriftSpecific; /* Specific animation for planet */
+}
+.nebula1 {
+    width: 300px; height: 200px;
+    top: 60%; right: 0%;
+    animation-duration: 300s;
+    transform: rotate(15deg);
+}
+.nebula1::before, .nebula1::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+.nebula1::before {
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, var(--nebula-color1) 0%, transparent 70%);
+    transform: scale(1.2);
+    animation: nebulaPulse 15s ease-in-out infinite alternate;
+}
+.nebula1::after {
+    width: 80%; height: 80%; top: 10%; left: 10%;
+    background: radial-gradient(ellipse at center, var(--nebula-color2) 0%, transparent 60%);
+    transform: scale(0.9) rotate(-10deg);
+    animation: nebulaPulse 18s ease-in-out infinite alternate-reverse;
+}
+.asteroid-belt {
+    bottom: 5%; left: 0; width: 100%; height: 50px;
+    animation-duration: 120s;
+    animation-direction: reverse;
+    display: flex;
+    align-items: center;
+}
+.asteroid-belt span {
+    display: block;
+    width: 10px; height: 8px;
+    background-color: var(--asteroid-color);
+    border-radius: 30% 70% 50% 50% / 60% 40% 60% 40%;
+    margin: 0 20px;
+    opacity: 0.8;
+    transform: rotate(calc(var(--i, 0) * 25deg));
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+}
+.asteroid-belt span:nth-child(2) { width: 15px; height: 12px; margin-left: 50px; }
+.asteroid-belt span:nth-child(4) { width: 8px; height: 6px; margin-right: 40px; }
+
+@keyframes slowDriftGeneral {
+    0% { transform: translateX(50vw) translateY(0vh) rotate(0deg) scale(0.8); opacity: 0.5; } /* Start further away */
+    100% { transform: translateX(-150vw) translateY(20vh) rotate(15deg) scale(1.2); opacity: 0.8; }
+}
+@keyframes planetDriftSpecific {
+    0% { transform: translateX(-20vw) translateY(5vh) rotate(0deg) scale(1); }
+    100% { transform: translateX(120vw) translateY(15vh) rotate(-5deg) scale(1.1); }
+}
+@keyframes nebulaPulse {
+    0% { opacity: 0.4; transform: scale(0.95); }
+    100% { opacity: 0.7; transform: scale(1.05); }
+}
+@keyframes screenFlash { /* For bomb effect */
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(2.5); }
+}
+
+
+.game-console {
+    position: relative;
+    z-index: 2;
+    background-color: var(--console-bg);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5),
+                inset 0 0 15px rgba(255,255,255,0.08),
+                inset 0 7px 15px rgba(0,0,0,0.3);
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--console-darker-bg);
+}
+
+.console-top {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.brand {
+    font-size: 1.8em;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 0px var(--console-darker-bg);
+}
+
+.console-screen-area {
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+    align-items: stretch;
+}
+
+.game-screen-bezel {
+    background-color: var(--screen-bezel);
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.5);
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-screen {
+    background-color: var(--screen-bg);
+    position: relative;
+    width: 400px;
+    height: 450px;
+    border: 3px solid var(--console-darker-bg);
+    overflow: hidden;
+    cursor: none;
+}
+
+#planeCanvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    width: 100%;
+    height: 100%;
+}
+
+.info-panel {
+    flex-grow: 1; display: flex; flex-direction: column; justify-content: space-around;
+    padding: 10px 15px; background-color: var(--console-darker-bg); border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); text-align: center; min-width: 130px;
+}
+.info-section { margin-bottom: 10px; }
+.info-section:last-child { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.75em; color: var(--accent-color); text-transform: uppercase;}
+.info-section p, .lives-display { margin: 0; font-size: 0.9em; color: var(--text-color); line-height: 1.2;}
+
+.lives-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 20px;
+    margin-top: 3px;
+}
+.life-icon-plane {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Free Solid"; /* Fallback for solid */
+    font-weight: 900; /* For solid icons */
+    /* content: "\f0fb"; This is for pseudo-elements, not direct class use on <i> */
+    color: var(--life-plane-icon-color);
+    font-size: 14px;
+}
+
+.game-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column;
+    justify-content: center; align-items: center; color: white; text-align: center;
+    padding: 20px; box-sizing: border-box; z-index: 10;
+}
+.message-content {
+    background-color: var(--console-darker-bg); padding: 25px 30px; border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+.game-overlay p { font-size: 1.3em; margin-top: 0; margin-bottom: 20px; line-height: 1.5; }
+.game-overlay button {
+    padding: 14px 28px; font-family: var(--pixel-font); background-color: var(--accent-color);
+    color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em;
+    box-shadow: 0 4px 0px #c23f31; /* Approx darken var(--accent-color) by 15% */
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.game-overlay button:hover { background-color: #e96455; /* Approx lighten var(--accent-color) by 10% */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 2px 0px #c23f31; }
+
+.console-controls {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; padding: 0 20px; box-sizing: border-box; margin-top: 15px;
+}
+.d-pad { position: relative; width: 120px; height: 120px; }
+.control-button {
+    position: absolute; background-color: var(--button-color);
+    width: 40px; height: 40px; border: none; cursor: pointer;
+    box-shadow: 0 3px 0px #566573; /* var(--button-press-color) or darker var(--button-color) */
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    display: flex; align-items: center; justify-content: center;
+}
+.control-button:active {
+    background-color: var(--button-press-color); transform: translateY(2px);
+    box-shadow: 0 1px 0px var(--button-press-color);
+}
+.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
+.control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
+.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
+.control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
+
+.control-button::before {
+    content: ''; position: absolute; width: 0; height: 0; border-style: solid;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
+.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent; }
+.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg); }
+.control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+
+.center-pivot {
+    position: absolute; top: 40px; left: 40px; width: 40px; height: 40px;
+    background-color: var(--button-color); z-index: -1;
+}
+.action-buttons { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.action-button {
+    color: white; border: none; border-radius: 8px; padding: 10px 15px;
+    font-family: var(--pixel-font); font-size: 0.8em; cursor: pointer;
+    min-width: 90px; text-align: center;
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.action-button.shoot { background-color: var(--accent-color); box-shadow: 0 3px 0 #c23f31; } /* Darken accent */
+.action-button.special { background-color: var(--alt-accent-color); box-shadow: 0 3px 0 #2a7aaf; } /* Darken alt-accent */
+.action-button.pause-act { background-color: #f39c12; box-shadow: 0 3px 0 #cd840e; } /* Darken orange */
+
+.action-button:active { transform: translateY(2px); }
+.action-button.shoot:active { box-shadow: 0 1px 0 #c23f31; }
+.action-button.special:active { box-shadow: 0 1px 0 #2a7aaf; }
+.action-button.pause-act:active { box-shadow: 0 1px 0 #cd840e; }
+
+.console-bottom { width: 100%; margin-top: 25px; display: flex; justify-content: center; }
+.speaker-grill { display: flex; gap: 6px; }
+.speaker-grill span {
+    width: 10px; height: 35px; background-color: var(--console-darker-bg);
+    border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.45);
+}
