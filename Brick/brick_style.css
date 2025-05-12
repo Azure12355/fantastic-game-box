@@ -1,0 +1,169 @@
+:root {
+    --console-bg: #4a4e69; /* Dusty purple console */
+    --console-darker-bg: #2a2d3e;
+    --screen-bg: #1a1b26; /* Very dark background */
+    --screen-bezel: #6b6e8c;
+    --button-color: #9a8c98; /* Muted purple/grey buttons */
+    --button-press-color: #7a6c78;
+    --text-color: #f2e9e4; /* Creamy white text */
+    --accent-color: #c9ada7; /* Light accent */
+    --paddle-color: #9a8c98;
+    --ball-color: #f2e9e4;
+    --pixel-font: 'Press Start 2P', cursive;
+
+    /* Brick Colors (Example Palette) */
+    --brick-color-1: #ffadad; /* Light Red */
+    --brick-color-2: #ffd6a5; /* Light Orange */
+    --brick-color-3: #fdffb6; /* Light Yellow */
+    --brick-color-4: #caffbf; /* Light Green */
+    --brick-color-5: #9bf6ff; /* Light Blue */
+    --brick-color-6: #a0c4ff; /* Light Purple */
+    --brick-color-7: #bdb2ff; /* Light Indigo */
+    --brick-color-8: #ffc6ff; /* Light Pink */
+
+    --life-paddle-color: var(--paddle-color); /* Paddle color for life icons */
+}
+
+body {
+    margin: 0;
+    font-family: var(--pixel-font), sans-serif;
+    background: linear-gradient(135deg, #2a2d3e, #4a4e69, #6b6e8c);
+    background-size: 200% 200%;
+    animation: subtleShift 50s ease infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--text-color);
+    position: relative;
+}
+
+@keyframes subtleShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+#particles-js-bricks { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;}
+
+.background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.decor-shape { position: absolute; opacity: 0.08; } /* Very subtle */
+.block { width: 30px; height: 15px; background-color: var(--console-darker-bg); border: 1px solid #666; animation: floatBlock 20s infinite alternate; }
+.b1 { top: 10%; left: 20%; transform: rotate(15deg); animation-duration: 22s; }
+.b2 { bottom: 15%; right: 10%; transform: rotate(-10deg); animation-duration: 18s; width: 40px; height: 20px;}
+.ball-shape { width: 25px; height: 25px; background-color: var(--accent-color); border-radius: 50%; animation: floatBall 25s infinite alternate-reverse; }
+.bs1 { top: 70%; left: 10%; animation-duration: 28s; }
+.bs2 { top: 25%; right: 25%; width: 20px; height: 20px; animation-duration: 22s; opacity: 0.06; }
+
+@keyframes floatBlock {
+    0% { transform: translateY(0px) rotate(15deg); }
+    100% { transform: translateY(-15px) rotate(5deg); }
+}
+@keyframes floatBall {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(10px, -20px) scale(1.1); }
+}
+
+.game-console {
+    position: relative; z-index: 2; background-color: var(--console-bg); border-radius: 25px;
+    padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1), inset 0 7px 15px rgba(0,0,0,0.2);
+    width: 680px; /* Width suitable for game screen + info */ display: flex; flex-direction: column; align-items: center; border: 3px solid var(--console-darker-bg);
+    font-family: var(--pixel-font), sans-serif;
+}
+.console-top { width: 100%; margin-bottom: 20px; text-align: center; }
+.brand { font-size: 1.8em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
+.console-screen-area.brick-layout { display: flex; width: 100%; margin-bottom: 25px; align-items: flex-start; gap: 20px;}
+.game-screen-bezel { background-color: var(--screen-bezel); padding: 10px; border-radius: 8px; box-shadow: inset 0 0 8px rgba(0,0,0,0.4); }
+
+.game-screen {
+    background-color: var(--screen-bg); position: relative;
+    width: 480px; height: 500px;
+    border: 2px solid #333; overflow: hidden;
+}
+
+#brickCanvas {
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    width: 100%; height: 100%; background-color: var(--screen-bg);
+}
+
+.info-panel.info-panel-bricks {
+    flex-grow: 0; width: 150px; display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 15px; background-color: var(--console-darker-bg); border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); text-align: center;
+    font-family: var(--pixel-font), sans-serif;
+}
+.info-section { margin-bottom: 15px; }
+.info-section:last-child { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.8em; color: var(--accent-color); text-transform: uppercase;}
+.info-section p { margin: 0; font-size: 1em; color: var(--text-color); line-height: 1.1; background-color: #333; padding: 4px 6px; border-radius: 3px; display: inline-block; min-width: 50px;}
+
+/* Lives Display (Paddle Shape) */
+.lives-display { display: flex; justify-content: center; align-items: center; gap: 4px; height: 15px; margin-top: 4px; }
+.life-icon-paddle {
+    width: 20px; height: 5px;
+    background-color: var(--life-paddle-color);
+    border-radius: 2px;
+    box-shadow: 0 1px 0px rgba(0,0,0,0.3);
+}
+
+/* Info Panel Button */
+.info-section button.info-button {
+    font-family: var(--pixel-font); font-size: 0.75em; padding: 6px 10px; border: 1px solid var(--button-color);
+    background-color: var(--accent-color); color: var(--console-bg); border-radius: 4px; margin-top: 10px;
+    width: 100%; box-sizing: border-box; cursor: pointer;
+    box-shadow: 0 2px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
+}
+.info-section button.info-button:active { transform: translateY(1px); box-shadow: 0 1px 0px #a9928c;}
+
+.game-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column;
+    justify-content: center; align-items: center; color: white; text-align: center;
+    padding: 20px; box-sizing: border-box; z-index: 10;
+    font-family: var(--pixel-font), sans-serif;
+}
+.message-content { background-color: var(--console-darker-bg); padding: 20px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 15px; line-height: 1.4;}
+.game-overlay button {
+    padding: 10px 20px; font-family: var(--pixel-font); background-color: var(--accent-color);
+    color: var(--console-bg); border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;
+    box-shadow: 0 3px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.game-overlay button:hover { background-color: #d3bdb8; /* Approx lighten(--accent-color, 10%) */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px #a9928c; }
+
+.console-controls { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px; box-sizing: border-box; margin-top: 20px; }
+.d-pad { position: relative; width: 120px; height: 120px; }
+.control-button {
+    position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer;
+    box-shadow: 0 3px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    display: flex; align-items: center; justify-content: center;
+}
+.control-button:active { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
+.control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
+.control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
+.control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
+.control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
+.control-button.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+
+.control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; opacity: 0.4;}
+.control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent;}
+.control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg);}
+.control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; opacity: 0.4;}
+
+.center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
+.action-buttons { display: flex; gap: 15px; }
+.action-button {
+    color: white; border: none; border-radius: 20px; padding: 10px 20px;
+    font-family: var(--pixel-font); font-size: 0.9em; cursor: pointer;
+    box-shadow: 0 3px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
+    background-color: var(--accent-color);
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.action-button:active { background-color: #b8a29d; /* Approx darken */ transform: translateY(2px); box-shadow: 0 1px 0px #a9928c; }
+
+.console-bottom { width: 100%; margin-top: 25px; display: flex; justify-content: center; }
+.speaker-grill { display: flex; gap: 6px; }
+.speaker-grill span { width: 10px; height: 35px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }

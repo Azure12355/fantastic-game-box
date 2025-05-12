@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Changed lang to 'en' -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Brick Breaker</title> <!-- Translated Title -->
+    <link rel="stylesheet" href="brick_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome (Optional, for life icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Particle effects -->
+    <div id="particles-js-bricks"></div>
+
+    <!-- Background decorative elements -->
+    <div class="background-decor">
+        <div class="decor-shape block b1"></div>
+        <div class="decor-shape block b2"></div>
+        <div class="decor-shape ball-shape bs1"></div>
+        <div class="decor-shape ball-shape bs2"></div>
+    </div>
+
+    <!-- Game Console -->
+    <div class="game-console">
+        <div class="console-top">
+            <div class="brand">PIXEL BREAKER</div> <!-- Translated Brand -->
+        </div>
+        <div class="console-screen-area brick-layout">
+            <div class="game-screen-bezel">
+                <div class="game-screen" id="gameScreenContainer">
+                    <canvas id="brickCanvas"></canvas>
+                    <!-- Game Message Overlay -->
+                    <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
+                        <div class="message-content">
+                            <p id="messageText">GET READY!</p> <!-- Translated Text -->
+                             <button id="startButton">START GAME</button> <!-- Translated Text -->
+                        </div>
+                    </div>
+                    <!-- Pause Message Overlay -->
+                     <div id="pauseScreen" class="game-overlay" style="display: none;"> <!-- Corrected class attribute -->
+                        <p>PAUSED</p> <!-- Translated Text -->
+                    </div>
+                     <!-- Level Complete Overlay -->
+                     <div id="levelCompleteScreen" class="game-overlay" style="display: none;"> <!-- Corrected class attribute -->
+                        <p>LEVEL COMPLETE!</p> <!-- Translated Text -->
+                        <button id="nextLevelButton">NEXT LEVEL</button> <!-- Translated Text -->
+                    </div>
+                </div>
+            </div>
+            <!-- Info Panel -->
+            <div class="info-panel info-panel-bricks">
+                <div class="info-section">
+                    <h4>SCORE</h4> <!-- Translated Text -->
+                    <p id="score">0</p>
+                </div>
+                 <div class="info-section">
+                    <h4>LIVES</h4> <!-- Translated Text -->
+                    <div id="livesContainer" class="lives-display">
+                        <!-- Lives populated by JS -->
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h4>HI-SCORE</h4> <!-- Translated Text -->
+                    <p id="highScore">0</p>
+                </div>
+                 <div class="info-section">
+                    <h4>LEVEL</h4> <!-- Translated Text -->
+                    <p id="levelDisplay">1</p>
+                </div>
+                 <div class="info-section">
+                     <button id="restartButtonPanel" class="action-button info-button">RESTART</button> <!-- Translated Text -->
+                 </div>
+            </div>
+        </div>
+        <!-- Controls -->
+        <div class="console-controls">
+             <div class="d-pad">
+                <button class="control-button up disabled" aria-label="Up (disabled)"></button> <!-- Translated ARIA label -->
+                <button class="control-button left" id="leftButton" aria-label="Move Left"></button> <!-- Translated ARIA label -->
+                <button class="control-button right" id="rightButton" aria-label="Move Right"></button> <!-- Translated ARIA label -->
+                <button class="control-button down disabled" aria-label="Down (disabled)"></button> <!-- Translated ARIA label -->
+                <div class="center-pivot"></div>
+            </div>
+            <div class="action-buttons">
+                 <button class="action-button pause-act" id="pauseActionButton">PAUSE</button> <!-- Translated Text -->
+                 <!-- Optional Launch Button -->
+                 <!-- <button class="action-button shoot" id="launchButton">LAUNCH</button> -->
+            </div>
+        </div>
+        <!-- Console Bottom -->
+        <div class="console-bottom">
+            <div class="speaker-grill">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="brick_script.js"></script>
+</body>
+</html>
