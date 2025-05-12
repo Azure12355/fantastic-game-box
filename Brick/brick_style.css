@@ -1,27 +1,28 @@
 :root {
-    --console-bg: #4a4e69; /* Dusty purple console */
+    --console-bg: #4a4e69;
     --console-darker-bg: #2a2d3e;
-    --screen-bg: #1a1b26; /* Very dark background */
+    --screen-bg: #1a1b26;
     --screen-bezel: #6b6e8c;
-    --button-color: #9a8c98; /* Muted purple/grey buttons */
+    --button-color: #9a8c98;
     --button-press-color: #7a6c78;
-    --text-color: #f2e9e4; /* Creamy white text */
-    --accent-color: #c9ada7; /* Light accent */
+    --text-color: #f2e9e4;
+    --accent-color: #c9ada7;
     --paddle-color: #9a8c98;
     --ball-color: #f2e9e4;
     --pixel-font: 'Press Start 2P', cursive;
 
-    /* Brick Colors (Example Palette) */
-    --brick-color-1: #ffadad; /* Light Red */
-    --brick-color-2: #ffd6a5; /* Light Orange */
-    --brick-color-3: #fdffb6; /* Light Yellow */
-    --brick-color-4: #caffbf; /* Light Green */
-    --brick-color-5: #9bf6ff; /* Light Blue */
-    --brick-color-6: #a0c4ff; /* Light Purple */
-    --brick-color-7: #bdb2ff; /* Light Indigo */
-    --brick-color-8: #ffc6ff; /* Light Pink */
+    /* Brick Colors */
+    --brick-color-1: #ffadad; --brick-color-2: #ffd6a5; --brick-color-3: #fdffb6; --brick-color-4: #caffbf;
+    --brick-color-5: #9bf6ff; --brick-color-6: #a0c4ff; --brick-color-7: #bdb2ff; --brick-color-8: #ffc6ff;
 
-    --life-paddle-color: var(--paddle-color); /* Paddle color for life icons */
+    --life-paddle-color: var(--paddle-color);
+}
+
+html {
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 body {
@@ -33,137 +34,382 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
+    /* Ensure body takes full viewport height, crucial for mobile layout */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevent body scrolling */
     color: var(--text-color);
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation; /* Prevent default touch actions like pinch-zoom */
 }
 
-@keyframes subtleShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-#particles-js-bricks { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;}
-
+@keyframes subtleShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+#particles-js-bricks { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; }
 .background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
-.decor-shape { position: absolute; opacity: 0.08; } /* Very subtle */
+.decor-shape { position: absolute; opacity: 0.08; }
+/* Decor animations (Keep as is) */
 .block { width: 30px; height: 15px; background-color: var(--console-darker-bg); border: 1px solid #666; animation: floatBlock 20s infinite alternate; }
 .b1 { top: 10%; left: 20%; transform: rotate(15deg); animation-duration: 22s; }
 .b2 { bottom: 15%; right: 10%; transform: rotate(-10deg); animation-duration: 18s; width: 40px; height: 20px;}
 .ball-shape { width: 25px; height: 25px; background-color: var(--accent-color); border-radius: 50%; animation: floatBall 25s infinite alternate-reverse; }
 .bs1 { top: 70%; left: 10%; animation-duration: 28s; }
 .bs2 { top: 25%; right: 25%; width: 20px; height: 20px; animation-duration: 22s; opacity: 0.06; }
+@keyframes floatBlock { 0% { transform: translateY(0px) rotate(15deg); } 100% { transform: translateY(-15px) rotate(5deg); } }
+@keyframes floatBall { 0% { transform: translate(0px, 0px) scale(1); } 100% { transform: translate(10px, -20px) scale(1.1); } }
 
-@keyframes floatBlock {
-    0% { transform: translateY(0px) rotate(15deg); }
-    100% { transform: translateY(-15px) rotate(5deg); }
-}
-@keyframes floatBall {
-    0% { transform: translate(0px, 0px) scale(1); }
-    100% { transform: translate(10px, -20px) scale(1.1); }
-}
-
+/* --- Game Console Base Styles --- */
 .game-console {
-    position: relative; z-index: 2; background-color: var(--console-bg); border-radius: 25px;
-    padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1), inset 0 7px 15px rgba(0,0,0,0.2);
-    width: 680px; /* Width suitable for game screen + info */ display: flex; flex-direction: column; align-items: center; border: 3px solid var(--console-darker-bg);
+    position: relative; z-index: 2; background-color: var(--console-bg);
+    border-radius: 25px; /* Desktop border radius */
+    padding: 20px; /* Desktop padding */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.1), inset 0 5px 10px rgba(0,0,0,0.2);
+    width: 680px; /* Desktop width */
+    max-width: 100%; /* Prevent exceeding screen width */
+    border: 3px solid var(--console-darker-bg);
     font-family: var(--pixel-font), sans-serif;
+    /* Desktop Flex Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Allow shrinking on smaller desktop screens */
+    flex-shrink: 1;
+    height: auto; /* Desktop height is content-based */
+    max-height: 95vh; /* Limit height on desktop too */
 }
-.console-top { width: 100%; margin-bottom: 20px; text-align: center; }
-.brand { font-size: 1.8em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
-.console-screen-area.brick-layout { display: flex; width: 100%; margin-bottom: 25px; align-items: flex-start; gap: 20px;}
-.game-screen-bezel { background-color: var(--screen-bezel); padding: 10px; border-radius: 8px; box-shadow: inset 0 0 8px rgba(0,0,0,0.4); }
+
+.console-top { width: 100%; margin-bottom: 15px; text-align: center; flex-shrink: 0; }
+.brand { font-size: 1.6em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
+
+/* Screen Area Layout (Desktop: Screen + Info side-by-side) */
+.console-screen-area.brick-layout {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px; /* Space before controls */
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: row; /* Desktop: side-by-side */
+    flex-grow: 1; /* Allow screen area to grow on desktop */
+    overflow: hidden; /* Contain children */
+}
+
+.game-screen-bezel {
+    background-color: var(--screen-bezel);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    /* Desktop: fixed width based on canvas */
+    width: calc(480px + 20px); /* canvas width + bezel padding */
+    flex-shrink: 0; /* Don't shrink bezel */
+}
 
 .game-screen {
-    background-color: var(--screen-bg); position: relative;
-    width: 480px; height: 500px;
-    border: 2px solid #333; overflow: hidden;
+    background-color: var(--screen-bg);
+    position: relative;
+    width: 480px; /* Desktop canvas width */
+    height: 500px; /* Desktop canvas height */
+    border: 2px solid #333;
+    overflow: hidden; /* Hide canvas overflow */
 }
 
 #brickCanvas {
-    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
-    width: 100%; height: 100%; background-color: var(--screen-bg);
+    display: block;
+    image-rendering: pixelated; /* Crisp pixels */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    width: 100%; height: 100%; /* Fill container */
+    background-color: var(--screen-bg);
 }
 
+/* Info Panel (Desktop) */
 .info-panel.info-panel-bricks {
-    flex-grow: 0; width: 150px; display: flex; flex-direction: column; justify-content: flex-start;
-    padding: 15px; background-color: var(--console-darker-bg); border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); text-align: center;
-    font-family: var(--pixel-font), sans-serif;
+    flex-grow: 1; /* Take remaining space */
+    width: 150px; /* Minimum width */
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 15px;
+    background-color: var(--console-darker-bg);
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+    text-align: center;
 }
 .info-section { margin-bottom: 15px; }
 .info-section:last-child { margin-bottom: 0; }
-.info-section h4 { margin: 0 0 5px 0; font-size: 0.8em; color: var(--accent-color); text-transform: uppercase;}
-.info-section p { margin: 0; font-size: 1em; color: var(--text-color); line-height: 1.1; background-color: #333; padding: 4px 6px; border-radius: 3px; display: inline-block; min-width: 50px;}
-
-/* Lives Display (Paddle Shape) */
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.8em; color: var(--accent-color); text-transform: uppercase; }
+.info-section p { margin: 0; font-size: 1em; color: var(--text-color); line-height: 1.1; background-color: #333; padding: 4px 6px; border-radius: 3px; display: inline-block; min-width: 50px; }
 .lives-display { display: flex; justify-content: center; align-items: center; gap: 4px; height: 15px; margin-top: 4px; }
-.life-icon-paddle {
-    width: 20px; height: 5px;
-    background-color: var(--life-paddle-color);
-    border-radius: 2px;
-    box-shadow: 0 1px 0px rgba(0,0,0,0.3);
-}
-
-/* Info Panel Button */
-.info-section button.info-button {
-    font-family: var(--pixel-font); font-size: 0.75em; padding: 6px 10px; border: 1px solid var(--button-color);
+.life-icon-paddle { width: 20px; height: 5px; background-color: var(--life-paddle-color); border-radius: 2px; box-shadow: 0 1px 0px rgba(0,0,0,0.3); }
+.info-section-button button.info-button {
+    font-family: var(--pixel-font); font-size: 0.75em; padding: 8px 12px; border: 1px solid var(--button-color);
     background-color: var(--accent-color); color: var(--console-bg); border-radius: 4px; margin-top: 10px;
-    width: 100%; box-sizing: border-box; cursor: pointer;
-    box-shadow: 0 2px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
+    width: 100%; cursor: pointer; box-shadow: 0 2px 0px #a9928c; transition: transform 0.1s, box-shadow 0.1s;
 }
-.info-section button.info-button:active { transform: translateY(1px); box-shadow: 0 1px 0px #a9928c;}
+.info-section-button button.info-button:active { transform: translateY(1px); box-shadow: 0 1px 0px #a9928c; }
 
+/* Game Overlays (Common Styles) */
 .game-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column;
     justify-content: center; align-items: center; color: white; text-align: center;
-    padding: 20px; box-sizing: border-box; z-index: 10;
-    font-family: var(--pixel-font), sans-serif;
+    padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif;
+    touch-action: none;
 }
 .message-content { background-color: var(--console-darker-bg); padding: 20px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 15px; line-height: 1.4;}
+.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 15px; line-height: 1.4; }
 .game-overlay button {
     padding: 10px 20px; font-family: var(--pixel-font); background-color: var(--accent-color);
     color: var(--console-bg); border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;
-    box-shadow: 0 3px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 3px 0px #a9928c; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
 }
-.game-overlay button:hover { background-color: #d3bdb8; /* Approx lighten(--accent-color, 10%) */ }
+.game-overlay button:hover { background-color: #d3bdb8; }
 .game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px #a9928c; }
 
-.console-controls { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px; box-sizing: border-box; margin-top: 20px; }
+/* --- Controls Base Styles --- */
+.console-controls {
+    display: flex;
+    justify-content: space-between; /* Desktop: Space out D-pad and Actions */
+    align-items: center;
+    width: 100%;
+    padding: 0 40px; /* Desktop padding */
+    margin-top: 20px; /* Desktop margin */
+    flex-shrink: 0; /* Prevent controls from shrinking */
+}
 .d-pad { position: relative; width: 120px; height: 120px; }
 .control-button {
     position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer;
     box-shadow: 0 3px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
     display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
 }
-.control-button:active { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
 .control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
 .control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
 .control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
 .control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
 .control-button.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
-
+/* Arrow icons */
 .control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; opacity: 0.4;}
 .control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent;}
 .control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg);}
 .control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; opacity: 0.4;}
-
 .center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
+
 .action-buttons { display: flex; gap: 15px; }
 .action-button {
     color: white; border: none; border-radius: 20px; padding: 10px 20px;
     font-family: var(--pixel-font); font-size: 0.9em; cursor: pointer;
-    box-shadow: 0 3px 0px #a9928c; /* Approx darken(--accent-color, 15%) */
-    background-color: var(--accent-color);
+    box-shadow: 0 3px 0px #a9928c; background-color: var(--accent-color);
     transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    -webkit-tap-highlight-color: transparent;
 }
-.action-button:active { background-color: #b8a29d; /* Approx darken */ transform: translateY(2px); box-shadow: 0 1px 0px #a9928c; }
+.action-button:active, .action-button.active-touch { background-color: #b8a29d; transform: translateY(2px); box-shadow: 0 1px 0px #a9928c; }
 
-.console-bottom { width: 100%; margin-top: 25px; display: flex; justify-content: center; }
+/* --- Console Bottom --- */
+.console-bottom {
+    width: 100%;
+    margin-top: 25px; /* Desktop margin */
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0; /* Prevent shrinking */
+}
 .speaker-grill { display: flex; gap: 6px; }
 .speaker-grill span { width: 10px; height: 35px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body {
+        /* Ensure full height is used */
+         height: 100svh; /* Use small viewport height unit */
+         overflow: hidden; /* Prevent scrolling */
+    }
+
+    .game-console {
+        width: 100%;
+        height: 100svh; /* Full small viewport height */
+        border-radius: 0; /* Remove border radius for full screen */
+        border: none; /* Remove border */
+        padding: 10px; /* Reduced padding */
+        /* Main Flex Layout for Mobile: Column, space between items */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align items to the start */
+        align-items: center; /* Center items horizontally */
+    }
+
+    .console-top {
+        margin-bottom: 5px; /* Less space */
+    }
+    .brand {
+        font-size: 1.2em; /* Smaller brand */
+    }
+
+    /* Screen Area takes most space, contains screen and info */
+    .console-screen-area.brick-layout {
+        flex-direction: column; /* Stack screen and info vertically */
+        align-items: center; /* Center them */
+        width: 100%; /* Full width */
+        margin-bottom: 10px; /* Space before controls */
+        flex-grow: 1; /* Allow this area to grow */
+        overflow: hidden; /* Prevent content overflow */
+        gap: 8px; /* Space between screen bezel and info */
+    }
+
+    .game-screen-bezel {
+        width: 100%; /* Full width */
+        padding: 5px; /* Smaller bezel */
+        flex-shrink: 1; /* Allow shrinking if needed */
+        flex-grow: 1; /* Allow bezel/screen to take up vertical space */
+        max-height: 60vh; /* Limit screen height to avoid pushing controls off */
+        display: flex; /* Use flex to center screen inside */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .game-screen {
+        width: 100%; /* Fit bezel width */
+        /* Calculate height based on aspect ratio to fit width */
+        /* JS will set canvas W/H, CSS aspect-ratio helps layout */
+        aspect-ratio: 480 / 500; /* Maintain approx original ratio */
+        max-width: 480px; /* Limit max width if bezel is wider */
+        max-height: 100%; /* Don't exceed bezel height */
+        height: auto; /* Let aspect ratio determine height */
+        border-width: 1px;
+    }
+
+    /* Info Panel (Mobile: below screen, horizontal items) */
+    .info-panel.info-panel-bricks {
+        width: 100%; /* Full width */
+        max-width: 480px; /* Align with screen max width */
+        flex-direction: row; /* Horizontal layout for info items */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-around; /* Distribute items */
+        padding: 8px; /* Reduced padding */
+        gap: 5px 10px; /* Row and column gap */
+        flex-grow: 0; /* Don't grow info panel */
+        flex-shrink: 0; /* Don't shrink it either */
+        order: 2; /* Ensure it comes after screen bezel in the column flow */
+    }
+    .info-section {
+        margin-bottom: 0; /* Remove bottom margin */
+        text-align: center;
+        flex-basis: auto; /* Adjust width based on content */
+    }
+    .info-section h4 { font-size: 0.65em; margin-bottom: 2px; }
+    .info-section p { font-size: 0.8em; padding: 2px 4px; min-width: 40px;}
+    .lives-display { height: 12px; gap: 3px; margin-top: 2px;}
+    .life-icon-paddle { width: 15px; height: 4px; border-radius: 1px;}
+    /* Ensure Restart button fits well */
+    .info-section-button {
+        width: 100%; /* Make button container full width */
+        margin-top: 5px;
+    }
+    .info-section-button button.info-button {
+        font-size: 0.7em; padding: 5px 10px; margin-top: 0;
+        display: inline-block; /* Allow centering */
+        width: auto; /* Don't force full width */
+        min-width: 80px;
+    }
+
+    /* Controls (Mobile: at the bottom) */
+    .console-controls {
+        width: 100%; /* Full width */
+        padding: 10px 5px; /* Adjust padding */
+        margin-top: auto; /* Push controls to the bottom */
+        flex-direction: row; /* D-pad and Actions side-by-side */
+        justify-content: space-around; /* Space them out */
+        align-items: center; /* Center vertically */
+        order: 3; /* Ensure controls are last */
+        gap: 15px;
+    }
+    /* Increase touch target size for D-Pad on mobile */
+    .d-pad { width: 130px; height: 130px; } /* Larger D-pad */
+    .control-button { width: 44px; height: 44px; } /* Slightly larger buttons */
+    .control-button.up { top: 0; left: 43px; }
+    .control-button.left { top: 43px; left: 0; }
+    .control-button.right { top: 43px; left: 86px; }
+    .control-button.down { top: 86px; left: 43px; }
+    .center-pivot { top: 43px; left: 43px; width: 44px; height: 44px; }
+    /* Adjust arrow icons if needed */
+    .control-button.up::before { border-width: 0 9px 13px 9px; }
+    .control-button.left::before { border-width: 9px 13px 9px 0; }
+    .control-button.right::before { border-width: 9px 0 9px 13px; }
+    .control-button.down::before { border-width: 13px 9px 0 9px; }
+
+    /* Action Buttons Mobile */
+    .action-buttons { gap: 10px; } /* Adjust gap */
+    .action-button {
+        padding: 12px 18px; /* Adjust padding */
+        font-size: 0.8em; /* Smaller font */
+        border-radius: 22px; /* Rounder */
+    }
+
+    /* Console Bottom Mobile */
+    .console-bottom {
+        margin-top: 10px; /* Reduced margin */
+        padding-bottom: 5px; /* Add some bottom padding */
+        order: 4; /* Ensure it's absolutely last */
+    }
+    .speaker-grill span { width: 8px; height: 30px; }
+}
+
+
+/* Landscape Mobile (Optional adjustments) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console {
+        flex-direction: row; /* Side-by-side layout */
+        height: 100vh; /* Full height */
+        padding: 10px;
+    }
+     .console-top {
+        position: absolute; /* Move brand out of the way */
+        top: 5px; left: 10px;
+        width: auto;
+        margin-bottom: 0;
+    }
+     .console-screen-area.brick-layout {
+        flex-direction: column; /* Stack screen and info */
+        order: 1; /* Screen area first */
+        height: 100%; /* Take full height */
+        width: auto; /* Width based on content */
+        flex-grow: 1; /* Take available space */
+        margin-bottom: 0;
+        margin-right: 10px; /* Space before controls */
+    }
+     .game-screen-bezel {
+         width: auto; /* Adjust width based on height */
+         height: 100%; /* Fill vertical space */
+         max-height: calc(100vh - 20px); /* Consider padding */
+         padding: 8px;
+    }
+     .game-screen {
+         height: 100%;
+         width: auto; /* Width determined by aspect ratio */
+         aspect-ratio: 480 / 500;
+    }
+     .info-panel.info-panel-bricks {
+         flex-direction: column; /* Stack info items vertically again */
+         width: 120px; /* Fixed width for info */
+         height: 100%;
+         justify-content: space-around;
+         order: 2; /* Info panel after screen */
+         padding: 8px;
+    }
+     .console-controls {
+         flex-direction: column; /* Stack D-pad and Action buttons vertically */
+         order: 3; /* Controls last */
+         width: auto; /* Shrink to content width */
+         height: 100%; /* Take full height */
+         justify-content: center; /* Center controls vertically */
+         padding: 0 10px;
+         margin-top: 0;
+         gap: 20px;
+    }
+     .console-bottom { display: none; } /* Hide speaker grill */
+}
