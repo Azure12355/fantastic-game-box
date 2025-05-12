@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 获取 DOM 元素 ---
+    // --- Get DOM Elements ---
     const gridElement = document.getElementById('mineGrid');
     const minesCountElement = document.getElementById('minesCount');
     const timerElement = document.getElementById('timer');
@@ -8,14 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const newGameButtonOverlay = document.getElementById('newGameButtonOverlay');
     const gameMessageScreen = document.getElementById('gameMessageScreen');
     const messageText = document.getElementById('messageText');
+    const gameScreenContainer = document.getElementById('gameScreenContainer'); // Get the scrollable container
 
-    // --- 游戏设置与状态 ---
+    // --- Game Settings & State ---
     let ROWS = 9;
     let COLS = 9;
     let MINES = 10;
+    let CELL_SIZE = 24; // Keep track for styling/calculations if needed, matches CSS
 
-    let board = []; // { mine: bool, revealed: bool, flagged: bool, adjacentMines: int }
-    let mineLocations = []; // Array of {row, col} for mines
+    let board = [];
+    let mineLocations = [];
     let flagsPlaced = 0;
     let revealedCount = 0;
     let timerInterval = null;
@@ -23,59 +25,55 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGameOver = false;
     let firstClick = true;
 
-    // --- 初始化游戏 ---
+    // --- Initialization ---
     function initGame(difficulty = 'easy') {
-        // 设置难度
+        console.log(`Initializing game with difficulty: ${difficulty}`);
         switch (difficulty) {
             case 'medium': ROWS = 16; COLS = 16; MINES = 40; break;
             case 'hard': ROWS = 16; COLS = 30; MINES = 99; break;
-            case 'easy': // Fallthrough intentional
-            default: ROWS = 9; COLS = 9; MINES = 10; break;
+            case 'easy': default: ROWS = 9; COLS = 9; MINES = 10; break;
         }
 
-        // 重置状态
         isGameOver = false;
         firstClick = true;
         revealedCount = 0;
         flagsPlaced = 0;
         mineLocations = [];
-        board = createBoardData();
+        board = createBoardData(); // Create data structure first
 
-        // 重置计时器
         stopTimer();
         timerElement.textContent = '0';
-
-        // 更新UI显示
         minesCountElement.textContent = MINES;
-        gameMessageScreen.style.display = 'none'; // 隐藏消息
+        gameMessageScreen.style.display = 'none';
 
-        // 创建网格DOM
-        createGridDOM();
-        // 注意: 雷区在第一次点击后生成 (placeMines)
+        createGridDOM(); // Create DOM elements based on ROWS/COLS
+        // Mines are placed on first click
+        console.log(`Board created: ${ROWS}x${COLS}, ${MINES} mines`);
     }
 
-    // --- 创建游戏数据结构 ---
+    // --- Board Data Structure ---
     function createBoardData() {
         const newBoard = [];
         for (let r = 0; r < ROWS; r++) {
             newBoard[r] = [];
             for (let c = 0; c < COLS; c++) {
-                newBoard[r][c] = {
-                    mine: false,
-                    revealed: false,
-                    flagged: false,
-                    adjacentMines: 0,
-                    element: null // 将DOM元素引用存起来
-                };
+                newBoard[r][c] = { mine: false, revealed: false, flagged: false, adjacentMines: 0, element: null };
             }
         }
         return newBoard;
     }
 
-    // --- 创建网格 DOM ---
+    // --- Create Grid DOM ---
     function createGridDOM() {
-        gridElement.innerHTML = ''; // 清空旧网格
-        gridElement.style.gridTemplateColumns = `repeat(${COLS}, 24px)`; // 设置CSS Grid列数
+        gridElement.innerHTML = ''; // Clear previous grid
+        // Set grid columns based on current COLS and CELL_SIZE
+        gridElement.style.gridTemplateColumns = `repeat(${COLS}, ${CELL_SIZE}px)`;
+        // Optional: Set grid rows if needed, though usually height adapts
+        // gridElement.style.gridTemplateRows = `repeat(${ROWS}, ${CELL_SIZE}px)`;
+
+        // Set container size (optional, helps layout calculation but CSS handles overflow)
+        // gameScreenContainer.style.width = `${COLS * CELL_SIZE + 10}px`; // + padding
+        // gameScreenContainer.style.height = `${ROWS * CELL_SIZE + 10}px`; // + padding
 
         for (let r = 0; r < ROWS; r++) {
             for (let c = 0; c < COLS; c++) {
@@ -83,208 +81,101 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.classList.add('cell', 'hidden');
                 cell.dataset.row = r;
                 cell.dataset.col = c;
+                board[r][c].element = cell; // Store reference
 
-                // 存储DOM引用
-                board[r][c].element = cell;
-
-                // 添加事件监听器
+                // Event listeners
                 cell.addEventListener('click', handleCellClick);
-                cell.addEventListener('contextmenu', handleCellFlag); // 右键插旗
+                cell.addEventListener('contextmenu', handleCellFlag); // Right-click / Long-press
 
                 gridElement.appendChild(cell);
             }
         }
+        console.log("DOM Grid created");
     }
 
-    // --- 放置地雷 ---
-    function placeMines(firstClickRow, firstClickCol) {
-        mineLocations = [];
-        let minesToPlace = MINES;
+    // --- Mine Placement (Keep as is) ---
+    function placeMines(firstClickRow, firstClickCol) { /* ... (Keep implementation) ... */ mineLocations = []; let minesToPlace = MINES; while (minesToPlace > 0) { const r = Math.floor(Math.random() * ROWS); const c = Math.floor(Math.random() * COLS); const isFirstClickZone = Math.abs(r - firstClickRow) <= 1 && Math.abs(c - firstClickCol) <= 1; if (!board[r][c].mine && !isFirstClickZone) { board[r][c].mine = true; mineLocations.push({ row: r, col: c }); minesToPlace--; } } calculateAdjacentMines(); console.log(`${MINES} mines placed.`); }
 
-        while (minesToPlace > 0) {
-            const r = Math.floor(Math.random() * ROWS);
-            const c = Math.floor(Math.random() * COLS);
+    // --- Calculate Adjacent Mines (Keep as is) ---
+    function calculateAdjacentMines() { /* ... (Keep implementation) ... */ for (let r = 0; r < ROWS; r++) { for (let c = 0; c < COLS; c++) { if (board[r][c].mine) continue; let count = 0; for (let dr = -1; dr <= 1; dr++) { for (let dc = -1; dc <= 1; dc++) { if (dr === 0 && dc === 0) continue; const nr = r + dr; const nc = c + dc; if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && board[nr][nc]?.mine) { count++; } } } board[r][c].adjacentMines = count; } } }
 
-            // 确保不在第一次点击处或其周围8格，且该处没有雷
-            const isFirstClickZone = Math.abs(r - firstClickRow) <= 1 && Math.abs(c - firstClickCol) <= 1;
-            if (!board[r][c].mine && !isFirstClickZone) {
-                board[r][c].mine = true;
-                mineLocations.push({ row: r, col: c });
-                minesToPlace--;
-            }
-        }
-        calculateAdjacentMines();
-    }
-
-    // --- 计算邻近地雷数 ---
-    function calculateAdjacentMines() {
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (board[r][c].mine) continue;
-                let count = 0;
-                for (let dr = -1; dr <= 1; dr++) {
-                    for (let dc = -1; dc <= 1; dc++) {
-                        if (dr === 0 && dc === 0) continue;
-                        const nr = r + dr;
-                        const nc = c + dc;
-                        if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && board[nr][nc]?.mine) {
-                            count++;
-                        }
-                    }
-                }
-                board[r][c].adjacentMines = count;
-            }
-        }
-    }
-
-    // --- 处理格子点击 (左键) ---
+    // --- Event Handlers (Keep mostly as is) ---
     function handleCellClick(event) {
         if (isGameOver) return;
-        const cellElement = event.target;
+        const cellElement = event.target.closest('.cell'); // Handle clicks on icons inside cell
+        if (!cellElement) return;
         const row = parseInt(cellElement.dataset.row);
         const col = parseInt(cellElement.dataset.col);
         const cellData = board[row][col];
 
-        if (cellData.revealed || cellData.flagged) return; // 已揭开或已插旗
+        if (cellData.revealed || cellData.flagged) return;
 
-        // 首次点击逻辑
         if (firstClick) {
-            placeMines(row, col); // 安全地放置地雷
+            console.log("First click detected.");
+            placeMines(row, col);
             firstClick = false;
             startTimer();
         }
 
-        // 踩雷
         if (cellData.mine) {
-            cellData.revealed = true; // 标记为揭开以显示地雷
-            gameOver(false); // 游戏失败
+            console.log("Mine hit!");
+            cellData.revealed = true; // Mark revealed to show mine in gameOver
+            gameOver(false);
             return;
         }
 
-        // 揭开格子
         revealCell(row, col);
-
-        // 检查胜利条件
         checkWinCondition();
     }
 
-    // --- 处理格子标记 (右键) ---
     function handleCellFlag(event) {
-        event.preventDefault(); // 阻止默认右键菜单
+        event.preventDefault();
         if (isGameOver) return;
-        const cellElement = event.target;
+        const cellElement = event.target.closest('.cell');
+        if (!cellElement) return;
         const row = parseInt(cellElement.dataset.row);
         const col = parseInt(cellElement.dataset.col);
         const cellData = board[row][col];
 
-        if (cellData.revealed) return; // 不能标记已揭开的格子
+        if (cellData.revealed) return;
 
-        // 切换标记状态
         cellData.flagged = !cellData.flagged;
-
         if (cellData.flagged) {
             flagsPlaced++;
             cellElement.classList.add('flagged');
-            cellElement.innerHTML = '<i class="fas fa-flag"></i>'; // 使用 Font Awesome 图标
+            cellElement.innerHTML = '<i class="fas fa-flag"></i>';
         } else {
             flagsPlaced--;
             cellElement.classList.remove('flagged');
             cellElement.innerHTML = '';
         }
-
-        // 更新剩余雷数显示
-        minesCountElement.textContent = MINES - flagsPlaced;
-
-        // 可以在这里添加胜利检查，如果 flagsPlaced == MINES 且所有旗帜都正确
-        // 但通常胜利是由揭开所有非雷格子决定的
+        minesCountElement.textContent = Math.max(0, MINES - flagsPlaced); // Prevent negative count display
     }
 
+    // --- Reveal Logic (Keep as is) ---
+    function revealCell(row, col) { /* ... (Keep implementation) ... */ if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return; const cellData = board[row][col]; if (cellData.revealed || cellData.flagged || cellData.mine) return; cellData.revealed = true; revealedCount++; cellData.element.classList.remove('hidden'); cellData.element.classList.add('revealed'); cellData.element.innerHTML = ''; if (cellData.adjacentMines > 0) { cellData.element.textContent = cellData.adjacentMines; cellData.element.classList.add(`num-${cellData.adjacentMines}`); } else { for (let dr = -1; dr <= 1; dr++) { for (let dc = -1; dc <= 1; dc++) { revealCell(row + dr, col + dc); } } } }
 
-    // --- 揭开格子逻辑 (包含递归) ---
-    function revealCell(row, col) {
-        // 越界检查
-        if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return;
+    // --- Win Condition Check (Keep as is) ---
+    function checkWinCondition() { /* ... (Keep implementation) ... */ if (revealedCount === ROWS * COLS - MINES) { console.log("Win condition met."); gameOver(true); } }
 
-        const cellData = board[row][col];
-        // 如果已揭开、已插旗或踩到雷 (虽然踩雷情况在 handleCellClick 中处理了，这里加一层保险)
-        if (cellData.revealed || cellData.flagged || cellData.mine) return;
+    // --- Game Over Handling (Keep as is, ensure Chinese text) ---
+    function gameOver(isWin) { /* ... (Keep implementation, ensure text uses Chinese) ... */ console.log(`Game Over. Win: ${isWin}`); isGameOver = true; stopTimer(); mineLocations.forEach(loc => { const cell = board[loc.row][loc.col]; if (!cell) return; const element = cell.element; if(!element) return; if (!cell.revealed && !cell.flagged) { element.classList.remove('hidden'); element.classList.add('revealed', 'mine'); element.innerHTML = '<i class="fas fa-bomb"></i>'; } else if (cell.flagged && !cell.mine && !isWin) { element.classList.add('incorrect-flag'); element.innerHTML = '<i class="fas fa-times"></i>'; } else if (cell.revealed && cell.mine) { element.classList.add('mine'); element.style.backgroundColor = '#ff0000'; element.innerHTML = '<i class="fas fa-bomb"></i>'; } }); messageText.textContent = isWin ? "WIN！" : "LOSE"; gameMessageScreen.style.display = 'flex'; }
 
-        cellData.revealed = true;
-        revealedCount++;
-        cellData.element.classList.remove('hidden');
-        cellData.element.classList.add('revealed');
-        cellData.element.innerHTML = ''; // 清除可能存在的旗帜
+    // --- Timer Logic (Keep as is) ---
+    function startTimer() { /* ... (Keep implementation) ... */ if (timerInterval) return; startTime = Date.now(); timerInterval = setInterval(updateTimerDisplay, 1000); console.log("Timer started."); }
+    function stopTimer() { /* ... (Keep implementation) ... */ clearInterval(timerInterval); timerInterval = null; console.log("Timer stopped."); }
+    function updateTimerDisplay() { /* ... (Keep implementation) ... */ const elapsedTime = Math.floor((Date.now() - startTime) / 1000); timerElement.textContent = elapsedTime; }
 
-        if (cellData.adjacentMines > 0) {
-            // 显示数字
-            cellData.element.textContent = cellData.adjacentMines;
-            cellData.element.classList.add(`num-${cellData.adjacentMines}`);
-        } else {
-            // 递归揭开周围的格子 (洪水填充)
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    // if (dr === 0 && dc === 0) continue; // 不需要跳过自己，因为有 revealed 检查
-                    revealCell(row + dr, col + dc);
-                }
-            }
-        }
-    }
-
-    // --- 检查胜利条件 ---
-    function checkWinCondition() {
-        // console.log(`Revealed: ${revealedCount}, Target: ${ROWS * COLS - MINES}`);
-        if (revealedCount === ROWS * COLS - MINES) {
-            gameOver(true); // 游戏胜利
-        }
-    }
-
-    // --- 游戏结束处理 ---
-    function gameOver(isWin) {
-        isGameOver = true;
-        stopTimer();
-
-        // 显示所有地雷
-        mineLocations.forEach(loc => {
-            const cell = board[loc.row][loc.col];
-            if (!cell.revealed && !cell.flagged) { // 只显示未揭开且未插旗的雷
-                cell.element.classList.remove('hidden');
-                cell.element.classList.add('revealed', 'mine');
-                cell.element.innerHTML = '<i class="fas fa-bomb"></i>';
-            } else if (cell.flagged && !cell.mine && !isWin) { // 标记错误 (仅在失败时显示)
-                 cell.element.classList.add('incorrect-flag');
-                 cell.element.innerHTML = '<i class="fas fa-times"></i>'; // 显示叉号
-            } else if (cell.revealed && cell.mine) { // 玩家点中的那个雷
-                 cell.element.classList.add('mine');
-                 cell.element.style.backgroundColor = '#ff0000'; // 高亮踩中的雷
-                 cell.element.innerHTML = '<i class="fas fa-bomb"></i>';
-            }
-        });
-
-        // 显示消息
-        messageText.textContent = isWin ? "Congratulations！You win！" : "Sorry，You lose";
-        gameMessageScreen.style.display = 'flex';
-    }
-
-    // --- 计时器逻辑 ---
-    function startTimer() {
-        startTime = Date.now();
-        timerInterval = setInterval(updateTimerDisplay, 1000);
-    }
-    function stopTimer() {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-    function updateTimerDisplay() {
-        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-        timerElement.textContent = elapsedTime;
-    }
-
-    // --- 事件监听器绑定 ---
+    // --- Event Listeners Binding ---
     difficultySelect.addEventListener('change', (e) => initGame(e.target.value));
     newGameButtonPanel.addEventListener('click', () => initGame(difficultySelect.value));
     newGameButtonOverlay.addEventListener('click', () => initGame(difficultySelect.value));
 
-    // --- 游戏初始化 ---
-    initGame(difficultySelect.value); // 使用选择框的当前值初始化
+    // --- Prevent Context Menu on Grid Container (Optional but helpful on desktop) ---
+     gameScreenContainer.addEventListener('contextmenu', e => e.preventDefault());
 
-}); // 结束 DOMContentLoaded
+
+    // --- Initial Game Setup ---
+    initGame(difficultySelect.value);
+
+}); // End DOMContentLoaded

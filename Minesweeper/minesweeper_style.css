@@ -1,3 +1,4 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
     --console-bg: #bdbdbd; /* Classic computer grey */
     --console-darker-bg: #9e9e9e;
@@ -11,47 +12,32 @@
 
     --cell-border: #7b7b7b;
     --cell-hidden-bg: #bdbdbd;
-    --cell-revealed-bg: #d0d0d0; /* Slightly different shade for revealed */
-    --cell-mine-bg: #ff4d4d; /* Red for mine */
-    --cell-flag-color: #b71c1c; /* Dark red flag */
-    --cell-mine-color: #111; /* Mine icon color */
+    --cell-revealed-bg: #d0d0d0;
+    --cell-mine-bg: #ff4d4d;
+    --cell-flag-color: #b71c1c;
+    --cell-mine-color: #111;
 
-    /* Number Colors */
-    --num-1: #01579b; /* Blue */
-    --num-2: #00796b; /* Green */
-    --num-3: #d32f2f; /* Red */
-    --num-4: #512da8; /* Purple */
-    --num-5: #bf360c; /* Brown/Orange */
-    --num-6: #00bcd4; /* Cyan */
-    --num-7: #212121; /* Black */
-    --num-8: #757575; /* Grey */
+    --num-1: #01579b; --num-2: #00796b; --num-3: #d32f2f; --num-4: #512da8;
+    --num-5: #bf360c; --num-6: #00bcd4; --num-7: #212121; --num-8: #757575;
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
 body {
-    margin: 0;
-    font-family: var(--pixel-font), sans-serif;
-    background: linear-gradient(45deg, #e0e0e0, #f5f5f5, #e0e0e0); /* Subtle grey gradient */
-    background-size: 300% 300%;
-    animation: subtleGrayShift 40s ease infinite alternate;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    color: var(--text-color);
-    position: relative;
+    margin: 0; font-family: var(--pixel-font), sans-serif;
+    background: linear-gradient(45deg, #e0e0e0, #f5f5f5, #e0e0e0);
+    background-size: 300% 300%; animation: subtleGrayShift 40s ease infinite alternate;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; width: 100vw; overflow: hidden;
+    color: var(--text-color); position: relative;
+    user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
 }
+@keyframes subtleGrayShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-@keyframes subtleGrayShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-/* --- 背景装饰 --- */
-.background-decor { /* ... (样式和之前类似，可自定义) ... */
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    overflow: hidden; z-index: 1; pointer-events: none;
-}
+/* --- Background Decor (Keep as is) --- */
+.background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
 .decor-shape { position: absolute; opacity: 0.1; }
 .shape-pixel { width: 20px; height: 20px; background-color: var(--console-darker-bg); }
 .p1 { top: 10%; left: 15%; animation: floatPixel 15s infinite alternate; }
@@ -60,174 +46,193 @@ body {
 .shape-gear { font-size: 50px; color: var(--console-darker-bg); }
 .g1 { top: 80%; left: 20%; animation: spinGear 25s linear infinite; }
 .g2 { top: 20%; left: 75%; animation: spinGear 30s linear infinite reverse; font-size: 70px; opacity: 0.08;}
+@keyframes floatPixel { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-20px) rotate(90deg); } }
+@keyframes spinGear { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-@keyframes floatPixel {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-20px) rotate(90deg); }
-}
-@keyframes spinGear {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
-/* --- 游戏机主体 --- */
+/* --- Game Console Base Styles --- */
 .game-console {
     position: relative; z-index: 2; background-color: var(--console-bg); border-radius: 20px;
     padding: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.1), inset 0 5px 10px rgba(0,0,0,0.15);
-    width: auto; /* Auto width based on content */ max-width: 90vw; /* Max width */
+    width: auto; max-width: 90vw; /* Auto width, limited */
     display: flex; flex-direction: column; align-items: center; border: 3px solid var(--console-darker-bg);
     font-family: var(--pixel-font), sans-serif;
+    flex-shrink: 1; height: auto; max-height: 95vh; /* Allow console to shrink */
 }
-.console-top { width: 100%; margin-bottom: 15px; text-align: center; }
+.console-top { width: 100%; margin-bottom: 15px; text-align: center; flex-shrink: 0; }
 .brand { font-size: 1.5em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
-.console-screen-area.minesweeper-layout { /* Specific layout for minesweeper */
-    display: flex; width: 100%; margin-bottom: 20px; align-items: flex-start; /* Align items top */
-    gap: 20px; /* Gap between screen and info panel */
+
+/* Screen Area Layout (Desktop: Grid + Info side-by-side) */
+.console-screen-area.minesweeper-layout {
+    display: flex; width: 100%; margin-bottom: 20px; align-items: flex-start;
+    gap: 20px; flex-direction: row; flex-grow: 1; overflow: hidden;
 }
-.game-screen-bezel { background-color: var(--screen-bezel); padding: 10px; border-radius: 8px; box-shadow: inset 0 0 8px rgba(0,0,0,0.4); }
+.game-screen-bezel { background-color: var(--screen-bezel); padding: 10px; border-radius: 8px; box-shadow: inset 0 0 8px rgba(0,0,0,0.4); flex-shrink: 0; }
 
 .game-screen {
     background-color: var(--screen-bg); position: relative;
-    border: 2px solid #616161; /* Inner darker border */
-    overflow: hidden; /* Prevents grid overflow */
-    /* Width/Height set by grid content */
-    padding: 5px; /* Padding around the grid */
-    display: inline-block; /* Fit content */
+    border: 2px solid #616161; overflow: hidden; /* Important: Hide grid overflow */
+    padding: 5px; display: inline-block; /* Fit content */
+    /* No fixed width/height - determined by grid */
+    max-width: 100%; /* Prevent bezel stretching if grid is narrow */
 }
 
-/* --- 扫雷网格 --- */
+/* --- Minesweeper Grid --- */
 .mine-grid {
-    display: grid;
-    /* Grid columns set by JS */
-    border-collapse: collapse; /* Optional: visual style */
+    display: grid; /* Grid layout for cells */
+    /* grid-template-columns set by JS */
+    border-collapse: collapse;
+    width: max-content; /* Important: Allow grid to be its natural width */
+    margin: 0 auto; /* Center grid within .game-screen if it's narrower */
 }
-
 .cell {
-    width: 24px; /* 像素格子大小 */
-    height: 24px;
-    border: 1px solid var(--cell-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px; /* Number font size */
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none; /* Prevent text selection */
+    width: 24px; height: 24px; border: 1px solid var(--cell-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: bold; cursor: pointer; user-select: none;
     background-color: var(--cell-hidden-bg);
-    /* Pixelated "raised" effect for hidden cells */
-    box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3),
-                inset -2px -2px 0px rgba(0,0,0,0.2);
+    box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3), inset -2px -2px 0px rgba(0,0,0,0.2);
     transition: background-color 0.1s ease, box-shadow 0.1s ease;
 }
+.cell.hidden:hover { background-color: #cfcfcf; }
+.cell.hidden:active { background-color: #aaa; box-shadow: inset -2px -2px 0px rgba(255,255,255,0.3), inset 2px 2px 0px rgba(0,0,0,0.2); }
+.cell.revealed { background-color: var(--cell-revealed-bg); box-shadow: none; border-width: 1px; border-color: var(--cell-border); cursor: default; }
+.cell.mine { background-color: var(--cell-mine-bg); color: var(--cell-mine-color); font-size: 16px; }
+.cell.flagged { color: var(--cell-flag-color); font-size: 16px; box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3), inset -2px -2px 0px rgba(0,0,0,0.2); }
+.cell.incorrect-flag { background-color: #ffcdd2; }
+/* Number Colors */
+.cell.num-1 { color: var(--num-1); } .cell.num-2 { color: var(--num-2); } .cell.num-3 { color: var(--num-3); }
+.cell.num-4 { color: var(--num-4); } .cell.num-5 { color: var(--num-5); } .cell.num-6 { color: var(--num-6); }
+.cell.num-7 { color: var(--num-7); } .cell.num-8 { color: var(--num-8); }
 
-.cell.hidden:hover {
-    background-color: #cfcfcf; /* Slightly lighter on hover */
-}
-.cell.hidden:active {
-     background-color: #aaa; /* Darker when pressed */
-     box-shadow: inset -2px -2px 0px rgba(255,255,255,0.3),
-                 inset 2px 2px 0px rgba(0,0,0,0.2); /* Inverted shadow */
-}
-
-.cell.revealed {
-    background-color: var(--cell-revealed-bg);
-    box-shadow: none; /* Flat appearance */
-    border-width: 1px;
-    border-color: var(--cell-border);
-    cursor: default;
-}
-
-.cell.mine {
-    background-color: var(--cell-mine-bg);
-    color: var(--cell-mine-color);
-    font-size: 16px; /* Make mine icon slightly larger */
-}
-.cell.flagged {
-    /* background-color: var(--cell-hidden-bg); */ /* Keep raised look */
-    color: var(--cell-flag-color);
-    font-size: 16px; /* Flag icon size */
-    box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3),
-                inset -2px -2px 0px rgba(0,0,0,0.2);
-}
-.cell.incorrect-flag { /* When game over, show incorrectly placed flags */
-     background-color: #ffcdd2; /* Light red background */
-     /* Keep flag icon, maybe add cross mark? */
-}
-
-
-/* 数字颜色 */
-.cell.num-1 { color: var(--num-1); }
-.cell.num-2 { color: var(--num-2); }
-.cell.num-3 { color: var(--num-3); }
-.cell.num-4 { color: var(--num-4); }
-.cell.num-5 { color: var(--num-5); }
-.cell.num-6 { color: var(--num-6); }
-.cell.num-7 { color: var(--num-7); }
-.cell.num-8 { color: var(--num-8); }
-
-/* --- 信息面板 --- */
-.info-panel.info-panel-minesweeper { /* Specific styles for minesweeper */
-    flex-grow: 0; /* Don't grow, fixed width based on content */
-    width: 150px; /* Fixed width */
-    display: flex; flex-direction: column; justify-content: flex-start; /* Align top */
+/* Info Panel (Desktop) */
+.info-panel.info-panel-minesweeper {
+    flex-grow: 0; width: 150px; display: flex; flex-direction: column; justify-content: flex-start;
     padding: 15px; background-color: var(--console-darker-bg); border-radius: 8px;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); text-align: center;
-    font-family: var(--pixel-font), sans-serif;
 }
 .info-section { margin-bottom: 15px; }
 .info-section:last-child { margin-bottom: 0; }
 .info-section h4 { margin: 0 0 5px 0; font-size: 0.75em; color: var(--accent-color); text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 5px;}
-.info-section p { margin: 0; font-size: 1.2em; /* Larger numbers */ color: var(--text-color); line-height: 1.1; background-color: #333; padding: 3px 5px; border-radius: 3px; display: inline-block; min-width: 40px;}
+.info-section p { margin: 0; font-size: 1.2em; color: var(--text-color); line-height: 1.1; background-color: #333; padding: 3px 5px; border-radius: 3px; display: inline-block; min-width: 40px;}
 .info-section select, .info-section button.info-button {
-    font-family: var(--pixel-font);
-    font-size: 0.7em;
-    padding: 5px;
-    border: 1px solid var(--cell-border);
-    background-color: var(--cell-hidden-bg);
-    color: var(--text-color);
-    border-radius: 3px;
-    margin-top: 5px;
-    width: 100%; /* Make select/button full width */
-    box-sizing: border-box; /* Include padding/border in width */
+    font-family: var(--pixel-font); font-size: 0.7em; padding: 5px; border: 1px solid var(--cell-border);
+    background-color: var(--cell-hidden-bg); color: var(--text-color); border-radius: 3px; margin-top: 5px; width: 100%; box-sizing: border-box;
 }
-.info-section button.info-button {
-    cursor: pointer; background-color: var(--accent-color); color: white;
-    box-shadow: 0 2px 0px darken(var(--accent-color), 15%);
-}
-.info-section button.info-button:active { transform: translateY(1px); box-shadow: 0 1px 0px darken(var(--accent-color), 15%);}
+.info-section button.info-button { cursor: pointer; background-color: var(--accent-color); color: white; box-shadow: 0 2px 0px #09317a; /* darken */ }
+.info-section button.info-button:active { transform: translateY(1px); box-shadow: 0 1px 0px #09317a;}
 
-
-/* --- 游戏覆盖层 --- */
-.game-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column;
-    justify-content: center; align-items: center; color: white; text-align: center;
-    padding: 20px; box-sizing: border-box; z-index: 10;
-    font-family: var(--pixel-font), sans-serif;
-}
+/* Game Overlays (Keep as is) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; }
 .message-content { background-color: var(--console-darker-bg); padding: 20px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 .game-overlay p { font-size: 1.1em; margin-top: 0; margin-bottom: 15px; line-height: 1.4;}
-.game-overlay button {
-    padding: 10px 20px; font-family: var(--pixel-font); background-color: var(--accent-color);
-    color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;
-    box-shadow: 0 3px 0px darken(var(--accent-color), 15%);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.game-overlay button:hover { background-color: lighten(var(--accent-color), 10%); }
-.game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px darken(var(--accent-color), 15%); }
+.game-overlay button { padding: 10px 20px; font-family: var(--pixel-font); background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em; box-shadow: 0 3px 0px #09317a; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
+.game-overlay button:hover { background-color: #0f52ba; /* lighten */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px #09317a; }
 
-/* --- 控制器 (简化) --- */
+/* Console Controls (Simplified) */
 .console-controls.simplified-controls {
     width: 100%; padding: 10px 20px; box-sizing: border-box; margin-top: 10px;
-    text-align: center; color: var(--text-color); font-size: 0.7em;
-    background: var(--console-darker-bg); border-radius: 5px;
+    text-align: center; color: #555; font-size: 0.7em;
+    background: var(--console-darker-bg); border-radius: 5px; flex-shrink: 0;
 }
 
-/* --- 底部装饰 --- */
-.console-bottom { width: 100%; margin-top: 20px; display: flex; justify-content: center; }
+/* Console Bottom (Keep as is) */
+.console-bottom { width: 100%; margin-top: 20px; display: flex; justify-content: center; flex-shrink: 0; }
 .speaker-grill { display: flex; gap: 6px; }
 .speaker-grill span { width: 10px; height: 35px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
 
-/* 辅助函数占位符 (需要手动替换颜色值) */
-/* darken(#0D47A1, 15%) -> approx #09317a */
-/* lighten(#0D47A1, 10%) -> approx #0f52ba */
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; display: flex; flex-direction: column;
+        justify-content: flex-start; align-items: center;
+    }
+    .console-top { margin-bottom: 5px; }
+    .brand { font-size: 1.1em; }
+
+    .console-screen-area.minesweeper-layout {
+        flex-direction: column; align-items: center; width: 100%;
+        margin-bottom: 10px; flex-grow: 1; overflow: hidden; gap: 10px;
+    }
+    .game-screen-bezel {
+        width: 100%; padding: 5px; flex-shrink: 1; flex-grow: 1;
+        max-height: 65vh; /* Allow more vertical space for grid */
+        display: flex; /* Needed for overflow container */
+    }
+
+    /* *** Crucial for Mobile Grid *** */
+    .game-screen {
+        width: 100%; /* Take full width of bezel */
+        height: 100%; /* Take full height of bezel */
+        overflow-x: auto; /* Enable horizontal scrolling for the grid */
+        overflow-y: auto; /* Enable vertical scrolling too if needed */
+        -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+        display: block; /* Or flex, ensure overflow works */
+        padding: 0; /* Remove padding, apply to bezel instead */
+        border-width: 1px;
+    }
+    .mine-grid {
+        /* Grid itself keeps its calculated width/height */
+        margin: 5px; /* Add margin within the scrollable area */
+        /* display: inline-grid is good here too */
+    }
+    .cell { /* Slightly larger touch targets? Optional */
+       /* width: 26px; height: 26px; */
+       /* font-size: 15px; */
+    }
+
+    .info-panel.info-panel-minesweeper {
+        width: 100%; max-width: 480px; flex-direction: row; flex-wrap: wrap;
+        justify-content: space-around; padding: 8px 5px; gap: 5px 8px;
+        flex-grow: 0; flex-shrink: 0; order: 2; /* Below screen */
+    }
+    .info-section { margin-bottom: 5px; text-align: center; flex-basis: 45%; } /* Approx 2 items per row */
+    .info-section h4 { font-size: 0.6em; margin-bottom: 2px; gap: 3px; }
+    .info-section h4 i { font-size: 0.9em; }
+    .info-section p { font-size: 1em; padding: 2px 4px; min-width: 35px; }
+    .difficulty-selector { flex-basis: 100%; /* Full width for selector */ }
+    .info-section select, .info-section button.info-button { font-size: 0.65em; padding: 4px; margin-top: 3px; }
+
+
+    .console-controls.simplified-controls {
+        order: 3; margin-top: auto; /* Push to bottom */
+        padding: 5px 10px; font-size: 0.65em;
+    }
+    .console-bottom { margin-top: 10px; padding-bottom: 5px; order: 4; }
+    .speaker-grill span { width: 8px; height: 30px; }
+}
+
+/* Landscape Mobile (Optional adjustments) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console { flex-direction: row; height: 100vh; padding: 10px; }
+     .console-top { position: absolute; top: 5px; left: 10px; width: auto; margin-bottom: 0; z-index: 11; }
+     .console-screen-area.minesweeper-layout {
+         flex-direction: row; /* Keep side-by-side maybe */
+         order: 1; height: calc(100% - 50px); /* Adjust height */
+         width: 100%; flex-grow: 1; margin-bottom: 0; align-items: stretch;
+     }
+     .game-screen-bezel {
+         width: auto; height: 100%; flex-grow: 1; /* Screen takes more space */
+         padding: 8px; display: flex; /* Add flex */
+     }
+     .game-screen {
+         width: 100%; height: 100%; /* Fill bezel */
+         overflow: auto; /* Allow both scroll directions */
+         -webkit-overflow-scrolling: touch;
+         padding: 0;
+     }
+     .mine-grid { margin: 5px; }
+
+     .info-panel.info-panel-minesweeper {
+         flex-direction: column; width: 140px; /* Fixed width info */
+         height: 100%; justify-content: space-around; order: 2; padding: 8px;
+         flex-shrink: 0;
+     }
+     .console-controls.simplified-controls { order: 3; width: 100%; margin-top: 5px; position: absolute; bottom: 5px; left:0; background: none;}
+     .console-bottom { display: none; }
+}
