@@ -1,0 +1,434 @@
+:root {
+    --console-bg: #3c4c5c; /* Cooler blueish grey */
+    --console-darker-bg: #2a3440;
+    --screen-bg: #4c8bf5; /* Deep sea blue for game screen */
+    --screen-water-highlight: #79a6f7;
+    --screen-bezel: #50575e;
+    --button-color: #60676e;
+    --button-press-color: #4b5157; /* Not explicitly used here but good to keep */
+    --text-color: #e0e0e0;
+    --accent-color: #f7b733; /* Sunny yellow/gold for accents */
+    --pixel-font: 'Press Start 2P', cursive;
+
+    --seaweed-color: #2E7D32;
+    --rock-color: #795548;
+    --coral-color1: #FF7F50; /* Coral color */
+    --coral-color2: #FF6347; /* Tomato color */
+    --life-icon-color: #f44336; /* Red for life hearts */
+}
+
+body {
+    margin: 0;
+    font-family: var(--pixel-font);
+    background:
+        linear-gradient(to bottom, rgba(20, 50, 90, 0.9) 0%, rgba(40, 80, 130, 0.7) 60%, rgba(70, 130, 180, 0.8) 100%), /* Water depth gradient */
+        radial-gradient(ellipse at top, #87CEEB 20%, #1E90FF 60%, #00008B 100%); /* Sun rays through water */
+    background-blend-mode: multiply, screen;
+    background-size: 100% 200%, 150% 150%; /* Allow vertical movement for water depth */
+    animation: underwaterCurrent 30s ease-in-out infinite alternate, sunRays 45s linear infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--text-color);
+    position: relative; /* Needed for z-index of particles-js and other decor */
+}
+
+@keyframes underwaterCurrent {
+    0% { background-position: 0% 0%, 50% 0%; }
+    100% { background-position: 0% 100%, 50% 100%; } /* Vertical pan for depth */
+}
+@keyframes sunRays {
+    0% { background-position: 0% 0%, 0% 0%; } /* Target the second background (radial) */
+    100% { background-position: 0% 0%, 100% 100%; } /* Pan for radial gradient */
+}
+
+
+/* --- Particles.js Container for Bubbles --- */
+#particles-js-bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Lowest layer */
+}
+
+/* --- Background Decoration (Ocean Theme) --- */
+.background-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1; /* Above particles, below console */
+    pointer-events: none; /* So they don't interfere with clicks */
+}
+
+.seaweed, .rock, .treasure-chest, .coral {
+    position: absolute;
+    opacity: 0.6;
+    animation-name: subtleSwayGeneral; /* General sway for rocks/treasure */
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.seaweed {
+    width: 30px;
+    height: 150px;
+    background-color: var(--seaweed-color);
+    border-radius: 15px 15px 5px 5px / 100px 100px 5px 5px;
+    animation-duration: 8s;
+}
+.seaweed::before, .seaweed::after {
+    content: '';
+    position: absolute;
+    background-color: var(--seaweed-color);
+    opacity: 0.8;
+    border-radius: inherit;
+}
+.seaweed::before { width: 20px; height: 120px; left: -10px; top: 10px; transform: rotate(-15deg); }
+.seaweed::after { width: 25px; height: 100px; right: -8px; top: 20px; transform: rotate(10deg); }
+
+.seaweed1 { bottom: 0; left: 10%; height: 220px; animation-name: seaweedSway1; }
+.seaweed2 { bottom: 0; right: 15%; height: 180px; animation-name: seaweedSway2; animation-duration: 10s; }
+
+.rock {
+    width: 100px; height: 70px;
+    background-color: var(--rock-color);
+    border-radius: 50% / 30%; /* Oval-like rock */
+    animation-duration: 20s; /* Rocks sway less */
+}
+.rock1 { bottom: 5px; left: 25%; width: 150px; height: 90px; }
+.rock2 { bottom: 10px; right: 30%; width: 100px; height: 60px; transform: rotate(10deg); }
+
+.treasure-chest {
+    font-size: 70px;
+    color: #DAA520; /* Gold color for treasure chest icon */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-duration: 30s;
+    opacity: 0.7;
+}
+.treasure-chest i {
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));
+}
+
+/* New Coral Styles */
+.coral {
+    width: 80px; height: 100px;
+    animation-duration: 15s;
+    /* Base of coral - can be a div itself or just a position reference */
+}
+.coral::before, .coral::after {
+    content: '';
+    position: absolute;
+    background-color: var(--coral-color1);
+    border-radius: 10px 10px 2px 2px; /* Tube-like branch ends */
+}
+.coral::before { /* Main branch */
+    width: 30px; height: 70px;
+    bottom: 0; left: 25px; /* Position relative to .coral parent */
+    transform: rotate(-25deg);
+    background-color: var(--coral-color2);
+}
+.coral::after { /* Another branch */
+    width: 25px; height: 80px;
+    bottom: 0; left: 0px;
+    transform: rotate(20deg);
+}
+.coral1 { bottom: 10px; left: 5%; } /* Position the whole coral structure */
+.coral2 {
+    bottom: 5px; right: 8%;
+    transform: scaleX(-1); /* Flip the whole structure */
+}
+.coral2::before { background-color: var(--coral-color1); transform: rotate(-15deg) translateX(5px) scaleY(0.9); } /* Adjust flipped branches */
+.coral2::after { background-color: var(--coral-color2); transform: rotate(30deg) translateX(-5px) scaleY(1.1); }
+
+
+@keyframes subtleSwayGeneral {
+    0% { transform: translateX(0px) rotate(0deg); }
+    100% { transform: translateX(2px) rotate(0.5deg); }
+}
+@keyframes seaweedSway1 {
+    0% { transform: rotateZ(0deg) skewX(0deg); }
+    50% { transform: rotateZ(-4deg) skewX(-6deg); }
+    100% { transform: rotateZ(1.5deg) skewX(2.5deg); }
+}
+@keyframes seaweedSway2 {
+    0% { transform: rotateZ(0deg) skewX(0deg); }
+    50% { transform: rotateZ(3deg) skewX(5deg); }
+    100% { transform: rotateZ(-1deg) skewX(-2deg); }
+}
+
+
+/* --- Game Console --- */
+.game-console {
+    position: relative;
+    z-index: 2; /* Above background decor and particles */
+    background-color: var(--console-bg);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45),
+                inset 0 0 15px rgba(255,255,255,0.12),
+                inset 0 7px 15px rgba(0,0,0,0.25);
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--console-darker-bg);
+}
+
+.console-top {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.brand {
+    font-size: 1.8em;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 0px var(--console-darker-bg);
+}
+
+.console-screen-area {
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+    align-items: stretch; /* Make info panel and screen bezel same height */
+}
+
+.game-screen-bezel {
+    background-color: var(--screen-bezel);
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.5);
+    margin-right: 20px;
+    display: flex; /* To center the game-screen if it's smaller */
+    align-items: center;
+    justify-content: center;
+}
+
+.game-screen {
+    background-color: var(--screen-bg);
+    position: relative;
+    width: 480px;
+    height: 320px;
+    border: 3px solid var(--console-darker-bg);
+    overflow: hidden;
+    cursor: none;
+}
+
+#fishCanvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    width: 100%; /* Ensure canvas fills its container */
+    height: 100%;
+}
+
+.info-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 15px;
+    background-color: var(--console-darker-bg);
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+    min-width: 130px; /* Increased min-width */
+    text-align: center;
+}
+
+.info-section {
+    margin-bottom: 10px;
+}
+.info-section:last-child {
+    margin-bottom: 0;
+}
+
+.info-section h4 {
+    margin: 0 0 5px 0; /* Adjusted margin */
+    font-size: 0.75em;
+    color: var(--accent-color);
+    text-transform: uppercase;
+}
+.info-section p, .lives-display {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+    line-height: 1.2; /* Added line height for better readability */
+}
+
+/* Lives Display */
+.lives-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    height: 20px;
+    margin-top: 3px; /* Add some space below "LIVES" title */
+}
+.life-icon {
+    width: 12px;
+    height: 12px;
+    background-color: var(--life-icon-color);
+    position: relative;
+    transform: rotate(-45deg);
+    margin: 2px; /* Adjust margin for rotated element visual centering */
+}
+.life-icon::before,
+.life-icon::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--life-icon-color);
+}
+.life-icon::before { top: -6px; left: 0; }
+.life-icon::after { top: 0; left: -6px; }
+
+
+/* Game Overlays */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Slightly darker overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 10; /* Ensure overlay is on top of canvas content */
+}
+
+.message-content {
+    background-color: var(--console-darker-bg);
+    padding: 25px 30px; /* More padding */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+.game-overlay p {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.game-overlay button {
+    padding: 14px 28px;
+    font-family: var(--pixel-font);
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    box-shadow: 0 4px 0px darken(var(--accent-color), 15%); /* Darken function is illustrative */
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.game-overlay button:hover {
+    background-color: lighten(var(--accent-color), 10%); /* Lighten function is illustrative */
+}
+.game-overlay button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px darken(var(--accent-color), 15%);
+}
+
+/* Console Controls */
+.console-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+
+.d-pad-placeholder {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: var(--console-darker-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+.control-button-dummy {
+    position: absolute;
+    background-color: var(--button-color);
+    width: 38px;
+    height: 38px;
+    opacity: 0.7;
+}
+.control-button-dummy.up { top: 1px; left: 41px; border-radius: 5px 5px 0 0; }
+.control-button-dummy.left { top: 41px; left: 1px; border-radius: 5px 0 0 5px; }
+.control-button-dummy.right { top: 41px; left: 81px; border-radius: 0 5px 5px 0; }
+.control-button-dummy.down { top: 81px; left: 41px; border-radius: 0 0 5px 5px; }
+.center-pivot-dummy {
+    width: 38px; height: 38px;
+    background-color: var(--button-color);
+    opacity: 0.7;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.action-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 25px; /* More pill-shaped */
+    padding: 12px 25px;
+    font-family: var(--pixel-font);
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 4px 0 darken(var(--accent-color), 15%);
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.action-button:active {
+    background-color: darken(var(--accent-color), 10%);
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 darken(var(--accent-color), 15%);
+}
+
+.console-bottom {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.speaker-grill {
+    display: flex;
+    gap: 6px; /* Increased gap */
+}
+.speaker-grill span {
+    width: 10px;
+    height: 35px;
+    background-color: var(--console-darker-bg);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.45); /* Stronger inset shadow */
+}
+
+/* Manual darken/lighten placeholders for CSS variables */
+/* For example: darken(#f7b733, 15%) is approx #d19d2b */
+/* lighten(#f7b733, 10%) is approx #f8c55b */

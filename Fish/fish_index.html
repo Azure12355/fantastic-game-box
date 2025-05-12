@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素大鱼吃小鱼</title>
+    <link rel="stylesheet" href="fish_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="particles-js-bubbles"></div>
+
+    <div class="background-decor">
+        <div class="seaweed seaweed1"></div>
+        <div class="seaweed seaweed2"></div>
+        <div class="rock rock1"></div>
+        <div class="rock rock2"></div>
+        <div class="treasure-chest"><i class="fas fa-treasure-chest"></i></div>
+        <div class="coral coral1"></div>
+        <div class="coral coral2"></div>
+    </div>
+
+    <div class="game-console">
+        <div class="console-top">
+            <div class="brand">PIXELFINS DELUXE</div>
+        </div>
+        <div class="console-screen-area">
+            <div class="game-screen-bezel">
+                <div class="game-screen" id="gameScreenContainer">
+                    <canvas id="fishCanvas"></canvas>
+                    <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
+                        <div class="message-content">
+                            <p id="messageText">EAT SMALLER FISH!<br>AVOID BIGGER ONES!</p>
+                            <img src="player_fish_idle.png" alt="Pixel Fish" id="playerFishImage" style="display:none; width: 60px; margin-bottom: 10px;">
+                            <button id="startButton">START GAME</button>
+                        </div>
+                    </div>
+                     <div id="pauseScreen" class="game-overlay" style="display: none;">
+                        <p>PAUSED</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-panel">
+                <div class="info-section">
+                    <h4>SCORE</h4>
+                    <p id="score">0</p>
+                </div>
+                <div class="info-section">
+                    <h4>SIZE</h4>
+                    <p id="playerSize">1</p>
+                </div>
+                <div class="info-section">
+                    <h4>LIVES</h4>
+                    <div id="livesContainer" class="lives-display">
+                        <!-- Lives will be populated by JS -->
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h4>HIGH SCORE</h4>
+                    <p id="highScore">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="console-controls">
+            <div class="d-pad-placeholder">
+                <div class="control-button-dummy up"></div>
+                <div class="control-button-dummy left"></div>
+                <div class="control-button-dummy right"></div>
+                <div class="control-button-dummy down"></div>
+                <div class="center-pivot-dummy"></div>
+            </div>
+            <div class="action-buttons">
+                <button class="action-button" id="pauseButton">PAUSE</button>
+            </div>
+        </div>
+        <div class="console-bottom">
+            <div class="speaker-grill">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="fish_script.js"></script>
+</body>
+</html>
