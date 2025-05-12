@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Pac-Mania Deluxe</title> <!-- Updated Title -->
+    <!-- Updated Viewport for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pixel Pac-Mania Deluxe</title>
     <link rel="stylesheet" href="pacman_style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome (for background decor icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <!-- Basic touch action style -->
+     <style> body { touch-action: manipulation; } </style>
 </head>
 <body>
     <!-- Particles.js container -->
@@ -17,20 +21,20 @@
     <!-- Background decorative elements -->
     <div class="background-decor">
         <div class="decor-shape pacman-dot-shape pds1"></div>
-        <div class="decor-shape pacman-dot-shape pds2 power-pellet"></div> <!-- Power pellet style -->
+        <div class="decor-shape pacman-dot-shape pds2 power-pellet"></div>
         <div class="decor-shape ghost-icon-shape gis1"><i class="fas fa-ghost"></i></div>
         <div class="decor-shape ghost-icon-shape gis2"><i class="fas fa-ghost"></i></div>
-        <div class="decor-shape fruit-shape cherry"></div> <!-- Cherry shape -->
+        <div class="decor-shape fruit-shape cherry"></div>
     </div>
 
     <!-- Game Console Structure -->
-    <div class="game-console large-console"> <!-- Added class for larger size -->
+    <div class="game-console large-console">
         <div class="console-top">
-            <div class="brand">PAC-MANIA DX</div> <!-- Updated Brand -->
+            <div class="brand">PAC-MANIA DX</div>
         </div>
         <div class="console-screen-area pacman-layout">
-            <div class="game-screen-bezel large-bezel"> <!-- Added class -->
-                <div class="game-screen large-screen" id="gameScreenContainer"> <!-- Added class -->
+            <div class="game-screen-bezel large-bezel">
+                <div class="game-screen large-screen" id="gameScreenContainer"> <!-- JS uses this container -->
                     <canvas id="pacmanCanvas"></canvas>
                     <!-- Game Message Overlay -->
                     <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
@@ -49,12 +53,12 @@
                     </div>
                      <div id="levelCompleteScreen" class="game-overlay" style="display: none;">
                         <p>LEVEL CLEAR!</p>
-                        <!-- <button id="nextLevelButton">NEXT LEVEL</button> -->
+                        <!-- Button removed, auto-advance or use Start button -->
                     </div>
                 </div>
             </div>
             <!-- Info Panel -->
-            <div class="info-panel info-panel-pacman large-info-panel"> <!-- Added class -->
+            <div class="info-panel info-panel-pacman large-info-panel">
                 <div class="info-section">
                     <h4>SCORE</h4>
                     <p id="score">0</p>

@@ -1,296 +1,252 @@
-:root {
-    /* New Vibrant Color Palette */
-    --console-bg: #4a4e8a; /* Deep Indigo/Purple */
-    --console-darker-bg: #2d2f54;
-    --screen-bg: #1c1d30; /* Very Dark Blue/Purple */
-    --screen-bezel: #787cc7; /* Lighter Purple/Blue */
-    --button-color: #9a8cff; /* Light Lavender */
-    --button-press-color: #7a6ce0;
-    --text-color: #ffffff; /* White text on console */
-    --accent-color: #ffdd57; /* Pac-Man Yellow */
-    --pixel-font: 'Press Start 2P', cursive;
+/* --- Root Variables (Keep as is) --- */
+:root { /* ... Same variables as before ... */ --console-bg: #4a4e8a; --console-darker-bg: #2d2f54; --screen-bg: #1c1d30; --screen-bezel: #787cc7; --button-color: #9a8cff; --button-press-color: #7a6ce0; --text-color: #ffffff; --accent-color: #ffdd57; --pixel-font: 'Press Start 2P', cursive; --wall-color: #4fc3f7; --dot-color: #fff59d; --power-pellet-color: #ffffff; --ghost-red: #ff7043; --ghost-pink: #ec407a; --ghost-cyan: #26c6da; --ghost-orange: #ffa726; --ghost-frightened-body: #64b5f6; --ghost-frightened-eyes: #ffffff; --life-pacman-color: var(--accent-color); --cherry-red: #ef5350; --cherry-stem: #66bb6a; }
 
-    /* Pac-Man specific colors */
-    --wall-color: #4fc3f7; /* Light Blue walls */
-    --dot-color: #fff59d; /* Pale Yellow dots */
-    --power-pellet-color: #ffffff;
-    --ghost-red: #ff7043; /* Deep Orange (Blinky) */
-    --ghost-pink: #ec407a; /* Pink */
-    --ghost-cyan: #26c6da; /* Cyan (Inky) */
-    --ghost-orange: #ffa726; /* Orange (Clyde) */
-    --ghost-frightened-body: #64b5f6; /* Lighter Blue when frightened */
-    --ghost-frightened-eyes: #ffffff;
-    --life-pacman-color: var(--accent-color);
-    --cherry-red: #ef5350;
-    --cherry-stem: #66bb6a;
-}
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; } *, *:before, *:after { box-sizing: inherit; }
+body { /* ... Same styles as before ... */ margin: 0; font-family: var(--pixel-font), sans-serif; background: linear-gradient(220deg, rgba(45, 47, 84, 0.9) 0%, rgba(74, 78, 138, 0.8) 50%, rgba(120, 124, 199, 0.7) 100%), radial-gradient(circle at top right, rgba(255, 221, 87, 0.15) 0%, transparent 50%), radial-gradient(circle at bottom left, rgba(79, 195, 247, 0.1) 0%, transparent 60%); background-blend-mode: normal, overlay, overlay; background-size: 150% 150%, 200% 200%, 250% 250%; animation: cosmicShift 60s ease-in-out infinite alternate; display: flex; justify-content: center; align-items: center; height: 100vh; /* Use vh for full height */ width: 100vw; overflow: hidden; color: var(--text-color); position: relative; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+@keyframes cosmicShift { 0% { background-position: 0% 0%, 100% 100%, 0% 100%; } 100% { background-position: 100% 100%, 0% 0%, 100% 0%; } }
 
-body {
-    margin: 0;
-    font-family: var(--pixel-font), sans-serif;
-    /* Advanced Gradient Background */
-    background:
-        linear-gradient(220deg, rgba(45, 47, 84, 0.9) 0%, rgba(74, 78, 138, 0.8) 50%, rgba(120, 124, 199, 0.7) 100%),
-        radial-gradient(circle at top right, rgba(255, 221, 87, 0.15) 0%, transparent 50%), /* Faint yellow glow */
-        radial-gradient(circle at bottom left, rgba(79, 195, 247, 0.1) 0%, transparent 60%); /* Faint blue glow */
-    background-blend-mode: normal, overlay, overlay; /* Experiment with blend modes */
-    background-size: 150% 150%, 200% 200%, 250% 250%; /* Different sizes for parallax */
-    animation: cosmicShift 60s ease-in-out infinite alternate;
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; overflow: hidden;
-    color: var(--text-color); position: relative;
-}
-
-@keyframes cosmicShift {
-    0% { background-position: 0% 0%, 100% 100%, 0% 100%; }
-    100% { background-position: 100% 100%, 0% 0%, 100% 0%; }
-}
-
-#particles-js-pacman {
-    position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;
-}
-
+/* --- Particles & Decor (Keep as is) --- */
+#particles-js-pacman { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; }
 .background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
 .decor-shape { position: absolute; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
-.pacman-dot-shape {
-    width: 12px; height: 12px; background-color: var(--dot-color); border-radius: 50%;
-    opacity: 0.15; animation-name: floatSubtle;
-}
+.pacman-dot-shape { width: 12px; height: 12px; background-color: var(--dot-color); border-radius: 50%; opacity: 0.15; animation-name: floatSubtle; }
 .pds1 { top: 20%; left: 15%; animation-duration: 20s; }
-.pds2.power-pellet { /* Larger, maybe pulsing slightly */
-    width: 20px; height: 20px; background-color: var(--power-pellet-color);
-    bottom: 10%; right: 20%; animation-duration: 15s; animation-name: floatAndPulse; opacity: 0.2;
-}
-.ghost-icon-shape {
-    font-size: 50px; opacity: 0.1; animation-name: floatGhostWobble;
-}
+.pds2.power-pellet { width: 20px; height: 20px; background-color: var(--power-pellet-color); bottom: 10%; right: 20%; animation-duration: 15s; animation-name: floatAndPulse; opacity: 0.2; }
+.ghost-icon-shape { font-size: 50px; opacity: 0.1; animation-name: floatGhostWobble; }
 .gis1 { color: var(--ghost-red); top: 70%; left: 5%; animation-duration: 25s; }
 .gis2 { color: var(--ghost-cyan); top: 15%; right: 10%; font-size: 60px; animation-duration: 30s; animation-direction: alternate-reverse;}
-
-.fruit-shape.cherry {
-     width: 24px; 
-     height: 24px; 
-     position: absolute;
-     bottom: 25%; left: 15%; opacity: 0.15;
-     animation: floatSubtle 22s infinite alternate 1s;
-}
-/* First rule defines ::before and ::after as cherry parts */
-.fruit-shape.cherry::before, 
-.fruit-shape.cherry::after {
-    content:''; position: absolute; width: 14px; height: 14px;
-    background-color: var(--cherry-red); border-radius: 50%;
-    top: 8px; 
-}
-.fruit-shape.cherry::before { /* First cherry part */
-    left: 0; 
-}
-.fruit-shape.cherry::after { /* Second cherry part (initially) */
-    left: 10px; 
-}
-
-/* Second rule for ::after OVERRIDES it to be a stem */
-/* This results in one cherry (::before) and one stem (::after) */
-.fruit-shape.cherry::after {
-    /* content & position inherited from previous ::after rule */
-    width: 4px; /* Stem width, overrides 14px */
-    height: 10px; /* Stem height, overrides 14px */
-    background-color: var(--cherry-stem); /* Stem color, overrides var(--cherry-red) */
-    border-radius: 2px; /* Stem radius, overrides 50% */
-    top: 0; /* Stem position, overrides 8px */
-    left: 6px; /* Stem position, overrides 10px */
-    transform: rotate(-15deg);
-}
-
-
+.fruit-shape.cherry { width: 24px; height: 24px; position: absolute; bottom: 25%; left: 15%; opacity: 0.15; animation: floatSubtle 22s infinite alternate 1s;}
+.fruit-shape.cherry::before, .fruit-shape.cherry::after { content:''; position: absolute; width: 14px; height: 14px; background-color: var(--cherry-red); border-radius: 50%; top: 8px; }
+.fruit-shape.cherry::before { left: 0; } .fruit-shape.cherry::after { left: 10px; }
+.fruit-shape.cherry::after { width: 4px; height: 10px; background-color: var(--cherry-stem); border-radius: 2px; top: 0; left: 6px; transform: rotate(-15deg); }
 @keyframes floatSubtle { 0% { transform: translateY(0px); } 100% { transform: translateY(-10px); } }
-@keyframes floatAndPulse {
-    0% { transform: translateY(0px) scale(1); opacity: 0.15;}
-    50% { transform: translateY(-15px) scale(1.1); opacity: 0.25;}
-    100% { transform: translateY(0px) scale(1); opacity: 0.15;}
-}
-@keyframes floatGhostWobble {
-    0% { transform: translate(0px, 0px) rotate(0deg); }
-    50% { transform: translate(-10px, 5px) rotate(-3deg); }
-    100% { transform: translate(5px, -5px) rotate(3deg); }
-}
+@keyframes floatAndPulse { 0% { transform: translateY(0px) scale(1); opacity: 0.15;} 50% { transform: translateY(-15px) scale(1.1); opacity: 0.25;} 100% { transform: translateY(0px) scale(1); opacity: 0.15;} }
+@keyframes floatGhostWobble { 0% { transform: translate(0px, 0px) rotate(0deg); } 50% { transform: translate(-10px, 5px) rotate(-3deg); } 100% { transform: translate(5px, -5px) rotate(3deg); } }
 
-
-.game-console.large-console { 
-    width: 850px; 
-    min-height: 750px; /* Ensure it's tall enough */
-    padding: 30px; /* Slightly reduced padding */
-    border-width: 4px;
+/* --- Game Console Base Styles --- */
+.game-console.large-console {
     position: relative; z-index: 2; background-color: var(--console-bg); border-radius: 30px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1), inset 0 8px 18px rgba(0,0,0,0.35);
-    display: flex; flex-direction: column; 
-    border-style: solid; border-color: var(--console-darker-bg);
+    padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1), inset 0 8px 18px rgba(0,0,0,0.35);
+    width: 850px; /* Base width */
+    min-height: 700px; /* Ensure enough height for desktop */
+    max-width: 100%; /* Prevent overflow on small screens */
+    display: flex; flex-direction: column;
+    border: 4px solid var(--console-darker-bg);
     font-family: var(--pixel-font), sans-serif;
+    height: auto; /* Allow height adjustment */
+    max-height: 98vh; /* Limit max height */
 }
-.console-top { 
-    width: 100%; 
-    margin-bottom: 20px; /* Reduced margin */
-    text-align: center; 
-}
+
+.console-top { width: 100%; margin-bottom: 20px; text-align: center; flex-shrink: 0; }
 .brand { font-size: 2em; color: var(--accent-color); text-shadow: 2px 2px 0px #000; }
 
-.console-screen-area.pacman-layout { 
-    display: flex; 
-    width: 100%; 
-    align-items: stretch; /* Changed from flex-start */
-    gap: 20px; /* Slightly reduced gap */
-    flex-grow: 1; /* Added to take vertical space */
-    min-height: 0; /* Important for flex children for proper height calculation */
+/* Screen Area Layout (Desktop: Screen + Info side-by-side) */
+.console-screen-area.pacman-layout {
+    display: flex; width: 100%; align-items: stretch;
+    gap: 20px; flex-grow: 1; min-height: 0; /* Important for flex children */
+    flex-direction: row; /* Desktop default */
 }
-.game-screen-bezel.large-bezel { 
-    background-color: var(--screen-bezel); 
-    padding: 10px; /* Slightly reduced padding */
-    border-radius: 8px; /* Slightly reduced radius */
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
-    flex: 1; /* Added: takes available width from info-panel */
-    display: flex; /* Added: for child game-screen to fill */
-    min-width: 0; /* Important for flex children for proper width calculation */
+
+.game-screen-bezel.large-bezel {
+    background-color: var(--screen-bezel);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    flex: 1;
+    display: flex;
+    /* Remove align-items and justify-content if canvas is meant to fill naturally */
+    /* align-items: center; */ /* Potentially remove or set to stretch */
+    /* justify-content: center; */ /* Potentially remove or set to stretch */
+    min-width: 0;
+    /* Add this to ensure the bezel itself can grow */
+    min-height: 0; /* For vertical growth if needed */
 }
 
 .game-screen.large-screen { /* This is gameScreenContainer for JS */
-    background-color: var(--screen-bg); 
+    background-color: var(--screen-bg);
     position: relative;
-    border: 2px solid #111; /* Slightly reduced border */
+    border: 2px solid #111;
     overflow: hidden;
-    display: flex; justify-content: center; align-items: center;
-    flex: 1; /* Added: fills the parent bezel */
-    /* Removed min-width and min-height fixed values */
+    display: flex; /* Keep flex for centering canvas if smaller */
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* Make container take full width of bezel */
+    height: 100%; /* Make container take full height of bezel */
+    /* Canvas itself will be sized by JS */
 }
 
-#pacmanCanvas { 
-    display: block; 
-    image-rendering: pixelated; 
-    image-rendering: -moz-crisp-edges; 
-    image-rendering: crisp-edges; 
-    background-color: var(--screen-bg); 
-    max-width: 100%; /* Ensure canvas doesn't overflow its container */
-    max-height: 100%; /* Ensure canvas doesn't overflow its container */
+#pacmanCanvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    background-color: var(--screen-bg);
+    /* max-width: 100%; */ /* JS will set exact width/height */
+    /* max-height: 100%; */
+    /* JS will set canvas width/height directly, these are more for intrinsic sizing if JS fails */
 }
 
+/* Info Panel (Desktop) */
 .info-panel.info-panel-pacman.large-info-panel {
-    flex-grow: 0; 
-    flex-shrink: 0;
-    width: 150px; /* Reduced width */ 
+    flex-grow: 0; flex-shrink: 0; width: 150px;
     display: flex; flex-direction: column; justify-content: flex-start;
-    padding: 15px; /* Reduced padding */
-    background-color: var(--console-darker-bg); border-radius: 8px;
+    padding: 15px; background-color: var(--console-darker-bg); border-radius: 8px;
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.4); text-align: center;
     font-family: var(--pixel-font), sans-serif; border: 2px solid #555;
 }
-.info-section { 
-    margin-bottom: 20px; /* Slightly reduced margin */
-}
+.info-section { margin-bottom: 20px; }
 .info-section:last-child { margin-bottom: 0; }
-.info-section h4 { 
-    margin: 0 0 5px 0; /* Adjusted margin */
-    font-size: 0.75em; /* Slightly smaller */
-    color: var(--accent-color); 
-    text-transform: uppercase;
-}
-.info-section p { 
-    margin: 0; 
-    font-size: 1em; /* Slightly smaller */
-    color: var(--text-color); 
-    line-height: 1.1; background-color: #111; 
-    padding: 5px 8px; /* Adjusted padding */
-    border-radius: 4px; display: inline-block; 
-    min-width: 60px; /* Adjusted min-width */
-}
-
-/* Lives Display */
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.75em; color: var(--accent-color); text-transform: uppercase; }
+.info-section p { margin: 0; font-size: 1em; color: var(--text-color); line-height: 1.1; background-color: #111; padding: 5px 8px; border-radius: 4px; display: inline-block; min-width: 60px; }
 .lives-display { display: flex; justify-content: center; align-items: center; gap: 5px; height: 20px; margin-top: 5px; }
-.life-icon-pacman {
-    width: 16px; height: 16px; /* Slightly smaller */
-    background-color: var(--life-pacman-color); border-radius: 50%; position: relative;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 50% 50%, 100% 60%, 100% 100%, 0% 100%, 0% 60%, 50% 50%, 0% 40%); transform: rotate(-30deg);
-}
-
-/* Info Panel Button */
-.info-section button.info-button {
-    font-family: var(--pixel-font); font-size: 0.7em; /* Slightly smaller */
-    padding: 7px 8px; /* Adjusted padding */
-    border: 1px solid var(--button-color);
-    background-color: var(--accent-color); color: var(--console-bg); border-radius: 4px; margin-top: 10px; /* Adjusted margin */
-    width: 100%; box-sizing: border-box; cursor: pointer;
-    box-shadow: 0 3px 0px #bf9e30; 
-}
+.life-icon-pacman { width: 16px; height: 16px; background-color: var(--life-pacman-color); border-radius: 50%; position: relative; clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 50% 50%, 100% 60%, 100% 100%, 0% 100%, 0% 60%, 50% 50%, 0% 40%); transform: rotate(-30deg); }
+.info-section button.info-button { font-family: var(--pixel-font); font-size: 0.7em; padding: 7px 8px; border: 1px solid var(--button-color); background-color: var(--accent-color); color: var(--console-bg); border-radius: 4px; margin-top: 10px; width: 100%; box-sizing: border-box; cursor: pointer; box-shadow: 0 3px 0px #bf9e30; }
 .info-section button.info-button:active { transform: translateY(2px); box-shadow: 0 1px 0px #bf9e30;}
 
-.game-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); display: flex; flex-direction: column;
-    justify-content: center; align-items: center; color: white; text-align: center;
-    padding: 20px; box-sizing: border-box; z-index: 10; font-family: var(--pixel-font), sans-serif;
-}
-.message-content { background-color: #080808; border: 3px solid var(--wall-color); padding: 25px 30px; border-radius: 0; box-shadow: 0 0 15px var(--wall-color);}
-.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 18px; line-height: 1.5; color: var(--accent-color);}
-.game-overlay button {
-    padding: 12px 25px; font-family: var(--pixel-font); background-color: var(--accent-color);
-    color: #111; border: none; border-radius: 3px; cursor: pointer; font-size: 1em;
-    box-shadow: 0 4px 0px #bf9e30; 
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
+/* Game Overlays (Keep as is) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; box-sizing: border-box; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: #080808; border: 3px solid var(--wall-color); padding: 25px 30px; border-radius: 0; box-shadow: 0 0 15px var(--wall-color); }
+.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 18px; line-height: 1.5; color: var(--accent-color); }
+.game-overlay button { padding: 12px 25px; font-family: var(--pixel-font); background-color: var(--accent-color); color: #111; border: none; border-radius: 3px; cursor: pointer; font-size: 1em; box-shadow: 0 4px 0px #bf9e30; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
 .game-overlay button:hover { background-color: #ffee80; }
 .game-overlay button:active { transform: translateY(2px); box-shadow: 0 2px 0px #bf9e30; }
-
-/* Entity Previews */
-.preview-container { display: flex; justify-content: center; align-items: center; gap: 18px; margin: 15px 0;}
+.preview-container { display: flex; justify-content: center; align-items: center; gap: 18px; margin: 15px 0; }
 .pacman-preview { width: 22px; height: 22px; background: var(--accent-color); border-radius: 50%; clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 50% 50%, 100% 60%, 100% 100%, 0% 100%, 0% 60%, 50% 50%, 0% 40%); }
 .ghost-preview { width: 22px; height: 22px; border-radius: 11px 11px 3px 3px; position: relative; }
-.ghost-preview.blinky { background-color: var(--ghost-red); }
-.ghost-preview.pinky { background-color: var(--ghost-pink); }
-.ghost-preview::before, .ghost-preview::after { content:''; position: absolute; width: 5px; height: 7px; background: white; border-radius: 2px; top: 6px; border: 1px solid #555;}
-.ghost-preview::before { left: 5px; }
-.ghost-preview::after { right: 5px; }
+.ghost-preview.blinky { background-color: var(--ghost-red); } .ghost-preview.pinky { background-color: var(--ghost-pink); }
+.ghost-preview::before, .ghost-preview::after { content:''; position: absolute; width: 5px; height: 7px; background: white; border-radius: 2px; top: 6px; border: 1px solid #555; }
+.ghost-preview::before { left: 5px; } .ghost-preview::after { right: 5px; }
 
-.console-controls { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    width: 100%; 
-    padding: 0 40px; /* Reduced horizontal padding */
-    box-sizing: border-box; 
-    margin-top: 20px; /* Reduced margin */
-}
+/* --- Controls Base Styles --- */
+.console-controls { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px; box-sizing: border-box; margin-top: 20px; flex-shrink: 0; }
 .d-pad { position: relative; width: 130px; height: 130px; }
-.control-button {
-    position: absolute; background-color: var(--button-color); width: 44px; height: 44px; border: 1px solid #222; cursor: pointer;
-    box-shadow: 0 4px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-    display: flex; align-items: center; justify-content: center;
-}
-.control-button:active { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 2px 0px var(--button-press-color); }
+.control-button { position: absolute; background-color: var(--button-color); width: 44px; height: 44px; border: 1px solid #222; cursor: pointer; box-shadow: 0 4px 0px var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 2px 0px var(--button-press-color); }
 .control-button.up { top: 0; left: 43px; border-radius: 4px 4px 0 0; }
 .control-button.left { top: 43px; left: 0; border-radius: 4px 0 0 4px; }
 .control-button.right { top: 43px; left: 86px; border-radius: 0 4px 4px 0; }
 .control-button.down { top: 86px; left: 43px; border-radius: 0 0 4px 4px; }
 .control-button.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
-
 .control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-.control-button.up::before { border-width: 0 9px 14px 9px; border-color: transparent transparent var(--console-bg) transparent; } 
+.control-button.up::before { border-width: 0 9px 14px 9px; border-color: transparent transparent var(--console-bg) transparent; }
 .control-button.left::before { border-width: 9px 14px 9px 0; border-color: transparent var(--console-bg) transparent transparent;}
 .control-button.right::before { border-width: 9px 0 9px 14px; border-color: transparent transparent transparent var(--console-bg);}
 .control-button.down::before { border-width: 14px 9px 0 9px; border-color: var(--console-bg) transparent transparent transparent; }
-
 .center-pivot { position: absolute; top: 43px; left: 43px; width: 44px; height: 44px; background-color: var(--button-color); z-index: -1; border: 1px solid #333;}
 .action-buttons { display: flex; gap: 20px; }
-.action-button {
-    color: var(--console-darker-bg); border: none; border-radius: 6px; padding: 12px 22px;
-    font-family: var(--pixel-font); font-size: 1em; cursor: pointer;
-    box-shadow: 0 4px 0px #bf9e30; 
-    background-color: var(--accent-color);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.action-button:active { background-color: #d9c64c; transform: translateY(2px); box-shadow: 0 2px 0px #bf9e30; }
+.action-button { color: var(--console-darker-bg); border: none; border-radius: 6px; padding: 12px 22px; font-family: var(--pixel-font); font-size: 1em; cursor: pointer; box-shadow: 0 4px 0px #bf9e30; background-color: var(--accent-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; -webkit-tap-highlight-color: transparent; }
+.action-button:active, .action-button.active-touch { background-color: #d9c64c; transform: translateY(2px); box-shadow: 0 2px 0px #bf9e30; }
 
-.console-bottom { 
-    width: 100%; 
-    margin-top: 20px; /* Reduced margin */
-    display: flex; 
-    justify-content: center; 
-}
+/* --- Console Bottom (Keep as is) --- */
+.console-bottom { width: 100%; margin-top: 20px; display: flex; justify-content: center; flex-shrink: 0; }
 .speaker-grill { display: flex; gap: 7px; }
 .speaker-grill span { width: 11px; height: 40px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.5); }
+
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console.large-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; display: flex; flex-direction: column;
+        justify-content: flex-start; align-items: center;
+        min-height: unset; /* Override desktop min-height */
+    }
+    .console-top { margin-bottom: 5px; }
+    .brand { font-size: 1.4em; } /* Adjust brand size */
+
+    .console-screen-area.pacman-layout {
+        flex-direction: column; align-items: center; width: 100%;
+        margin-bottom: 10px; flex-grow: 1; overflow: hidden; gap: 8px;
+    }
+    .game-screen-bezel.large-bezel {
+        width: 100%;
+        padding: 5px;
+        flex-shrink: 1;
+        flex-grow: 1;
+        /* max-height: 65vh; */ /* Let aspect-ratio control more */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Ensure bezel doesn't collapse if canvas is small */
+        min-height: 200px; /* Example, adjust as needed */
+    }
+    .game-screen.large-screen {
+        width: 100%; /* Fill the bezel */
+        height: 100%; /* Fill the bezel */
+        /* Aspect ratio will be applied to canvas if canvas is display:block and sized by JS correctly */
+        /* If canvas is sized to fit its container by CSS, then this container needs aspect-ratio */
+        /* aspect-ratio: 28 / 23; */ /* Let JS handle canvas aspect based on TILE_SIZE */
+        max-width: 100%; /* Ensure it doesn't overflow bezel */
+        max-height: 100%;
+    }
+
+    /* Info Panel (Mobile: below screen, horizontal items) */
+    .info-panel.info-panel-pacman.large-info-panel {
+        width: 100%; max-width: 480px; flex-direction: row; flex-wrap: wrap;
+        justify-content: space-around; padding: 8px; gap: 5px 10px;
+        flex-grow: 0; flex-shrink: 0; order: 2; /* Below screen */
+        width: 95%; /* Adjust width */
+    }
+    .info-section { margin-bottom: 0; text-align: center; flex-basis: auto; }
+    .info-section h4 { font-size: 0.6em; margin-bottom: 2px; } /* Smaller font */
+    .info-section p { font-size: 0.8em; padding: 2px 4px; min-width: 40px;}
+    .lives-display { height: 16px; gap: 3px; margin-top: 2px; }
+    .life-icon-pacman { width: 14px; height: 14px; } /* Slightly smaller lives */
+    .info-section button.info-button { font-size: 0.6em; padding: 6px 8px; } /* Adjust button */
+
+
+    /* Controls (Mobile: at the bottom) */
+    .console-controls {
+        width: 100%; padding: 10px 5px; margin-top: auto; /* Push to bottom */
+        flex-direction: row; justify-content: space-around; align-items: center;
+        order: 3; /* Controls after info */ gap: 15px;
+    }
+    /* D-Pad Mobile */
+    .d-pad { width: 130px; height: 130px; }
+    .control-button { width: 44px; height: 44px; }
+    .control-button.up { top: 0; left: 43px; }
+    .control-button.left { top: 43px; left: 0; }
+    .control-button.right { top: 43px; left: 86px; }
+    .control-button.down { top: 86px; left: 43px; }
+    .center-pivot { top: 43px; left: 43px; width: 44px; height: 44px; }
+    /* Arrow icons mobile */
+    .control-button.up::before { border-width: 0 9px 13px 9px; }
+    .control-button.left::before { border-width: 9px 13px 9px 0; }
+    .control-button.right::before { border-width: 9px 0 9px 13px; }
+    .control-button.down::before { border-width: 13px 9px 0 9px; }
+
+    /* Action Buttons Mobile */
+    .action-buttons { gap: 10px; }
+    .action-button { padding: 12px 18px; font-size: 0.9em; border-radius: 5px; } /* Slightly less rounded */
+
+    .console-bottom { margin-top: 10px; padding-bottom: 5px; order: 4; /* Bottom most */ }
+    .speaker-grill span { width: 8px; height: 30px; }
+}
+
+/* Landscape Mobile (Optional adjustments) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console.large-console { flex-direction: row; height: 100vh; padding: 10px; }
+     .console-top { position: absolute; top: 5px; left: 10px; width: auto; margin-bottom: 0; z-index: 11; }
+     .console-screen-area.pacman-layout { flex-direction: column; order: 1; height: 100%; width: auto; flex-grow: 1; margin-bottom: 0; margin-right: 10px; align-items: center;}
+     .game-screen-bezel.large-bezel {
+        width: 100%; /* Allow it to take width from flex parent */
+        height: 100%;
+        /* max-height: calc(100vh - 20px); Remove this fixed calc */
+        padding: 5px; /* Smaller padding */
+        flex: 1;
+    }
+    .game-screen.large-screen {
+        height: 100%;
+        width: 100%; /* Fill bezel */
+        /* aspect-ratio: 28 / 23; */ /* Let JS handle canvas aspect */
+    }
+     .info-panel.info-panel-pacman.large-info-panel { flex-direction: column; width: 120px; height: 100%; justify-content: flex-start; order: 2; padding: 8px; gap: 10px;}
+     .info-section h4 { font-size: 0.6em; } .info-section p { font-size: 0.7em; }
+     .console-controls { flex-direction: column; order: 3; width: auto; height: 100%; justify-content: center; padding: 0 10px; margin-top: 0; gap: 20px; }
+     .console-bottom { display: none; }
+}
