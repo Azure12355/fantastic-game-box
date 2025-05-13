@@ -2,22 +2,19 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>像素贪吃蛇</title>
     <link rel="stylesheet" href="snake_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <!-- 引入 Font Awesome (可选, 用于图标) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style> body { touch-action: manipulation; } </style>
 </head>
 <body>
-    <!-- particles.js container -->
     <div id="particles-js"></div>
 
     <div class="background-decor">
-        <!-- 保持或调整之前的形状 -->
         <div class="shape shape1 fruit-shape"></div>
         <div class="shape shape2 snake-segment-shape"></div>
-        <!-- 新增 SVG 图标或 CSS 形状 -->
         <div class="icon-decor icon-apple"><i class="fas fa-apple-alt"></i></div>
         <div class="icon-decor icon-ghost"><i class="fas fa-ghost"></i></div>
         <div class="icon-decor icon-joystick"><i class="fas fa-gamepad"></i></div>
@@ -26,33 +23,35 @@
     </div>
 
     <div class="game-console">
-        <!-- ... (游戏机内容保持不变) ... -->
         <div class="console-top">
             <div class="brand">PIXEL SNAKE</div>
         </div>
         <div class="console-screen-area">
             <div class="game-screen-bezel">
-                <div class="game-screen">
+                <!-- game-screen is now a direct child for easier CSS targeting if canvas fills it -->
+                <div class="game-screen" id="gameScreenContainer">
                     <canvas id="snakeCanvas"></canvas>
+                    <!-- Overlays -->
                     <div id="gameMessageScreen" class="game-overlay" style="display: flex;">
                         <div class="message-content">
-                            <p id="messageText">PRESS START</p>
-                            <img src="pixel_snake_idle.png" alt="Pixel Snake" id="snakeImage" style="display:none; width: 80px; margin-bottom: 10px;">
+                            <p id="messageText">START!</p>
+                            <!-- Optional snake image removed for simplicity during responsive refactor -->
                             <button id="startButton">START</button>
                         </div>
                     </div>
                      <div id="pauseScreen" class="game-overlay" style="display: none;">
-                        <p>PAUSED</p>
+                        <p>PAUSING</p>
                     </div>
                 </div>
             </div>
+            <!-- Info Panel -->
             <div class="info-panel">
                 <div class="info-section">
                     <h4>SCORE</h4>
                     <p id="score">0</p>
                 </div>
                 <div class="info-section">
-                    <h4>HIGH SCORE</h4>
+                    <h4>MAX</h4>
                     <p id="highScore">0</p>
                 </div>
                 <div class="info-section">
@@ -61,18 +60,20 @@
                 </div>
             </div>
         </div>
+        <!-- Console Controls -->
         <div class="console-controls">
             <div class="d-pad">
-                <button class="control-button up" id="upButton" aria-label="Up"></button>
-                <button class="control-button left" id="leftButton" aria-label="Left"></button>
-                <button class="control-button right" id="rightButton" aria-label="Right"></button>
-                <button class="control-button down" id="downButton" aria-label="Down"></button>
+                <button class="control-button up" id="upButton" aria-label="上"></button>
+                <button class="control-button left" id="leftButton" aria-label="左"></button>
+                <button class="control-button right" id="rightButton" aria-label="右"></button>
+                <button class="control-button down" id="downButton" aria-label="下"></button>
                 <div class="center-pivot"></div>
             </div>
             <div class="action-buttons">
                 <button class="action-button" id="pauseButton">PAUSE</button>
             </div>
         </div>
+        <!-- Console Bottom -->
         <div class="console-bottom">
             <div class="speaker-grill">
                 <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -80,7 +81,6 @@
         </div>
     </div>
 
-    <!-- particles.js CDN -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="snake_script.js"></script>
 </body>

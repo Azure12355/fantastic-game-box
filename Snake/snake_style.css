@@ -1,373 +1,220 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
-    /* ... (颜色变量保持不变) ... */
-    --console-bg: #4a5055;
-    --console-darker-bg: #33383c;
-    --screen-bg: #9bbc0f;
-    --screen-pixel-dark: #0f380f;
-    --screen-pixel-light: #306230;
-    --screen-pixel-very-light: #8bac0f;
-    --screen-bezel: #50575e;
-    --button-color: #60676e;
-    --button-press-color: #4b5157;
-    --text-color: #e0e0e0;
-    --accent-color: #e94560;
-    --pixel-font: 'Press Start 2P', cursive;
+    --console-bg: #4a5055; --console-darker-bg: #33383c; --screen-bg: #9bbc0f;
+    --screen-pixel-dark: #0f380f; --screen-pixel-light: #306230; --screen-pixel-very-light: #8bac0f;
+    --screen-bezel: #50575e; --button-color: #60676e; --button-press-color: #4b5157;
+    --text-color: #e0e0e0; --accent-color: #e94560; --pixel-font: 'Press Start 2P', cursive;
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; } *, *:before, *:after { box-sizing: inherit; }
 body {
-    margin: 0;
-    font-family: var(--pixel-font);
-    /* New complex gradient */
-    background:
-        linear-gradient(330deg, rgba(11, 22, 44, 0.9) 0%, rgba(33, 66, 99, 0.7) 50%, rgba(66, 11, 55, 0.8) 100%),
-        radial-gradient(circle at top left, #1a2a6c, #b21f1f, #fdbb2d 80%);
-    background-blend-mode: multiply, normal; /* Blend the two gradients */
-    background-size: 200% 200%, 150% 150%;
+    margin: 0; font-family: var(--pixel-font);
+    background: linear-gradient(330deg, rgba(11, 22, 44, 0.9) 0%, rgba(33, 66, 99, 0.7) 50%, rgba(66, 11, 55, 0.8) 100%),
+                radial-gradient(circle at top left, #1a2a6c, #b21f1f, #fdbb2d 80%);
+    background-blend-mode: multiply, normal; background-size: 200% 200%, 150% 150%;
     animation: gradientFlow 25s ease infinite, backgroundPan 40s linear infinite alternate;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    color: var(--text-color);
-    position: relative; /* Needed for z-index of particles-js */
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; /* Ensure body uses full viewport height */
+    width: 100vw;
+    overflow: hidden; /* Prevent body scrolling */
+    color: var(--text-color); position: relative;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
 }
+@keyframes gradientFlow { 0% { background-position: 0% 50%, 0% 50%; } 50% { background-position: 100% 50%, 100% 50%; } 100% { background-position: 0% 50%, 0% 50%; } }
+@keyframes backgroundPan { 0% { background-position: 0% 0%, 0% 0%; } 100% { background-position: 100% 100%, 100% 100%; } }
 
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%, 0% 50%; }
-    50% { background-position: 100% 50%, 100% 50%; }
-    100% { background-position: 0% 50%, 0% 50%; }
-}
-
-@keyframes backgroundPan {
-    0% { background-position: 0% 0%, 0% 0%; }
-    100% { background-position: 100% 100%, 100% 100%; }
-}
-
-
-/* --- Particles.js Container --- */
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0; /* Behind game console and other decor */
-}
-
-/* --- Background Decoration (old and new) --- */
-.background-decor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Important to contain animated elements */
-    z-index: 1; /* Above particles, below console */
-    pointer-events: none; /* So they don't interfere with clicks */
-}
-
-.background-decor .shape,
-.background-decor .icon-decor,
-.background-decor .css-shape {
-    position: absolute;
-    opacity: 0.15; /* Make them subtle */
-    animation-name: floatAdvanced;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.fruit-shape { /* Apple-like */
-    width: 80px; height: 80px;
-    background-color: var(--accent-color);
-    border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
-    animation-duration: 22s;
-    top: 15%; left: 10%;
-}
-.snake-segment-shape { /* Snake segment-like */
-    width: 120px; height: 50px;
-    background-color: var(--screen-bg);
-    border-radius: 25px;
-    animation-duration: 18s;
-    top: 75%; left: 85%; transform: rotate(30deg);
-}
-
-/* New Icon Decor Styles */
-.icon-decor {
-    font-size: 50px; /* Adjust size as needed */
-    color: #ffffff; /* Base color, opacity will make it subtle */
-}
+/* --- Particles & Decor (Keep as is) --- */
+#particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+.background-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.background-decor .shape, .background-decor .icon-decor, .background-decor .css-shape { position: absolute; opacity: 0.15; animation-name: floatAdvanced; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
+.fruit-shape { width: 80px; height: 80px; background-color: var(--accent-color); border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%; animation-duration: 22s; top: 15%; left: 10%; }
+.snake-segment-shape { width: 120px; height: 50px; background-color: var(--screen-bg); border-radius: 25px; animation-duration: 18s; top: 75%; left: 85%; transform: rotate(30deg); }
+.icon-decor { font-size: 50px; color: #ffffff; }
 .icon-apple { top: 20%; left: 75%; animation-duration: 25s; transform: rotate(-15deg); }
 .icon-ghost { top: 80%; left: 20%; animation-duration: 20s; font-size: 60px; }
 .icon-joystick { top: 50%; left: 5%; animation-duration: 28s; font-size: 55px; transform: rotate(10deg); }
+.css-shape.pixel-block { width: 40px; height: 40px; background-color: var(--screen-pixel-light); box-shadow: 5px 5px 0px var(--screen-pixel-dark); animation-duration: 23s; top: 60%; left: 90%; }
+.css-shape.pixel-block.large { width: 60px; height: 60px; top: 10%; left: 40%; animation-duration: 30s; box-shadow: 8px 8px 0px var(--screen-pixel-dark); }
+@keyframes floatAdvanced { 0% { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); opacity: 0.1; } 25% { transform: translateY(-15px) translateX(10px) rotate(5deg) scale(1.03); opacity: 0.2; } 50% { transform: translateY(-30px) translateX(20px) rotate(10deg) scale(1.05); opacity: 0.15; } 75% { transform: translateY(-15px) translateX(10px) rotate(5deg) scale(1.03); opacity: 0.1;} 100% { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); opacity: 0.05; } }
 
-/* New CSS Shape Styles */
-.css-shape.pixel-block {
-    width: 40px; height: 40px;
-    background-color: var(--screen-pixel-light);
-    box-shadow: 5px 5px 0px var(--screen-pixel-dark); /* 3D pixel effect */
-    animation-duration: 23s;
-    top: 60%; left: 90%;
-}
-.css-shape.pixel-block.large {
-    width: 60px; height: 60px;
-    top: 10%; left: 40%;
-    animation-duration: 30s;
-    box-shadow: 8px 8px 0px var(--screen-pixel-dark);
-}
-
-
-@keyframes floatAdvanced {
-    0% { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); opacity: 0.1; }
-    25% { transform: translateY(-15px) translateX(10px) rotate(5deg) scale(1.03); opacity: 0.2; }
-    50% { transform: translateY(-30px) translateX(20px) rotate(10deg) scale(1.05); opacity: 0.15; }
-    75% { transform: translateY(-15px) translateX(10px) rotate(5deg) scale(1.03); opacity: 0.1;}
-    100% { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); opacity: 0.05; }
-}
-
-
-/* --- Game Console --- */
+/* --- Game Console Base Styles --- */
 .game-console {
-    /* ... (styles remain the same) ... */
-    position: relative; /* Ensure it's above particles and decor */
-    z-index: 2;
-    background-color: var(--console-bg);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4),
-                inset 0 0 10px rgba(255,255,255,0.1),
-                inset 0 5px 10px rgba(0,0,0,0.2);
-    width: 480px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative; z-index: 2; background-color: var(--console-bg);
+    border-radius: 20px; padding: 20px; /* Adjusted padding for more content space */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 8px rgba(255,255,255,0.1), inset 0 4px 8px rgba(0,0,0,0.2);
+    width: 480px; /* Desktop base width */
+    max-width: 100%; /* Ensure it doesn't overflow viewport */
     border: 2px solid var(--console-darker-bg);
+    font-family: var(--pixel-font), sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    /* Allow console to shrink and manage its height */
+    flex-shrink: 1;
+    height: auto; /* Let content define height on desktop initially */
+    max-height: 95vh; /* Prevent console from being taller than viewport */
 }
 
-/* ... (Rest of the CSS for console, screen, controls, etc. remains the same) ... */
-
-.console-top {
-    width: 100%;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.brand {
-    font-size: 1.5em;
-    color: var(--accent-color);
-    text-shadow: 1px 1px 0px var(--console-darker-bg);
-}
+.console-top { width: 100%; margin-bottom: 10px; text-align: center; flex-shrink: 0; }
+.brand { font-size: 1.4em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
 
 .console-screen-area {
-    display: flex;
-    width: 100%;
-    margin-bottom: 20px;
+    display: flex; width: 100%; margin-bottom: 15px;
+    align-items: stretch; /* Make children (bezel, info-panel) same height */
+    gap: 15px; /* Gap between bezel and info panel */
+    flex-grow: 1; /* Allow this area to take up vertical space */
+    overflow: hidden; /* Contain children */
 }
 
 .game-screen-bezel {
-    background-color: var(--screen-bezel);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    margin-right: 15px;
+    background-color: var(--screen-bezel); padding: 8px; border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    /* Desktop: width determined by game-screen content */
+    flex-shrink: 0; /* Don't shrink bezel itself */
+    display: flex; align-items: center; justify-content: center;
 }
 
-.game-screen {
-    background-color: var(--screen-bg); /* Gameboy green */
-    position: relative;
-    width: 300px; /* e.g., 20 cells * 15px */
-    height: 300px; /* e.g., 20 cells * 15px */
+.game-screen { /* This is now the direct container for canvas */
+    background-color: var(--screen-bg); position: relative;
+    width: 300px; /* Base canvas width for desktop - JS will set this */
+    height: 300px; /* Base canvas height for desktop - JS will set this */
     border: 2px solid var(--console-darker-bg);
-    overflow: hidden; /* Ensures overlays fit */
+    overflow: hidden; /* Hide canvas overflow if any */
 }
 
 #snakeCanvas {
-    display: block;
-    image-rendering: pixelated; /* Crucial for sharp pixels */
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    width: 100%; height: 100%; /* Canvas fills .game-screen */
 }
 
+/* Info Panel (Desktop) */
 .info-panel {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
-    background-color: var(--console-darker-bg);
-    border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.info-section {
+    flex-grow: 1; /* Take remaining horizontal space */
+    min-width: 120px; /* Minimum width */
+    display: flex; flex-direction: column; justify-content: space-around;
+    padding: 10px; background-color: var(--console-darker-bg);
+    border-radius: 8px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
     text-align: center;
-    margin-bottom: 10px;
 }
+.info-section { margin-bottom: 10px; }
+.info-section:last-child { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.7em; color: var(--accent-color); }
+.info-section p { margin: 0; font-size: 0.9em; color: var(--text-color); }
 
-.info-section h4 {
-    margin: 0 0 5px 0;
-    font-size: 0.8em;
-    color: var(--accent-color);
-}
+/* Game Overlays (Keep as is from fish example) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: var(--console-darker-bg); padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.game-overlay p { font-size: 1.2em; margin-top: 0; margin-bottom: 15px; line-height: 1.4; }
+.game-overlay button { padding: 12px 25px; font-family: var(--pixel-font); background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; box-shadow: 0 3px 0px #c1304f; /* Approx darken */ transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
+.game-overlay button:hover { background-color: #f05570; /* Approx lighten */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0px #c1304f; }
 
-.info-section p {
-    margin: 0;
-    font-size: 1em; /* Made score text a bit larger */
-    color: var(--text-color);
-}
-
-.game-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.65); /* Slightly less opaque */
-    display: flex; /* Used for initial message screen */
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.message-content {
-    background-color: var(--console-darker-bg);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.game-overlay p {
-    font-size: 1.2em; /* Adjusted size */
-    margin-top: 0;
-    margin-bottom: 15px;
-    line-height: 1.4;
-}
-
-.game-overlay button {
-    padding: 12px 25px;
-    font-family: var(--pixel-font);
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    box-shadow: 0 3px 0px darken(var(--accent-color), 15%);
-    transition: background-color 0.1s, transform 0.1s;
-}
-.game-overlay button:hover {
-    background-color: lighten(var(--accent-color), 10%);
-}
-.game-overlay button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0px darken(var(--accent-color), 15%);
-}
-
+/* --- Controls Base Styles (Keep D-Pad and Action Button from fish example) --- */
 .console-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    margin-top: 10px; /* Added some margin */
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; padding: 0 20px; margin-top: 10px; flex-shrink: 0;
 }
-
-.d-pad {
-    position: relative;
-    width: 120px;
-    height: 120px;
-}
-
-.control-button {
-    position: absolute;
-    background-color: var(--button-color);
-    width: 40px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 3px 0 darken(var(--button-color), 20%);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.control-button:active {
-    background-color: var(--button-press-color);
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 darken(var(--button-color), 20%);
-}
-
+.d-pad { position: relative; width: 120px; height: 120px; }
+.control-button { position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer; box-shadow: 0 3px 0 var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
 .control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
 .control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
 .control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
 .control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
-
-.control-button::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+.control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
 .control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent; }
 .control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg); }
 .control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+.center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
 
-.center-pivot {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--button-color);
-    z-index: -1;
+.action-buttons { display: flex; gap: 15px; }
+.action-button { background-color: var(--accent-color); color: white; border: none; border-radius: 20px; padding: 10px 20px; font-family: var(--pixel-font); font-size: 0.9em; cursor: pointer; box-shadow: 0 3px 0 #c1304f; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; -webkit-tap-highlight-color: transparent; }
+.action-button:active, .action-button.active-touch { background-color: #d43a55; /* Approx darken */ transform: translateY(2px); box-shadow: 0 1px 0 #c1304f; }
+
+/* --- Console Bottom (Keep as is) --- */
+.console-bottom { width: 100%; margin-top: 15px; display: flex; justify-content: center; flex-shrink: 0; }
+.speaker-grill { display: flex; gap: 5px; }
+.speaker-grill span { width: 8px; height: 30px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.4); }
+
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; display: flex; flex-direction: column;
+        justify-content: flex-start; align-items: center;
+    }
+    .console-top { margin-bottom: 5px; }
+    .brand { font-size: 1.1em; }
+
+    .console-screen-area {
+        order: 1; /* Screen + Info Area First */
+        flex-direction: column; align-items: center; width: 100%;
+        margin-bottom: 8px; flex-grow: 1; overflow: hidden; gap: 8px;
+    }
+    .game-screen-bezel {
+        width: 100%; padding: 5px; flex-shrink: 1; flex-grow: 1;
+        max-height: 55vh; /* Adjust to give space for info and controls */
+        display: flex; justify-content: center; align-items: center;
+    }
+    .game-screen { /* Container for canvas */
+        width: 100%; height: auto; /* Let aspect ratio determine height */
+        aspect-ratio: 1 / 1; /* Snake canvas is square */
+        max-width: 400px; /* Limit max width on larger mobile portrait */
+        max-height: 100%; border-width: 1px;
+    }
+
+    .info-panel {
+        order: 2; /* Info Panel Second */
+        width: 100%; max-width: 400px; flex-direction: row; flex-wrap: wrap;
+        justify-content: space-around; padding: 6px; gap: 4px 8px;
+        flex-grow: 0; flex-shrink: 0;
+    }
+    .info-section { margin-bottom: 0; text-align: center; flex-basis: auto; }
+    .info-section h4 { font-size: 0.6em; margin-bottom: 2px; }
+    .info-section p { font-size: 0.75em; padding: 2px 3px; min-width: 35px; }
+
+    .console-controls {
+        order: 3; /* Controls Third */
+        width: 100%; padding: 8px 5px; margin-top: auto; /* Push to bottom */
+        flex-direction: row; justify-content: space-around; align-items: center;
+        gap: 10px;
+    }
+    /* D-Pad Mobile */
+    .d-pad { width: 120px; height: 120px; } /* Slightly smaller D-pad */
+    .control-button { width: 40px; height: 40px; }
+    .control-button.up { top: 0; left: 40px; }
+    .control-button.left { top: 40px; left: 0; }
+    .control-button.right { top: 40px; left: 80px; }
+    .control-button.down { top: 80px; left: 40px; }
+    .center-pivot { top: 40px; left: 40px; width: 40px; height: 40px; }
+    .control-button.up::before { border-width: 0 7px 10px 7px; } /* Slightly smaller arrows */
+    .control-button.left::before { border-width: 7px 10px 7px 0; }
+    .control-button.right::before { border-width: 7px 0 7px 10px; }
+    .control-button.down::before { border-width: 10px 7px 0 7px; }
+
+
+    /* Action Buttons Mobile */
+    .action-buttons { gap: 8px; }
+    .action-button { padding: 10px 16px; font-size: 0.8em; border-radius: 18px; }
+
+    .console-bottom { order: 4; /* Bottom most */ margin-top: 8px; padding-bottom: 5px; }
+    .speaker-grill span { width: 7px; height: 25px; }
 }
 
-.action-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.action-button { /* Only Pause button here now */
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px; /* Adjusted padding */
-    font-family: var(--pixel-font);
-    font-size: 0.9em;
-    cursor: pointer;
-    box-shadow: 0 3px 0 darken(var(--accent-color), 15%);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.action-button:active {
-    background-color: darken(var(--accent-color), 10%);
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 darken(var(--accent-color), 15%);
-}
-
-.console-bottom {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.speaker-grill {
-    display: flex;
-    gap: 5px;
-}
-.speaker-grill span {
-    width: 8px;
-    height: 30px;
-    background-color: var(--console-darker-bg);
-    border-radius: 3px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+/* Landscape Mobile (Optional adjustments - simplified for Snake) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console { flex-direction: row; height: 100vh; padding: 8px; }
+     .console-top { position: absolute; top: 3px; left: 8px; width: auto; margin-bottom: 0; z-index: 11; }
+     .console-screen-area { flex-direction: column; order: 1; height: 100%; width: auto; flex-grow: 1; margin-bottom: 0; margin-right: 8px; }
+     .game-screen-bezel { width: auto; height: 100%; max-height: calc(100vh - 16px); padding: 6px; }
+     .game-screen { height: 100%; width: auto; aspect-ratio: 1 / 1; } /* Canvas is square */
+     .info-panel { flex-direction: column; width: 100px; height: 100%; justify-content: space-around; order: 2; padding: 6px; }
+     .info-section h4 { font-size: 0.6em; } .info-section p { font-size: 0.8em; }
+     .console-controls { flex-direction: column; order: 3; width: auto; height: 100%; justify-content: center; padding: 0 8px; margin-top: 0; gap: 15px; }
+     .console-bottom { display: none; }
 }
