@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en"> <!-- Language set to English based on UI text -->
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>像素俄罗斯方块</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pixel Tetris</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style> body { touch-action: manipulation; } </style>
 </head>
 <body>
     <div class="background-decor">
@@ -21,8 +22,9 @@
         </div>
         <div class="console-screen-area">
             <div class="game-screen-bezel">
-                <div class="game-screen">
+                <div class="game-screen" id="gameScreenContainer">
                     <canvas id="tetrisCanvas"></canvas>
+                    <!-- Overlays -->
                     <div id="gameOverScreen" class="game-overlay" style="display: none;">
                         <p>GAME OVER</p>
                         <button id="restartButton">RESTART</button>
@@ -32,6 +34,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Info Panel -->
             <div class="info-panel">
                 <div class="info-section">
                     <h4>SCORE</h4>
@@ -39,7 +42,10 @@
                 </div>
                 <div class="info-section">
                     <h4>NEXT</h4>
-                    <canvas id="nextPieceCanvas"></canvas>
+                    <!-- Canvas for next piece preview -->
+                    <div class="next-piece-container">
+                        <canvas id="nextPieceCanvas"></canvas>
+                    </div>
                 </div>
                 <div class="info-section">
                     <h4>LEVEL</h4>
@@ -47,6 +53,7 @@
                 </div>
             </div>
         </div>
+        <!-- Console Controls -->
         <div class="console-controls">
             <div class="d-pad">
                 <button class="control-button up" id="rotateButton" aria-label="Rotate"></button>
@@ -60,6 +67,7 @@
                 <button class="action-button" id="pauseButton">PAUSE</button>
             </div>
         </div>
+        <!-- Console Bottom -->
         <div class="console-bottom">
             <div class="speaker-grill">
                 <span></span><span></span><span></span><span></span><span></span><span></span>

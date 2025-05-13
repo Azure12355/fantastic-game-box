@@ -1,291 +1,216 @@
+/* --- Root Variables (Keep as is) --- */
 :root {
-    --console-bg: #3a3f44;
-    --console-darker-bg: #2c2f33;
-    --screen-bg: #1a1c1e;
-    --screen-bezel: #50575e;
-    --button-color: #60676e;
-    --button-press-color: #4b5157;
-    --text-color: #e0e0e0;
-    --accent-color: #ff5722; /* Or a retro green like #4CAF50 */
-    --pixel-font: 'Press Start 2P', cursive;
+    --console-bg: #3a3f44; --console-darker-bg: #2c2f33; --screen-bg: #1a1c1e;
+    --screen-bezel: #50575e; --button-color: #60676e; --button-press-color: #4b5157;
+    --text-color: #e0e0e0; --accent-color: #ff5722; --pixel-font: 'Press Start 2P', cursive;
 }
 
+/* --- Body & Background (Keep as is) --- */
+html { box-sizing: border-box; } *, *:before, *:after { box-sizing: inherit; }
 body {
-    margin: 0;
-    font-family: var(--pixel-font);
+    margin: 0; font-family: var(--pixel-font);
     background: radial-gradient(circle at top left, #1a2a6c, #b21f1f, #fdbb2d 80%);
-    background-size: 200% 200%;
-    animation: gradientFlow 15s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden; /* Prevents scrollbars from background elements */
-    color: var(--text-color);
+    background-size: 200% 200%; animation: gradientFlow 15s ease infinite;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; width: 100vw; overflow: hidden;
+    color: var(--text-color); position: relative;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
 }
-
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.background-decor .shape {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    animation: float 20s ease-in-out infinite alternate;
-}
-
+@keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.background-decor .shape { position: absolute; background-color: rgba(255, 255, 255, 0.05); border-radius: 50%; animation: float 20s ease-in-out infinite alternate; }
 .shape1 { top: 10%; left: 15%; width: 150px; height: 150px; animation-duration: 22s; }
 .shape2 { top: 70%; left: 80%; width: 100px; height: 100px; animation-duration: 18s; background-color: rgba(255, 255, 255, 0.03);}
 .shape3 { top: 25%; left: 70%; width: 80px; height: 80px; animation-duration: 25s; border-radius: 10px; transform: rotate(45deg); }
 .shape4 { top: 80%; left: 5%; width: 120px; height: 120px; animation-duration: 15s; background-color: rgba(255, 255, 255, 0.04); border-radius: 20% 80% 30% 70%; }
+@keyframes float { 0% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-30px) translateX(20px) rotate(180deg); } 100% { transform: translateY(0px) translateX(0px) rotate(360deg); } }
 
-@keyframes float {
-    0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-    50% { transform: translateY(-30px) translateX(20px) rotate(180deg); }
-    100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
-}
-
-
+/* --- Game Console Base Styles --- */
 .game-console {
-    background-color: var(--console-bg);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4), 
-                inset 0 0 10px rgba(255,255,255,0.1),
-                inset 0 5px 10px rgba(0,0,0,0.2);
-    width: 480px; /* Increased width to accommodate info panel */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid var(--console-darker-bg);
+    position: relative; z-index: 2; background-color: var(--console-bg);
+    border-radius: 20px; padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 8px rgba(255,255,255,0.1), inset 0 4px 8px rgba(0,0,0,0.2);
+    width: 480px; max-width: 100%; border: 2px solid var(--console-darker-bg);
+    font-family: var(--pixel-font), sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 1; height: auto; max-height: 95vh;
 }
 
-.console-top {
-    width: 100%;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.brand {
-    font-size: 1.5em;
-    color: var(--accent-color);
-    text-shadow: 1px 1px 0px var(--console-darker-bg);
-}
+.console-top { width: 100%; margin-bottom: 10px; text-align: center; flex-shrink: 0; }
+.brand { font-size: 1.4em; color: var(--accent-color); text-shadow: 1px 1px 0px var(--console-darker-bg); }
 
 .console-screen-area {
-    display: flex; /* Arrange game screen and info panel side-by-side */
-    width: 100%;
-    margin-bottom: 20px;
+    display: flex; width: 100%; margin-bottom: 15px;
+    align-items: stretch; gap: 15px;
+    flex-grow: 1; overflow: hidden;
 }
 
 .game-screen-bezel {
-    background-color: var(--screen-bezel);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    margin-right: 15px; /* Space between game screen and info panel */
+    background-color: var(--screen-bezel); padding: 8px; border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
 }
 
-.game-screen {
-    background-color: var(--screen-bg);
-    position: relative; /* For overlay positioning */
-    /* Dimensions will be set by JS for canvas */
-    width: 200px; /* Main game area width (10 cells * 20px) */
-    height: 400px; /* Main game area height (20 cells * 20px) */
+.game-screen { /* Container for tetrisCanvas */
+    background-color: var(--screen-bg); position: relative;
+    /* Width/height determined by JS for tetrisCanvas */
+    /* CSS will set aspect-ratio based on COLS/ROWS for layout */
+    width: 200px; /* Initial placeholder, JS will override */
+    height: 400px; /* Initial placeholder, JS will override */
     border: 2px solid var(--console-darker-bg);
+    overflow: hidden;
 }
 
 #tetrisCanvas {
-    display: block;
+    display: block; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;
+    width: 100%; height: 100%; /* Fill .game-screen */
 }
 
+/* Info Panel (Desktop) */
 .info-panel {
-    flex-grow: 1; /* Takes remaining space */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
-    background-color: var(--console-darker-bg);
-    border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.info-section {
+    flex-grow: 1; min-width: 120px;
+    display: flex; flex-direction: column; justify-content: space-between; /* Adjusted for next piece */
+    padding: 10px; background-color: var(--console-darker-bg);
+    border-radius: 8px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
     text-align: center;
-    margin-bottom: 10px;
 }
-
-.info-section h4 {
-    margin: 0 0 5px 0;
-    font-size: 0.8em;
-    color: var(--accent-color);
-}
-
-.info-section p {
-    margin: 0;
-    font-size: 1em;
-    color: var(--text-color);
-}
-
-#nextPieceCanvas {
-    background-color: var(--screen-bg);
-    border: 1px solid var(--screen-bezel);
-    display: block;
-    margin: 5px auto 0;
-    /* Dimensions for 4x4 grid, e.g., 4 * 15px = 60px */
-    width: 60px;
-    height: 60px;
-}
-
-
-.game-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+.info-section { margin-bottom: 10px; }
+.info-section:last-child { margin-bottom: 0; }
+.info-section h4 { margin: 0 0 5px 0; font-size: 0.7em; color: var(--accent-color); }
+.info-section p { margin: 0; font-size: 0.9em; color: var(--text-color); }
+/* Next Piece Canvas Styling */
+.next-piece-container { /* Added container for easier centering if needed */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
-    text-align: center;
+    min-height: 60px; /* Ensure space for the canvas */
+}
+#nextPieceCanvas {
+    background-color: var(--screen-bg); border: 1px solid var(--screen-bezel);
+    display: block; margin: 0 auto; /* Centered within its section */
+    width: 60px; /* 4 * 15px (NEXT_PIECE_BLOCK_SIZE) */
+    height: 60px;
+    image-rendering: pixelated; /* Keep it crisp */
 }
 
-.game-overlay p {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
+/* Game Overlays (Keep as is) */
+.game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; z-index: 10; font-family: var(--pixel-font), sans-serif; touch-action: none; }
+.message-content { background-color: var(--console-darker-bg); padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); } /* For potential future use if overlay content gets complex */
+.game-overlay p { font-size: 1.5em; margin-bottom: 20px; }
+.game-overlay button { padding: 10px 20px; font-family: var(--pixel-font); background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; box-shadow: 0 3px 0 #d84315; /* Approx darken */ transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; }
+.game-overlay button:hover { background-color: #ff7043; /* Approx lighten */ }
+.game-overlay button:active { transform: translateY(2px); box-shadow: 0 1px 0 #d84315; }
 
-.game-overlay button {
-    padding: 10px 20px;
-    font-family: var(--pixel-font);
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    box-shadow: 0 3px 0 darken(var(--accent-color), 10%);
-}
-.game-overlay button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 darken(var(--accent-color), 10%);
-}
-
-
-.console-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-.d-pad {
-    position: relative;
-    width: 120px;
-    height: 120px;
-}
-
-.control-button {
-    position: absolute;
-    background-color: var(--button-color);
-    width: 40px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 3px 0 darken(var(--button-color), 20%);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.control-button:active {
-    background-color: var(--button-press-color);
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 darken(var(--button-color), 20%);
-}
-
+/* --- Controls Base Styles (Keep D-Pad and Action Button from fish example) --- */
+.console-controls { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 20px; margin-top: 10px; flex-shrink: 0; }
+.d-pad { position: relative; width: 120px; height: 120px; }
+.control-button { position: absolute; background-color: var(--button-color); width: 40px; height: 40px; border: none; cursor: pointer; box-shadow: 0 3px 0 var(--button-press-color); transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.control-button:active, .control-button.active-touch { background-color: var(--button-press-color); transform: translateY(2px); box-shadow: 0 1px 0px var(--button-press-color); }
 .control-button.up { top: 0; left: 40px; border-radius: 5px 5px 0 0; }
 .control-button.left { top: 40px; left: 0; border-radius: 5px 0 0 5px; }
 .control-button.right { top: 40px; left: 80px; border-radius: 0 5px 5px 0; }
 .control-button.down { top: 80px; left: 40px; border-radius: 0 0 5px 5px; }
-
-/* Adding arrow visuals to D-pad buttons */
-.control-button::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+.control-button::before { content: ''; position: absolute; width: 0; height: 0; border-style: solid; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .control-button.up::before { border-width: 0 8px 12px 8px; border-color: transparent transparent var(--console-bg) transparent; }
 .control-button.left::before { border-width: 8px 12px 8px 0; border-color: transparent var(--console-bg) transparent transparent; }
 .control-button.right::before { border-width: 8px 0 8px 12px; border-color: transparent transparent transparent var(--console-bg); }
 .control-button.down::before { border-width: 12px 8px 0 8px; border-color: var(--console-bg) transparent transparent transparent; }
+.center-pivot { position: absolute; top: 40px; left: 40px; width: 40px; height: 40px; background-color: var(--button-color); z-index: -1; }
+
+.action-buttons { display: flex; gap: 15px; }
+.action-button { background-color: var(--accent-color); color: white; border: none; border-radius: 20px; padding: 10px 15px; font-family: var(--pixel-font); font-size: 0.9em; cursor: pointer; box-shadow: 0 3px 0 #d84315; transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s; -webkit-tap-highlight-color: transparent; }
+.action-button:active, .action-button.active-touch { background-color: #e64a19; transform: translateY(2px); box-shadow: 0 1px 0 #d84315; }
+
+/* --- Console Bottom (Keep as is) --- */
+.console-bottom { width: 100%; margin-top: 15px; display: flex; justify-content: center; flex-shrink: 0; }
+.speaker-grill { display: flex; gap: 5px; }
+.speaker-grill span { width: 8px; height: 30px; background-color: var(--console-darker-bg); border-radius: 3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.4); }
+
+/* =========================================== */
+/* ========== MOBILE OPTIMIZATIONS ========== */
+/* =========================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    body { height: 100svh; overflow: hidden; }
+
+    .game-console {
+        width: 100%; height: 100svh; border-radius: 0; border: none;
+        padding: 10px; display: flex; flex-direction: column;
+        justify-content: flex-start; align-items: center;
+    }
+    .console-top { margin-bottom: 5px; }
+    .brand { font-size: 1.1em; }
+
+    .console-screen-area { /* Screen + Info */
+        order: 1;
+        flex-direction: column; align-items: center; width: 100%;
+        margin-bottom: 8px; flex-grow: 1; overflow: hidden; gap: 8px;
+    }
+    .game-screen-bezel {
+        width: 100%; padding: 5px; flex-shrink: 1; flex-grow: 1;
+        max-height: 60vh; /* Main game screen area height */
+        display: flex; justify-content: center; align-items: center;
+    }
+    .game-screen { /* Tetris canvas container */
+        width: auto; /* Width will be determined by height and aspect ratio */
+        height: 100%; /* Fill the bezel's height */
+        aspect-ratio: calc(var(--cols, 10) / var(--rows, 20)); /* Use CSS vars from JS for aspect ratio */
+        max-width: 100%; /* Don't exceed bezel width */
+        border-width: 1px;
+    }
+    /* Ensure JS sets these variables on body or .game-console */
+    body { --cols: 10; --rows: 20; }
 
 
-.center-pivot {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--button-color); /* Same as button for seamless look */
-    /* Or slightly darker: var(--console-darker-bg); */
-    z-index: -1; /* Behind buttons if they overlap, adjust if needed */
+    .info-panel {
+        order: 2;
+        width: 100%; max-width: 320px; /* Align with typical game screen width */
+        flex-direction: row; flex-wrap: nowrap; /* Keep info items in one row if possible */
+        justify-content: space-around; align-items: center; /* Center items */
+        padding: 6px; gap: 4px;
+        flex-grow: 0; flex-shrink: 0; /* Don't grow/shrink this panel */
+    }
+    .info-section { margin-bottom: 0; text-align: center; flex: 1; min-width: 0; /* Allow shrinking */ }
+    .info-section h4 { font-size: 0.6em; margin-bottom: 2px; white-space: nowrap; }
+    .info-section p { font-size: 0.75em; padding: 0; }
+    .next-piece-container { min-height: 40px; /* Smaller preview */ }
+    #nextPieceCanvas { width: 40px; height: 40px; }
+
+    .console-controls {
+        order: 3;
+        width: 100%; padding: 8px 5px; margin-top: auto; /* Push to bottom */
+        flex-direction: row; justify-content: space-around; align-items: center;
+        gap: 10px;
+    }
+    /* D-Pad Mobile */
+    .d-pad { width: 120px; height: 120px; }
+    .control-button { width: 40px; height: 40px; }
+    .control-button.up { top: 0; left: 40px; }
+    .control-button.left { top: 40px; left: 0; }
+    .control-button.right { top: 40px; left: 80px; }
+    .control-button.down { top: 80px; left: 40px; }
+    .center-pivot { top: 40px; left: 40px; width: 40px; height: 40px; }
+    .control-button.up::before { border-width: 0 7px 10px 7px; }
+    .control-button.left::before { border-width: 7px 10px 7px 0; }
+    .control-button.right::before { border-width: 7px 0 7px 10px; }
+    .control-button.down::before { border-width: 10px 7px 0 7px; }
+
+    /* Action Buttons Mobile */
+    .action-buttons { gap: 8px; }
+    .action-button { padding: 10px 16px; font-size: 0.8em; border-radius: 18px; }
+
+    .console-bottom { order: 4; margin-top: 8px; padding-bottom: 5px; }
+    .speaker-grill span { width: 7px; height: 25px; }
 }
 
-.action-buttons {
-    display: flex;
-    gap: 15px; /* Space between action buttons */
+/* Landscape Mobile (Simplified) */
+@media (max-width: 900px) and (orientation: landscape) {
+     .game-console { flex-direction: row; height: 100vh; padding: 8px; }
+     .console-top { position: absolute; top: 3px; left: 8px; width: auto; margin-bottom: 0; z-index: 11;}
+     .console-screen-area { flex-direction: row; /* Screen and info side-by-side */ order: 1; height: 100%; width: auto; flex-grow: 1; margin-bottom: 0; margin-right: 8px; align-items: center; }
+     .game-screen-bezel { width: auto; height: 100%; max-height: calc(100vh - 16px); padding: 6px; flex-grow: 1; /* Allow bezel to grow */ }
+     .game-screen { height: 100%; width: auto; aspect-ratio: calc(var(--cols, 10) / var(--rows, 20)); }
+     .info-panel { flex-direction: column; width: 100px; height: 100%; justify-content: space-around; padding: 6px; flex-shrink: 0; /* Prevent shrinking info panel */ }
+     .info-section h4 { font-size: 0.6em; } .info-section p { font-size: 0.8em; }
+     #nextPieceCanvas {width: 40px; height: 40px;}
+     .console-controls { flex-direction: column; order: 2; width: auto; height: 100%; justify-content: center; padding: 0 8px; margin-top: 0; gap: 15px; }
+     .console-bottom { display: none; }
 }
-
-.action-button {
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 20px; /* Pill shape */
-    padding: 10px 15px;
-    font-family: var(--pixel-font);
-    font-size: 0.9em;
-    cursor: pointer;
-    box-shadow: 0 3px 0 darken(var(--accent-color), 15%);
-    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
-}
-.action-button:active {
-    background-color: darken(var(--accent-color), 10%);
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 darken(var(--accent-color), 15%);
-}
-
-.console-bottom {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.speaker-grill {
-    display: flex;
-    gap: 5px;
-}
-.speaker-grill span {
-    width: 8px;
-    height: 30px;
-    background-color: var(--console-darker-bg);
-    border-radius: 3px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
-}
-
-/* Helper function for SASS/LESS, manual for CSS */
-/* darken(color, amount) equivalent (rough) */
-/* For example, darken(#ff5722, 10%) would be approx #e64a19 */
-/* darken(#ff5722, 15%) would be approx #d84315 */
-/* darken(#60676e, 20%) would be approx #454a4f */
