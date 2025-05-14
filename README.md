@@ -6,13 +6,7 @@
     </a>
 </p>
 
-<h1 align="center">奇妙游戏盒🎮 <br/> Fantastic Game Box 🚀</h1>
-<p align="center">
-  <strong>奇妙游戏盒：网页游戏即点玩，乐趣无穷尽！
-    <br><em>持续更新 ing～</em>
-  </strong>
-</p>
-
+<h1 align="center">奇妙游戏盒🔮<br/> Fantastic Game Box 🚀</h1>
 <div align="center">
     <a href="https://www.weilanx.com"><img src="https://img.shields.io/badge/个人网站-蔚蓝-orange.svg?style=plasticr"></a>
     <a href="https://github.com/Azure12355/fantastic-game-box/commits" target="_blank">
@@ -29,6 +23,14 @@
         <img alt="License" src="https://img.shields.io/github/stars/Azure12355/fantastic-game-box.svg?style=social">
     </a> 
 </div>
+
+<p align="center">
+  <strong>奇妙游戏盒：网页游戏即点玩，乐趣无穷尽！
+    <br><em>持续更新 ing～</em>
+  </strong>
+</p>
+
+---
 
 欢迎来到奇妙游戏盒！这是一个汇集了海量经典与创新在线HTML5游戏的乐园。无需繁琐下载，即点即玩，带您重温美好时光，探索充满无限可能的奇妙游戏新境界！
 
