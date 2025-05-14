@@ -14,8 +14,8 @@
 </p>
 
 <div align="center">
-    <a href="https://www.weilanx.com"><img src="https://img.shields.io/badge/个人网站-蔚蓝-blue.svg?style=plasticr"></a>
-    <a href="https://github.com/Azure12355/fantastic-game-box/commits" target="_blank"><br>
+    <a href="https://www.weilanx.com"><img src="https://img.shields.io/badge/个人网站-蔚蓝-orange.svg?style=plasticr"></a>
+    <a href="https://github.com/Azure12355/fantastic-game-box/commits" target="_blank">
     <a href="https://github.com/Azure12355/fantastic-game-box/actions/workflows/deploy.yml" target="_blank"></a>
     <a href="https://github.com/Azure12355/fantastic-game-box/commits" target="_blank">
         <img alt="Commit" src="https://img.shields.io/github/commit-activity/m/Azure12355/fantastic-game-box"></a>
@@ -25,14 +25,14 @@
     <a href="https://github.com/Azure12355/fantastic-game-box/blob/master/LICENSE" target="_blank">
         <img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache--2.0-blue.svg">
     </a> 
-    <a href="https://github.com/Azure12355/deep-forest/stargazers" target="_blank">
-        <img alt="License" src="https://img.shields.io/github/stars/Azure12355/deep-forest.svg?style=social">
+    <a href="https://github.com/Azure12355/fantastic-game-box/stargazers" target="_blank">
+        <img alt="License" src="https://img.shields.io/github/stars/Azure12355/fantastic-game-box.svg?style=social">
     </a> 
 </div>
 
 欢迎来到奇妙游戏盒！这是一个汇集了海量经典与创新在线HTML5游戏的乐园。无需繁琐下载，即点即玩，带您重温美好时光，探索充满无限可能的奇妙游戏新境界！
 
-➡️ **[在线体验奇妙游戏盒](https://azure12355.github.io/fantastic-game-box/)** ⬅️ 
+➡️ **[在线体验奇妙游戏盒](https://treasure.weilanx.com/fantastic-game-box/index.html)** ⬅️ 
 ➡️ **[项目开源地址](https://github.com/Azure12355/fantastic-game-box)**
 
 ## 🌟 项目简介 (About The Project)
@@ -123,7 +123,7 @@
 
 该项目由 **[蔚蓝/蔚蓝的空间站]** 出品，保留所有权利。
 
-建议采用 [MIT License](LICENSE) 开源。（请在您的项目中添加一个 `LICENSE` 文件，例如 MIT 许可证。）
+建议采用 [MIT License](LICENSE) 开源。
 
 ## 📞 联系我们 (Contact)
 
